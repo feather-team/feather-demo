@@ -1,0 +1,83 @@
+<p>feather的本地调试功能非常强大，所有的url都可以模拟线上真实url，支持转发，不管是ajax数据还是随页面输出时动态输出的数据，同时还支持随机数据的生成。</p>
+
+<p>模拟线上url，feather的url转发功能, 通过feather_rewrite.php，配置正则表达式来实现</p>
+<pre data-type="php" data-title="feather_rewrite.php">
+&lt;?php
+return array(
+    //访问/hello/world的时候 转发至/page/index.html
+    '#^/hello/world#' => '/page/index.html'
+);
+</pre>
+
+<p>打开浏览器，输入http://127.0.0.1:8080/hell/world，则会显示/page/index.html的内容。</p>
+
+<p>同样的ajax的请求url也可以转发至本地路径上,比如：</p>
+<pre data-type="php" data-title="feather_rewrite.php">
+&lt;?php
+return array(
+    //访问/hello/world的时候 转发至/page/index.html
+    '#^/hello/world#' => '/page/index.html',
+    '#^/ajax/dosomething#' => '/test/async/xx.json'
+);
+</pre>
+
+<pre data-type="js" data-title="/test/async/xx.json">
+{
+    "status": 1,
+    "data": {}
+}
+</pre>
+
+<p>随机路由转发功能：同一个url可以指向多个本地文件，随机访问，可用作ajax请求时，多变的数据格式情况，比如抽奖，各种异常等等，使用如下:</p>
+<pre data-type="php" data-title="feather_rewrite.php">
+&lt;?php
+return array(
+    //访问/hello/world的时候 转发至/page/index.html
+    '#^/hello/world#' => '/page/index.phtml',
+    //ajax/dosomething 转发至 xx.json和yy.json随机切换
+    '#^/ajax/dosomething#' => array('/test/async/xx.json', '/test/async/yy.json')
+);
+</pre>
+
+<p>模拟数据功能：feather支持对page和component页面进行页面数据绑定，随页面输出时一起输出，只需要在test目录下创建和page以及component同样结构的.php文件即可，比如：</p>
+<pre data-type="php" data-title="/page/index.html">
+&lt;?php $this->component(':header');?>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;h1>welcome to feather&lt;/h1>
+&lt;?php foreach($userlist as $user):?>
+&lt;?php echo $user['name'];?>
+&lt;?php endforeach;?>
+&lt;script>
+//多个js调用，可为数组
+require.async(['index.js', 'index2.js']);
+&lt;/script>
+&lt;?php $this->component('footer');?>
+</pre>
+
+<pre data-title="/test/page/index.php" data-type="php">
+&lt;?php
+return array(
+    'userlist' => array(
+        array('name' => 'x'),
+        array('name' => 'y')
+    )
+);
+</pre>
+
+<p>编译后，访问浏览器，查看效果。<span class="color-red">注：ajax数据就没有同构的要求，只需要路径写对即可，但还是建议，写好目录结构，以便多人合作时，目录不会太混乱。</span></p>
+
+<p>feather内置MAGICDATA，支持随机数据生成，具体文档可见https://github.com/feather-ui/magicdata，比如：</p>
+<pre data-type="js" data-title="/test/async/xx.json">
+{
+    "status": &lt;&lt;&lt;1,0>>>
+    "list": [
+        &lt;&lt;&lt;
+        {
+            "name": "&lt;&lt;&lt;hhhh,jjjj,dddd>>>",
+            "age": &lt;&lt;&lt;10~100>>>
+            "fav": [&lt;&lt;&lt;"a","b","c">>>{1,3}]
+        }
+        >>>{1,4}
+    ]
+}
+</pre>

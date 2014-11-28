@@ -1,0 +1,38 @@
+#list{
+	padding-top: 20px;
+	height: 100%;
+	float: left;
+	border-bottom: 0px;
+	width: 200px;
+
+	li{
+		border-top: 1px solid #66ccff;
+		&.last{
+			border-bottom: 1px solid #66ccff;
+		}
+
+		a{
+			display: block;
+			padding: 10px 20px;
+
+			&:hover, &.active{
+				background: #66ccff;
+				color: white;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+#right{
+	margin-left: 200px;
+	min-height: 300px;
+	padding: 1px 20px 20px 20px;
+	height: 100%;
+	border-left: 1px solid #66ccff;
+	background-color: #ffffee;
+}
+
+p{
+	margin: 20px 0px;
+}

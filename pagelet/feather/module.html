@@ -1,0 +1,28 @@
+<p>feather提供了非常方便的跨项目子模块依赖，以及编译
+<span class="color-red">注：目前feather只支持调用 以common为模块名的子模块，编译非commo模块时，需要先编译一次对应的common模块，才能编译本模块，否则不能通过跨模块调用错误。</span></p>
+
+<p>首先，我们在与feather-project同级的目录下利用feather init创建一个新项目叫feather-project-common</p>
+<pre data-type="shell" class="code">
+feather init -m common feather-project-common
+</pre>
+
+<p>返回feather-project目录下，编辑feather_conf.js</p>
+<pre data-type="js" data-title="feather_conf.js" class="code">
+feather.config.merge({
+	project: {
+		ns: '',
+		modulename: 'test',	//改为test子模块
+		charset: 'utf-8'
+	}
+});
+</pre>
+
+<p>将feather-project中的component中的header和footer组件移至feather-project-common的component中，然后返回feather-project中，进行编译</p>
+<pre data-type="shell">
+[WARING] /page/index.html:load /component/header/header.html is not exists!
+[WARING] /page/index.html:load /component/footer.html is not exists!
+</pre>
+
+<p>会发现报component没找到，原因是feather编译本模块时依赖common模块中的内容, 所以需要先编译一次common模块，再编译本模块，即可编译通过</p>
+
+<p class="color-red">拆分项目子模块有利于功能模块独立上线，工程师只需要关注自己模块内的东西即可。适用于大型项目。<span class="color-red">注：多子模块单独编译时，会生成不同的map表，后端上线渲染模版时，需加载common模块以及本模块的map表才可正确加载静态资源。</span></p>

@@ -1,0 +1,123 @@
+<p>首先，feather有个比较简单的目录结构规范：</p>
+<pre class="code" data-type="shell">
+├── component
+├── page
+│   └── index.html
+├── static
+├── test
+├── feather_conf.js
+├── feather_rewrite.php
+├── feather_compatible.php
+</pre>
+
+<ul class="ul-list">
+	<li>component：模板小组件目录</li>
+	<li>page：page级别页面存放目录</li>
+	<li>static：page级别页面静态资源和其他静态资源存放目录</li>
+	<li>test：测试文件目录</li>
+	<li class="color-red">feather_conf.js: feather的配置文件, 此文件为必须存在的文件，点击查看<a href="#config" class="link">常用配置</a></li>
+	<li>feather_rewrite.php: url转发文件，php项目中使用到转发功能的可使用此文件。</li>
+	<li>feather_compatible.php：兼容php调用中的错误或者执行一些php代码，比如某一个在模版中使用的php函数，本地无法模拟，可将其简单的定义在这个文件中。</li>
+</ul>
+
+<p>我们可以通过feather init来初始化一个项目</p>
+<pre class="code" data-type="shell" data-title="创建feather-project项目">
+feather init -c utf-8 feather-project	#项目utf-8编码
+</pre>
+
+<pre class="code" data-type="shell" data-title="创建后的项目">
+├── component
+├── page
+│   └── index.html
+├── static
+├── test
+├── feather_conf.js
+</pre>
+
+<pre class="code" data-type="js" data-title="feather_conf.js">
+feather.config.merge({
+	project: {
+		ns: '',
+		modulename: '',
+		charset: 'utf-8'
+	}
+});
+</pre>
+
+<p>可以打开本地调试服务器 访问http://127.0.0.1:8080 查看效果，默认页面地址为http://127.0.0.1:8080/page/index.html</p>
+
+<p>请增加一个css和js文件，并在index.html中引用</p>
+<pre class="code" data-type="css" data-title="/static/css/index.css">
+*{
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+div{
+	border: 1px solid #ccc;
+	font-size: 24px;
+}
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/js/index.js">
+alert(123);
+</pre>
+
+<pre class="code" data-type="html" data-title="/page/index.html">
+&lt;html>
+&lt;head>
+&lt;title>start&lt;/title>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;script src="/static/js/index.js">&lt;/script>
+&lt;/head>
+
+&lt;body>
+&lt;div>welcome to feather&lt;/div>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>执行feather release，打开浏览器查看效果</p>
+
+<pre class="code" data-type="html" data-title="/page/index.html执行源码">
+&lt;html>
+&lt;head>
+&lt;title>start&lt;/title> 
+<!--css文件会被自动放置head内-->
+&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css"/>
+&lt;script src="/static/js/feather.js">&lt;/script>
+&lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
+&lt;script type="text/javascript">require.mergeConfig({"map":[],"deps":[]})&lt;/script>    
+ &lt;/head>
+
+&lt;body>
+&lt;div>welcome to feather&lt;/div>
+<!--js文件会被自动放置body结束标签上面-->
+&lt;script src="/static/js/index.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>执行feather release --dest ../dest查看产出后的文件包的所有文件，以及文件内的内容</p>
+
+<p>如果想让所有的静态资源的链接直接内嵌在html文件中，我们可以尝试使用非map表管理静态资源的方式，修改feather_conf.js进行配置</p>
+<pre class="code" data-type="js" data-title="/feather_conf.js">
+feather.config.merge({
+	project: {
+		ns: '',
+		modulename: '',
+		charset: 'utf-8'
+	},
+
+	inlineMode: true	//开启非map表管理方式
+});
+</pre>
+
+<p>删除../dest目录， 再次执行feather release --dest ../dest 查看产出后的文件包以及文件内容有什么变化</p>
+
+<p>如果想让所有的静态资源加上版本号怎么处理？试试执行feather release -m</p>
+
+<p>更多feather release参数执行feather release -h查看，其中md5，pack和domain的配置可见<a href="#config">常用配置</a></p>
+
+<p class="color-red">注：page页面不管是map还是非map管理方式，都必须保证输出时，html中必须要保证有head标签和body标签，否则静态资源可能无法正常输出。</p>

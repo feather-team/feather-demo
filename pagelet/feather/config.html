@@ -1,0 +1,121 @@
+<p>feather_conf.js中的常用配置：</p>
+
+<pre class="code" data-type="js">
+feather.config.merge({
+	inlineMode: true,	//开启静态资源内联模式
+	autoCombine: true, 	//开启静态资源内联模式后，使用autocombine可自动合并页面上的零散资源
+
+	pack: {
+		//打包所有的demo.js, script.js文件
+        //将内容输出为static/pkg/aio.js文件
+        'pkg/aio.js' : ['**/demo.js', /\/script\.js$/i],
+        //打包所有的css文件
+        //将内容输出为static/pkg/aio.css文件
+        'pkg/aio.css' : '**.css'
+	},
+
+	template: {
+		suffix: 'html'	//页面模版文件的后缀，只有设置为该后缀的文件模版文件才会被处理
+	},
+
+	md5Query: {
+		open: true,	//开启querystring中添加md5版本的功能，默认不开启，如果执行了-m参数则会产出一个 文件名+md5值的文件。
+		name: 'version'	//querystring的字段为哪一个，默认为v
+	},
+
+	project: {
+		ns: 'web',	//指定项目namespace，指定后，产出后的文件比如 component/index.html => web/component/index.html, static/js/1.js => static/web/js/1.js
+	},
+
+    statics: '/static', //static下的js css image产出到哪个目录，baseurl为哪个，默认为/static
+
+	modulename: 'common',	//多模块项目时，需指定模块名才能进行跨common模块编译
+
+	//重写feather.js的require.config配置，可参考feather.js的github文档
+	require: {
+        config: {
+            baseurl: '/static/js',
+            rules: [],
+            charset: 'utf-8',
+            map: {},
+            deps: {},
+            domain: ''
+        }
+    },
+
+    roadmap: {
+    	domain: 'http://xxx.com'
+    },
+
+    //设置产出
+	deploy: {
+		local: [
+			{
+				from: '/static',
+	            //本地目录
+	            to: '../../feather-ui.github.io/static',
+	            include: /\/static\/.*/,
+	            subOnly: true
+			},
+			{
+	            from: '/view/page',
+	            //本地目录
+	            to: '../../feather-ui.github.io/',
+	            include: /\.html$/,
+	            subOnly: true
+	        },
+	        {
+	        	from: '/view/pagelet',
+	        	to: '../../feather-ui.github.io/pagelet',
+	        	include: /\.html$/,
+	        	subOnly: true
+	        }
+		],
+
+		//使用feather release --dest remote来使用这个配置
+        remote : {
+            //如果配置了receiver，fis会把文件逐个post到接收端上
+            receiver : 'http://www.example.com/path/to/receiver.php',
+            //从产出的结果的static目录下找文件
+            from : '/static',
+            //保存到远端机器的/home/feather/www/static目录下
+            //这个参数会跟随post请求一起发送
+            to : '/home/feather/www/',
+            //通配或正则过滤文件，表示只上传所有的js文件
+            include : '**.js',
+            //component目录下的那些文件就不要发布了
+            exclude : /\/component\//i,
+            //支持对文件进行字符串替换
+            replace : {
+                from : 'http://www.online.com',
+                to : 'http://www.offline.com'
+            }
+        },
+        //名字随便取的，没有特殊含义
+        local : {
+            //from参数省略，表示从发布后的根目录开始上传
+            //发布到当前项目的上一级的output目录中
+            to : '../output'
+        },
+        //也可以是一个数组
+        remote2 : [
+            {
+                //将static目录上传到/home/feather/www/webroot下
+                //上传文件路径为/home/feather/www/webroot/static/xxxx
+                receiver : 'http://www.example.com/path/to/receiver.php',
+                from : '/static',
+                to : '/home/feather/www/webroot'
+            },
+            {
+                //将page目录内的文件（不包括page一级）
+                //上传到/home/feather/www/page下
+                //上传文件路径为/home/feather/www/page/xxxx
+                receiver : 'http://www.example.com/path/to/receiver.php',
+                from : '/page',
+                to : '/home/feather/www/page',
+                subOnly : true
+            }
+        ]
+	}
+});
+</pre>

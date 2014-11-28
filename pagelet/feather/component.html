@@ -1,0 +1,145 @@
+<p>feather中内置了一个模版引擎，支持调用component，PHP语法等，如果项目上线不想使用feather的模版引擎，只需要实现2个接口，以及插件注入机制即可。</p>
+<p class="color-red">注：使用component需要关闭inlineMode功能</p>
+
+<p>首先我们将index.html拆分3部分： header部分（整站公用头，包含公用样式和结构之类）， footer部分（整站底部，包含统计代码等），page的部分（咱还叫index.html)</p>
+<pre data-type="php" data-title="/component/header.html" class="code">
+&lt;html>
+&lt;head>
+&lt;title>&lt;?=$title?>&lt;/title>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/common.css" type="text/css">
+
+&lt;/head>
+&lt;body>
+&lt;p>this is header&lt;/p>
+</pre>
+
+<pre data-type="html" data-title="/component/footer.html" class="code">
+&lt;p>this is footer&lt;/p>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<pre data-type="php" data-title="/page/index.html" class="code">
+&lt;?php $this->component('header', array('title' => 'index.html'));?>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script>
+//多个js调用，可为数组
+require.async(['index.js', 'index2.js']);
+&lt;/script>
+&lt;?php $this->component('footer');?>
+</pre>
+
+<p>编译后查看页面效果</p>
+
+<p class='color-red'>
+feather支持将component自己的css和js放置在与自己的模版同一目录下，包括image资源，互相调用时，直接写相对路径即可，比如./image/1.png<br />
+同时feather还支持不需要自己手动引入component的css和js，feather会自动引入，如果你手动引入了js或者css，feather则不会自动引入。<br />
+而产出后的component的静态资源会被放置在static/component中，便于日后直接对component迁移
+</p>
+
+<p>比如我们给header创建自己的css和js，首先建一个/component/header目录，然后将component/header.html移动到这个目录中,并给其创建css和js</p>
+<pre data-title="/component/header/header.css" data-type="css" class="code">
+/*xxxx*/
+</pre>
+
+<pre data-title="/component/header/header.js" data-type="js" class="code">
+//header.js
+</pre>
+
+<pre data-type="php" data-title="/page/index.html" class="code">
+&lt;?php $this->component('header/header.html', array('title' => 'index.html'));?>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script>
+//多个js调用，可为数组
+require.async(['index.js', 'index2.js']);
+&lt;/script>
+&lt;?php $this->component('footer');?>
+</pre>
+
+<p>编译后查看源码：</p>
+<pre data-type="html" data-title="/page/index.html执行后源码" class="code">
+&lt;html>
+&lt;head>
+&lt;title>index.html&lt;/title> 
+&lt;link rel="stylesheet" href="/static/css/common.css" type="text/css"/>
+&lt;link rel="stylesheet" href="/static/component/header/header.css" type="text/css"/>
+&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css"/>
+ &lt;script src="/static/js/feather.js">&lt;/script>
+&lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
+&lt;script type="text/javascript">
+require.mergeConfig({
+	"map": {
+		"/static/component/header/header.js": ["/component/header/header.js"],
+		"/static/js/index.js": ["/static/js/index.js"],
+		"/static/js/index2.js": ["/static/js/index2.js"],
+		"/static/js/mod/a.js": ["/static/js/mod/a.js"],
+		"/static/js/mod/b.js": ["/static/js/mod/b.js"],
+		"/static/js/mod/a.css": ["/static/js/mod/a.css"]
+	},
+	"deps": {
+		"/static/js/mod/a.js": ["/static/js/mod/b.js", "/static/js/mod/a.css"]
+	}
+})
+&lt;/script>    
+&lt;/head>
+&lt;body>
+&lt;p>this is header&lt;/p>
+&lt;script>require.async("/component/header/header.js");&lt;/script>
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script>
+//多个js调用，可为数组
+require.async(["index.js", "index2.js"]);
+&lt;/script>
+ &lt;p>this is footer&lt;/p>
+ 
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>
+feather同时还支持对component的单独调试。例如需要调试header组件，直接输入http://127.0.0.1:8080/component/header/header.html即可。<br />
+<span class="color-red">单独调试的好处：<br />
+单页面可以拆分为多个功能模块，多个人同时开发一个页面，提高开发效率。<br />
+页面调用组件只需要关心组件在哪，而不需要关心它所依赖的静态资源以及静态重复加载问题。<br />
+component可供多页面重复使用，提高重用率，独立调试可以提升组件的健壮和稳定性。</span>
+</p>
+
+<p>feather中对模版引入的写法做了规则匹配，默认的规则如下：</p>
+<pre data-type="js" data-title="feather内置配置文件" class="code">
+template: {
+    dest: '/view',
+    suffix: 'html',
+    componentRules: [
+        /*
+        :nav => /component/nav/nav.tpl
+        common:nav => /component/common/nav/nav.tpl
+        common/a:nav => /component/common/a/nav/nav.tpl
+        common/a:nav/a => /component/common/a/nav/a/a.tpl
+        common/a:nav/a.tpl => /component/common/a/nav/a.tpl
+        common/a/b => /component/common/a/b.tpl
+        common/a/b.tpl => /component/common/a/b/tpl
+        */
+        [/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.[^.]+).)+?)(\..+)?$/, function(_0, _1, _2, _3, _4){
+            return (_1 ? (_1 + '/') : '') + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.' + feather.config.get('template.suffix')));
+        }],
+
+        [/^.+$/, function(all){
+            return all.replace(new RegExp('\\.' + feather.config.get('template.suffix') + '$'), '') + '.' + feather.config.get('template.suffix');
+        }]
+    ]
+}
+</pre>
+
+<p>所以，我们调用header组件时，也可以这么写</p>
+<pre data-type="php" data-title="/page/index.html">
+&lt;?php $this->component(':header');?>
+</pre>
+
+<p>当然你也可以重写规则：</p>
+<pre data-type="js" data-title="feather_conf.js">
+feather.config.set('template.componentRules', [
+	//重写的规则
+]);
+</pre>

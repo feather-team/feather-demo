@@ -1,0 +1,117 @@
+.simple-highlighter-title{
+    height: 30px;
+    background: #ccc;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+    border-left: 4px solid #ccc;
+}
+
+.simple-highlighter{
+    background: #272b22;
+    border-left: 4px solid #ccc;
+    padding: 10px;
+    color: white;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    _word-break: break-all; 
+    _word-wrap: break-word;
+}
+
+.simple-highlighter,
+.simple-highlighter-js-quote, 
+.simple-highlighter-js-function,
+.simple-highlighter-js-keycode,
+.simple-highlighter-js-comment,
+.simple-highlighter-php-quote, 
+.simple-highlighter-php-function,
+.simple-highlighter-php-keycode,
+.simple-highlighter-php-comment,
+.simple-highlighter-php-delimiter,
+.simple-highlighter-css-selector, 
+.simple-highlighter-css-mark,
+.simple-highlighter-css-property,
+.simple-highlighter-css-value,
+.simple-highlighter-css-comment,
+.simple-highlighter-xml-quote,
+.simple-highlighter-xml-tag,
+.simple-highlighter-xml-comment
+{
+    font-size: 12px;
+    font-family: consolas;
+}
+
+.simple-highlighter-js-quote{
+    color: #e6db74;
+}
+
+.simple-highlighter-js-function{
+    color: #66d9ef;
+}
+
+.simple-highlighter-js-keycode{
+    color: #f90;
+}
+
+.simple-highlighter-js-comment{
+    color: #aaa;
+}
+
+.simple-highlighter-php-quote{
+    color: #e6db74;
+}
+.simple-highlighter-php-function{
+    color: #66d9ef;
+    
+}
+
+.simple-highlighter-php-keycode{
+    color: #998eff;
+}
+
+.simple-highlighter-php-comment{
+    color: #aaa;
+}
+
+.simple-highlighter-php-delimiter{
+    color: white;
+}
+
+.simple-highlighter-css-selector{
+    color: #a6e22e;
+}
+
+.simple-highlighter-css-mark{
+    color: white;
+}
+
+.simple-highlighter-css-property{
+    color: #66d9ef;
+}
+
+.simple-highlighter-css-value{
+    color: #a18eff;
+}
+
+.simple-highlighter-css-comment{
+    color: #aaa;
+}
+
+.simple-highlighter-xml-quote{
+    color: #e6db74;
+}
+
+.simple-highlighter-xml-tag{
+    color: #f92672;
+}
+
+.simple-highlighter-xml-comment{
+    color: #aaa;
+}
+
+.simple-highlighter-xml-property{
+    color: #a6e22e;
+}

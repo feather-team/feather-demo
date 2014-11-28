@@ -1,0 +1,196 @@
+<p>关于feather.js的详细文档，可访问feather的<a href="" class="link">github</a>，更多js模块化的解说，可详情百度。THANK YOU！</p>
+<p>在feather中，feather.js为内置，编译时会自动加上，在代码中只需要直接调用feather.js所提供的方法即可</p>
+
+<pre data-type="html" class="code" data-title="/page/index.html">
+&lt;html>
+&lt;head>
+&lt;title>index.phtml&lt;/title>
+&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" type="text/css">
+&lt;/head>
+ 
+&lt;body>
+&lt;!--feather-position-fixed，则表示该js不会做移动处理，但是会自动添加域名和版本号之类-->
+&lt;script src="/static/js/index.js">&lt;/script>
+&lt;script>
+//异步调用一个js文件
+require.async('/static/js/index2.js');
+&lt;/script>
+&lt;h1>welcome to feather&lt;/h1>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>编译后，查看页面</p>
+<pre class="code" data-type="html">
+&lt;html>
+&lt;head>
+&lt;title>index.phtml&lt;/title>
+&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css" />
+&lt;script src="/static/js/feather.js">&lt;/script>
+&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;script>
+require.mergeConfig({"map":{"/static/js/index2.js":["/static/js/index2.js"]},"deps":{}})
+&lt;/script>
+&lt;/head>
+ 
+&lt;body>
+&lt;script>
+//异步调用一个js文件
+require.async("/static/js/index2.js");
+&lt;/script>
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script src="/static/js/index.js">&lt;/script>&lt;/body>
+&lt;/html>
+</pre>
+
+<p>添加-m参数，再次编译后查看页面</p>
+<pre class="code" data-type="html">
+&lt;html>
+&lt;head>
+&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/css/index_78be058.css" type="text/css" />&lt;script src="/static/js/feather_2b6071c.js">&lt;/script>&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;script>
+//feather会自动编译，并将index2.js的正确地址指向添加过md5的index2.js的地址
+require.mergeConfig({"map":{"/static/js/index2_e50b9af.js":["/static/js/index2.js"]},"deps":{}})
+&lt;/script>&lt;/head>
+ 
+&lt;body>
+&lt;script>
+//异步调用一个js文件
+require.async("/static/js/index2.js");
+&lt;/script>
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script src="/static/js/index_9e37717.js">&lt;/script>&lt;/body>
+&lt;/html>
+</pre>
+
+<p>feather中默认对require.config做了配置，require.baseurl会默认为static/js，所以对index2.js的引用也可以这么写</p>
+<pre class="code" data-type="js">
+require.async('index2.js'); 
+</pre>
+
+<p>feather中js模块化使用：<br />
+feather中创建一个js模块非常简单，只需要在将这个js文件放置于任意目录下的mod目录, 比如：/static/js/mod/a.js, /static/js/mod/b.js
+我们以第一个目录结构为例：<br />
+<span class="color-red">注：在feather中 创建一个模块时，不需要define头部，feather会自动为任意目录mod目录下的所有文件添加define头，当然你也可以添加，feather会不做任何处理。</span>
+</p>
+<p>
+在static/js目录下创建mod目录，并添加文件：
+</p>
+
+<pre class="code" data-type="js" data-title="/static/js/mod/a.js">
+var b = require('./b.js');
+module.exports = {
+    callName: function(){
+        return b.name;
+    }
+}
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/js/mod/b.js">
+exports.name = 'b';
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/js/index2.js">
+alert(2);
+
+require.async('/static/js/mod/a.js', function(A){
+    console.log(A.callName());
+});
+</pre>
+
+<p>-m编译后查看源码</p>
+<pre class="code" data-type="html">
+&lt;html>
+&lt;head>
+&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/css/index_78be058.css" type="text/css" />&lt;script src="/static/js/feather_2b6071c.js">&lt;/script>&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;script>
+require.mergeConfig({
+	"map": {
+		"/static/js/index2_41f52ba.js": ["/static/js/index2.js"],
+		"/static/js/mod/a_0ae304d.js": ["/static/js/mod/a.js"],
+		"/static/js/mod/b_6149afc.js": ["/static/js/mod/b.js"]
+	},
+	"deps": {
+		//自动编译deps，加载a的同时也会加载b，以提升加载速度
+		"/static/js/mod/a.js": ["/static/js/mod/b.js"]
+	}
+})
+&lt;/script>
+&lt;/head>
+ 
+&lt;body>
+&lt;!--feather-position-fixed，则表示该js不会做移动处理，但是会自动添加域名和版本号之类-->
+&lt;script>
+//异步调用一个js文件
+require.async("/static/js/index2.js");
+&lt;/script>
+&lt;h1>welcome to feather&lt;/h1>
+&lt;script src="/static/js/index_9e37717.js">&lt;/script>&lt;/body>
+&lt;/html>
+</pre>
+
+<p>查看a和b的源码，发现不仅自动加上了define头，而且还将b的引用自动转成了全路径。</p>
+<p>可以写一个配置，尝试将a和b合并后再次编译预览</p>
+
+<p>js模块化的高级用法：feather提供了查找同名资源的功能，比如新增一个a.css</p>
+<pre data-title="/static/js/mod/a.css" data-type="css" class="code">
+/*xxx*/
+</pre>
+<p>再次编译后查看源码，会发现不仅加载了a.js，同时也加载了a.css</p>
+<pre data-type="js" class="code">
+require.mergeConfig({
+	"map": {
+		"/static/js/index2_41f52ba.js": ["/static/js/index2.js"],
+		"/static/js/mod/a_0ae304d.js": ["/static/js/mod/a.js"],
+		"/static/js/mod/b_6149afc.js": ["/static/js/mod/b.js"],
+		"/static/js/mod/a_d41d8cd.css": ["/static/js/mod/a.css"]
+	},
+	"deps": {
+		"/static/js/mod/a.js": ["/static/js/mod/b.js", "/static/js/mod/a.css"]
+	}
+})
+</pre>
+
+<p>feather.js本身是支持rules的规则匹配，而feather中做了一个默认的配置：</p>
+<pre data-type="js" data-title="feather内置的配置文件" class="code">
+require: {
+    config: {
+        baseurl: '/static/js',
+        rules: [
+            /*
+            :dialog => /static/js/mod/dialog/dialog.js
+            common:dialog => /static/js/common/mod/dialog/dialog.js
+            common/a:dialog => /static/js/common/a/mod/dialog/dialog.js
+            common/a:dialog/a => /static/js/common/a/mod/dialog/a/a.js
+            common/a:dialog/a.js => /static/js/common/a/mod/dialog/a.js
+            */
+            [/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/, function(_0, _1, _2, _3, _4){
+                return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));
+            }],
+
+            [/^.+$/, function(all){
+                return /\.([^\.]+)$/.test(all) ? all : (all + '.js');
+            }]
+        ]
+    }
+}
+</pre>
+
+<p>所以我们在indexe2.js中可以这么写：</p>
+<pre data-type="js" data-title="/static/js/index2.js" class="code">
+require.async(':a.js');
+</pre>
+
+<p>当然我们也可以重新这个配置</p>
+
+<pre data-type="js" data-title="feather_conf.js" class="code">
+feather.config.set('require.config.rules', [
+	[/^\w+$/, function(all){
+		return 'mod/' + all + '.js'
+	}]
+]);
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/js/index2.js">
+require.async('a');
+</pre>

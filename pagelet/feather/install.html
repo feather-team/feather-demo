@@ -1,0 +1,29 @@
+<p>安装feather：<p>
+<ul class="ul-list">
+	<li>安装nodejs，因feather为npm包，所以需要安装nodejs环境。</li>
+	<li>安装java，并配置环境变量，feather中的webserver依赖于java。</li>
+	<li>安装php(只需要安装一个解压版，将php添加至环境变量即可, linux和mac平台可用源码包安装php，只需要安装最简单版本即可)</li>
+</ul>
+
+<pre class="code" data-type="shell" data-title="npm安装feather">
+npm install -g feather-s
+</pre>
+
+<p>feather的4条命令，分别为：server, release, install, init</p>
+<ul class="ul-list">
+	<li>server：feather server的一些操作</li>
+	<li>release：编译产出操作</li>
+	<li>install：安装feather插件</li>
+	<li>init: 命令行创建项目</li>
+</ul>
+
+<pre class="code" data-type="shell" data-title="启动本调试服务器">
+feather server start --timeout 30 #timeout可在启动服务器超时使用，默认超时时间为15s 
+</pre>
+
+
+<p>也可通过init项目脚手架来创建项目：</p>
+
+<pre class="code" data-type="shell" data-title="init创建项目">
+feather init -n web -m common -c utf-8 feather-project-common
+</pre>

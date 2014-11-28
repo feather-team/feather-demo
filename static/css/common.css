@@ -1,0 +1,58 @@
+*{
+	font-family: consolas, 微软雅黑;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul{
+	list-style: none;
+}
+
+h1{
+	font-size: 50px;
+}
+
+a{
+	color: #333;
+	text-decoration: none;
+}
+
+.link{
+	color: #6666ff;
+}
+
+.text-indent-24{
+	text-indent: 24px;
+}
+
+.loading{
+	background-image: url(../image/loading.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ul-list{
+	list-style: initial;
+	padding-left: 17px;
+	margin-bottom: 10px;
+
+	li{
+		margin-top: 10px;
+	}
+}
+
+.color-red{
+	color: red;
+}
+
+.code{
+	margin: 20px 0px;
+}
+
+.fs-24{
+	font-size: 24px;
+}
+
+.color-white{
+	color: white;
+}
