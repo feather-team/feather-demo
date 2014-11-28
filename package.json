@@ -1,0 +1,12 @@
+{
+  "name": "feather-demo",
+  "version": "0.1.0",
+  "description": "feather demo",
+  "author": {
+    "name": "jsyczhanghao@sina.com"
+  },
+  "keyword": [
+        "feather",
+        "demo"
+  ]
+}
