@@ -15,17 +15,23 @@
 
 #content{
 	text-align: center;
+	margin-top: 100px;
 
 	.project{
 		width: 250px;
 		height: 150px;
-		line-height: 150px;
 		text-align: center;
-		margin: 100 80px;
+		margin: 0px 30px;
 		background: #66ccff;
 		border: 1px solid #66ccff;
 		display: inline-block;
 
+		.name{
+			line-height: 80px;
+			display: block;
+			height: 80px;
+		}
+		
 		&:hover{
 			background: white;
 			color: #66ccff;
