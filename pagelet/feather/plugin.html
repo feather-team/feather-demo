@@ -3,7 +3,7 @@
 <ul class="ul-list">
 	<li>
 		feather-postprocessor-inline-compress(内联样式以及script压缩):
-		<pre data-type="js" data-title="xxx.html">
+		<pre data-type="html" data-title="xxx.html" class="code">
 <!--这段代码不做压缩-->
 &lt;script>
 (function(window, undefined){
@@ -22,13 +22,13 @@
 *{
     font-size: 12px;
 }
-</style>
+&lt;/style>
 		</pre>
 	</li>
 
 	<li>
 		less集成：feather中内置了less插件，任何css结尾的文件都可以使用less语法。
-		<pre>
+		<pre class="code" data-type="css">
 a{
     &:hover{
         color: red;

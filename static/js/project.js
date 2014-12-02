@@ -26,7 +26,6 @@ require.async(':jquery', function($){
 
 		if(tmp && tmp != hash){
 			hash = tmp;
-			console.log(hash);
 			$('#list').find('a[data-index="' + hash + '"]').click();
 		}
 	}, 100);
