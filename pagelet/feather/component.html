@@ -99,9 +99,10 @@ require.async(["index.js", "index2.js"]);
 </pre>
 
 <p>
-feather同时还支持对component的单独调试。例如需要调试header组件，直接输入http://127.0.0.1:8080/component/header/header.html即可。<br />
-<span class="color-red">单独调试的好处：<br />
+feather同时还支持对component的单独调试。例如需要调试header组件，直接输入http://127.0.0.1:8080/component/header/header.html即可。</p>
+<p><span class="color-red">单独调试的好处：<br />
 单页面可以拆分为多个功能模块，多个人同时开发一个页面，提高开发效率。<br />
+去除某一个功能时，不会造成忘记去除对应静态资源内容而造成的大量冗余的情况<br />
 页面调用组件只需要关心组件在哪，而不需要关心它所依赖的静态资源以及静态重复加载问题。<br />
 component可供多页面重复使用，提高重用率，独立调试可以提升组件的健壮和稳定性。</span>
 </p>
