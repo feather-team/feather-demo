@@ -1,0 +1,21 @@
+.ui-formvalid-field{
+	background-image: url(./img/icon_tip.png);
+	background-repeat: no-repeat;
+	display: inline-block;
+	line-height: 20px;
+	height: 20px;
+	padding-left: 23px;
+}
+
+.ui-formvalid-field-error{
+	background-position: 0px -6px;
+}
+
+.ui-formvalid-field-success{
+	background-position: 0px -37px;
+}
+
+.ui-formvalid-field-default{
+	background-image: none;
+	padding-left: 0px;
+}

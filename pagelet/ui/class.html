@@ -1,0 +1,156 @@
+<p>Class 类构造器</p>
+<p>Class提供了一个简单的方式，让使用者可以创建自己的类，并支持多级继承，可调用父级方法等，让咱直接上代码吧！</p>
+
+<script data-title="创建一个类" type="text/html">
+require.async(':class', function(Class){
+	var A = Class({
+		name: 'aaa',
+
+		getName: function(){
+			return this.name;
+		}
+	});
+
+	var a = new A;
+	alert(a.getName());	//aaa
+});
+</script>
+
+<script data-title="initialize：构造函数" type="text/html">
+require.async(':class', function(Class){
+	var A = Class({
+		name: 'aaa',
+
+		initialize: function(name){
+			this.name = name;
+		},
+
+		getName: function(){
+			return this.name;
+		}
+	});
+
+	var a = new A('bbb');
+	alert(a.getName());	//aaa
+	alert(A.prototype.name); //bbb
+});
+</script>
+
+<script data-title="options参数以及setOptions方法" type="text/html">
+//setOptions方法为class内置的方法，class内置2个方法和一个属性，分别是setOptions，initialize 以及parent属性
+//调用setOptions时，会自动设置类的options属性
+
+require.async(':class', function(Class){
+	var A = Class({
+		options: {
+			name: 'aaa',
+			age: 22,
+			favs: ['a', 'b', 'c']
+		},
+
+		initialize: function(opts){
+			this.setOptions(opts);
+		},
+
+		//get vfavs
+		getFavs: function(){
+			return JSON.stringify(this.options.favs);
+		}
+	});
+
+	var a = new A({
+		favs: ['xx']
+	});
+	alert(a.getFavs());	
+
+	var b = new A({
+		favs: ['c', 'd']
+	});
+	alert(b.getFavs());
+});
+</script>
+
+<script data-title="extend方法，用于继承某个类" type="text/html">
+require.async(':class', function(Class){
+	var A = Class({
+		options: {
+			name: 'aaa',
+			age: 22,
+			favs: ['a', 'b', 'c']
+		},
+
+		initialize: function(opts){
+			this.setOptions(opts);
+		},
+
+		//get vfavs
+		getFavs: function(){
+			return JSON.stringify(this.options.favs);
+		}
+	});
+
+	var a = new A({
+		favs: ['xx']
+	});
+	alert(a.getFavs());	
+
+	var B = Class({
+		extend: A,
+
+		getFavs: function(){
+			return 'i am b, my favs: ' + JSON.stringify(this.options.favs);
+		}
+	});
+
+	var b = new B({
+		favs: ['c', 'd']
+	});
+	alert(b.getFavs());
+});
+</script>
+
+<script data-title="parent属性，用于调用父级方法，parent同时也是类的一个内置的方法，可直接调用，调用时会直接调用父级intiailize方法" type="text/html">
+require.async(':class', function(Class){
+	var A = Class({
+		options: {
+			name: 'aaa',
+			age: 22,
+			favs: ['a', 'b', 'c']
+		},
+
+		initialize: function(opts){
+			this.setOptions(opts);
+		},
+
+		//get vfavs
+		getFavs: function(){
+			return JSON.stringify(this.options.favs);
+		}
+	});
+
+	var a = new A({
+		favs: ['xx']
+	});
+	alert(a.getFavs());	
+
+	var B = Class({
+		extend: A,
+
+		initialize: function(opts){
+			//调用父级方法
+			this.parent(opts); //同this.parent.initialize.call(this, opts);
+			alert('b initialize');
+		},
+
+		getFavs: function(){
+			//调用父级方法
+			return 'i am b, my favs: ' + this.parent.getFavs.call(this);
+		}
+	});
+
+	var b = new B({
+		favs: ['c', 'd']
+	});
+	alert(b.getFavs());
+});
+</script>

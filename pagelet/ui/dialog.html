@@ -1,0 +1,83 @@
+<p>Dialog 弹出框插件</p>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>
+		title: 显示的标题，如果设置成false，则不会出现关闭按钮，整个dialog将会没有头部
+		<script data-title="" type="text/html">
+require.async(':dialog', function(Dialog){
+	new Dialog({
+		title: false,
+		autoOpen: true,
+		content: $('<div>111111111111111</div>'),
+		close: function(){
+			this.destory();
+		}
+	});
+});
+		</script>	
+	</li>
+	<li>container: dialog生成在哪个元素中，默认为document.body</li>
+	<li>dom: 将该dom直接插入到dialog中</li>
+	<li>width: 宽度</li>
+	<li>height: 高度</li>
+	<li>content: 显示的内容</li>
+	<li>url: ajax加载数据的url</li>
+	<li>esc: 是否按下esc键后关闭，默认为false</li>
+	<li>mask: 是否遮罩，默认为true</li>
+	<li>autoOpen: 是否自动打开，默认false</li>
+	<li>
+		buttons：按钮列表
+		<script data-title="" type="text/html">
+require.async(':dialog', function(Dialog){
+	new Dialog({
+		title: 'hahahaha',
+		autoOpen: true,
+		width: 800,
+		height: 300,
+		esc: true,
+		mask: true,
+		buttons: {
+			'确定': {
+				events: {
+					click: function(){
+						alert('click');
+					},
+
+					mouseout: function(){
+						alert('mouseout');
+					}
+				},
+
+				classname: 'class1 class2'
+			},
+
+			'取消': function(){
+				alert('cancel');
+				this.close();
+			}
+		},
+		close: function(){
+			this.destory();
+		}
+	});
+});
+		</script>	
+	</li>
+	<li>handle: 指定一个元素，当点击该元素时，打开dialog</li>
+	<li>open：打开时触发的事件</li>
+	<li>firstOpen：第一次打开时触发的事件</li>
+	<li>close：关闭时触发的事件</li>
+</ul>
+
+<p>方法列表：</p>
+<ul class="ul-list">
+	<li>setTitle(title): 设置title参数</li>
+	<li>reset(): 手动将dialog的位置设置为居中</li>
+	<li>open(): 打开dialog</li>
+	<li>close(): 关闭dialog</li>
+	<li>destory(): 销毁当前dialog</li>
+	<li>enabledButton(): 启用所有按钮</li>
+	<li>disabledButton(buttonIndex): 禁用某一个按钮</li>
+</ul>
