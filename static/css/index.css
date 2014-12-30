@@ -25,6 +25,7 @@
 		background: #66ccff;
 		border: 1px solid #66ccff;
 		display: inline-block;
+		overflow: hidden;
 
 		.name{
 			line-height: 80px;

@@ -20,7 +20,7 @@ require.async(':jquery', function($){
 <pre data-type="html" class="code">
 &lt;!--FEATHER STATIC POSITION:HEAD--> 
 &lt;link rel='stylesheet' href='/static/pagelet/a/a.css' type='text/css' /> 
-&lt;script type='text/javascript'>require.mergeConfig({"map":{"\/static\/pagelet\/a\/a.js":["\/pagelet\/a\/a.js"]},"deps":[],"domain":""})&lt;/script>
+&lt;script type='text/javascript'>require.mergeConfig({"map":{"/static/pagelet/a/a.js":["/pagelet/a/a.js"]},"deps":[],"domain":""})&lt;/script>
 &lt;!--FEATHER STATIC POSITION END-->
 &lt;div>这是一个pagelet&lt;/div>
 &lt;script>require.async("/pagelet/a/a.js");&lt;/script>
@@ -45,7 +45,7 @@ require.async(':jquery', function($){
 
 <pre data-type="html" class="code" data-title="编译后的a.html">
 &lt;!--FEATHER STATIC POSITION:HEAD-->  
-&lt;script type="text/javascript">require.mergeConfig({"map":{"\/static\/js\/pagelet.js":["\/static\/js\/pagelet.js"],"\/static\/pagelet\/a\/a.css":["\/pagelet\/a\/a.css"],"\/static\/pagelet\/a\/a.js":["\/pagelet\/a\/a.js"],"\/static\/css\/index.css":["\/static\/css\/index.css"],"\/static\/js\/3.js":["\/static\/js\/3.js"]},"deps":[],"domain":""})&lt;/script>
+&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/js/pagelet.js":["/static/js/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/css/index.css":["/static/css/index.css"],"/static/js/3.js":["/static/js/3.js"]},"deps":[],"domain":""})&lt;/script>
 &lt;!--FEATHER STATIC POSITION END-->
 &lt;textarea id="_pagelet_a_a" style="display: none !important;" type="text/html">
 &lt;!--pagelet:test-->
@@ -67,13 +67,13 @@ alert(12);
 
 <pre data-type="html" class="code" data-title="编译后的a.html">
 &lt;!--FEATHER STATIC POSITION:HEAD-->  
-&lt;script type="text/javascript">require.mergeConfig({"map":{"\/static\/js\/pagelet.js":["\/static\/js\/pagelet.js"],"\/static\/pagelet\/a\/a.css":["\/pagelet\/a\/a.css"],"\/static\/pagelet\/a\/a.js":["\/pagelet\/a\/a.js"],"\/static\/css\/index.css":["\/static\/css\/index.css"],"\/static\/js\/3.js":["\/static\/js\/3.js"]},"deps":[],"domain":""})&lt;/script>
+&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/js/pagelet.js":["/static/js/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/css/index.css":["/static/css/index.css"],"/static/js/3.js":["/static/js/3.js"]},"deps":[],"domain":""})&lt;/script>
 &lt;!--FEATHER STATIC POSITION END-->
 &lt;script id="_pagelet_a_a" style="display: none !important;" type="text/html">
 &lt;!--pagelet:test:script-->
 &lt;script>
 alert(12);
-&lt;\/script>
+&lt;/script>
 &lt;div>这是一个pagelet&lt;/div>
 &lt;/script>
 &lt;script>require.async(["/static/js/pagelet.js","/pagelet/a/a.css"],function(PageLet){PageLet("_pagelet_a_a","test","script");require.async("/pagelet/a/a.js")});&lt;/script>&lt;!--FEATHER STATIC POSITION:BOTTOM--> 
