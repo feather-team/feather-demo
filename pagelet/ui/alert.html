@@ -1,0 +1,20 @@
+<p>Alert 警告插件</p>
+
+<p>方法列表：</p>
+
+<ul class="ul-list">
+	<li>alert:
+		<script data-title="" type="text/html">
+require.async(':alert', function(Alert){
+	Alert.alert('简单Alert提示');
+})	
+		</script>
+	</li>
+	<li>confirm(content[, callback, unclose]);
+		<script data-title="" type="text/html">
+require.async(':alert', function(Alert){
+	Alert.confirm('带回调的提示框',function(){alert("确定"),false});
+})	
+		</script>
+	</li>
+</ul>

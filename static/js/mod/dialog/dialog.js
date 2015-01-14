@@ -1,4 +1,4 @@
-var $ = require('jquery'), Mask = require('mask');
+var $ = require(':jquery'), Mask = require(':mask');
 
 function Dialog(opt){
 	this.options = $.extend({

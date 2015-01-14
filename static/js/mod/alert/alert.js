@@ -1,4 +1,4 @@
-var Dialog = require('dialog');
+var Dialog = require(':dialog');
 
 return {
 	alert: function(content){
