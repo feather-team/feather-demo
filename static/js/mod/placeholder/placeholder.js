@@ -33,6 +33,8 @@ PlaceHolder.prototype = {
 			}).blur().attr({
 				'data-placeholder': text,
 				'data-ui-placeholder-gid': self.GID
+			}).focus(function(){
+				self.placeholder.hide();
 			}).removeAttr('placeholder');
 		}
 	},

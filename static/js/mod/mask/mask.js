@@ -1,4 +1,4 @@
-var $ = require(':jquery'), doc = document, body = doc.body;
+var $ = require('jquery'), doc = document, body = doc.body;
 
 function Mask(opt){
 	this.options = $.extend({

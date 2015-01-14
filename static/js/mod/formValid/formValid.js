@@ -22,12 +22,12 @@ FormValid.prototype = {
 			dRules = FormValid.DEFAULT_RULES, prefix = FormValid.ATTRIBUTE_PREFIX,
 			aLen = FormValid.ATTIBUTE_LENGTH, aRule = FormValid.ATTRIBUTE_RULE;
 
-		$.each(self.dom[0].elements, function(index, element){
-			var name = element.name;
+		self.getElement().each(function(){
+			var name = this.name;
 
 			if(!name) return;
 
-			var $element = $(element);
+			var $element = $(this);
 
 			$.each(dRules, function(key, value){
 				var attr = prefix + key;
@@ -57,6 +57,8 @@ FormValid.prototype = {
 
 		$.each(tmpRules, function(index, item){
 			var $tmp = self.getElement(index), value = $tmp.val(), tmpStatus = true;
+
+			if(!$tmp.length) return;
 
 			if(!$.isArray(item)){
 				item = [item];
@@ -118,13 +120,13 @@ FormValid.prototype = {
             
             self.setText(name, text, 'ui-formvalid-field-default');
         }else{
-            $.each(self.dom[0].elements, function(index, element){
-            	var name = element.name;
+            self.getElement().each(function(){
+            	var name = this.name;
 
             	if(!name) return;
 
 				if(_default == null || _default){
-					text = $(element).attr(FormValid.ATTRIBUTE_DEFAULT);
+					text = $(this).attr(FormValid.ATTRIBUTE_DEFAULT);
 				}
 
 				self.setText(name, text, 'ui-formvalid-field-default');
@@ -145,7 +147,7 @@ FormValid.prototype = {
 	},
 
 	getElement: function(name){
-		return this.dom.find('[name=' + name + ']');
+		return name ? this.dom.find('[name=' + name + ']') : this.dom.find('[name]');
 	}
 };
 

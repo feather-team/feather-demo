@@ -1,4 +1,4 @@
-var $ = require(':jquery'), isFunction = $.isFunction;
+var $ = require('jquery'), isFunction = $.isFunction;
 
 function clone(target, source, unfunc){
     //映射每个参数对象

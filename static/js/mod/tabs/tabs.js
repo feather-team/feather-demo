@@ -5,7 +5,9 @@ var tabs = function(opt){
         dom: null,
         attr: 'href',
         currentclass: '',
+        currentClass: '',
         currentindex: 0,
+        currentIndex: 0,
         event: 'click',
         callback: function(){}
     }, opt || {});
@@ -15,46 +17,51 @@ var tabs = function(opt){
 
 tabs.prototype = {
     init: function(){
-        var self = this;
-        this.doms = $(this.options.dom);
-        this.targets = [];
-        $.each(this.doms, function(index, item){
-            var id = item[self.options.attr] || item.getAttribute(self.options.attr);
+        var self = this, opt = self.options;
+
+        self.doms = $(opt.dom);
+        self.targets = [];
+
+        $.each(self.doms, function(index, item){
+            var id = item[opt.attr] || item.getAttribute(opt.attr);
             var target;
             
-            if( target = document.getElementById(id) ){
+            if(target = document.getElementById(id)){
                 self.targets.push(target);
             }
         });
         
-        this.targets = $(this.targets);
-        
-        this.bind();
-        
-        this.tabTo(this.options.currentindex);
+        self.targets = $(self.targets);
+        self.bind();
+        self.tabTo(opt.currentindex || opt.currentIndex);
     },
     
     bind: function(){
-        var self = this, cc = self.options.currentclass;
-        $.each(this.doms, function(index, item){
-            $(item).bind(self.options.event, function(){
+        var self = this, opt = self.options, cc = opt.currentclass || opt.currentClass;
+
+        $.each(self.doms, function(index, item){
+            $(item).bind(opt.event, function(){
                 self.targets.hide();
-                if( self.targets[index] ) self.targets.eq(index).show();
-                if(cc) {
+                self.targets[index] && self.targets.eq(index).show();
+                
+                if(cc){
                     self.doms.removeClass(cc);
                     $(this).addClass(cc);
                 }
-                if( self.options.callback ) self.options.callback.call(this);
+
+                opt.callback && opt.callback.call(self, index);
+
                 return false;
             });
         });
     },
     
     tabTo: function(index){
-        index = index || 0;
-        if( index > this.doms.length - 1 ) return false;
+        var self = this, index = index || 0;
+
+        if(index > self.doms.length - 1) return false;
         
-        this.doms.eq(index).trigger(this.options.event);
+        self.doms.eq(index).trigger(self.options.event);
     }
 };
 

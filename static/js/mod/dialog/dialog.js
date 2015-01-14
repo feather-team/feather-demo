@@ -1,4 +1,4 @@
-var $ = require(':jquery'), Mask = require(':mask');
+var $ = require('jquery'), Mask = require('mask');
 
 function Dialog(opt){
 	this.options = $.extend({
@@ -65,7 +65,7 @@ Dialog.prototype = {
 
 	//创建遮罩
 	createMask: function(){
-		if(!this.options.mask )return;
+		if(!this.options.mask)return;
 
 		this.mask = new Mask({autoOpen: false, container: this.wraper});
 	},
@@ -133,7 +133,7 @@ Dialog.prototype = {
 
 			var $button = $('<a href="javascript:void(0);" class="ui-dialog-button" />').text(index).appendTo($buttons);
 
-			item.classname && $button.addClass(item.classname);
+			$button.addClass(item.classname || item.className);
 
 			$.each(item.events, function(index, callback){
 				$button.bind(index, function(){
@@ -205,16 +205,6 @@ Dialog.prototype = {
 	destory: function(){
 		this.mask && this.mask.destory();
 		this.container.remove();
-	},
-
-	//禁用button
-	disabledButton: function(index){
-		this.container.find('.ui-dialog-button').eq(index).addClass('ui-dialog-button-disabled');
-	},
-
-	//开启button使用
-	enabledButton: function(){
-		this.container.find('.ui-dialog-button').removeClass('ui-dialog-button-disabled');
 	}
 };
 

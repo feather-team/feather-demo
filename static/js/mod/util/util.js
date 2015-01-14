@@ -1,6 +1,48 @@
 var CryptoJS = require('./lib/md5.js');
 
 var util = module.exports = {
+	object: {
+		get: function(data, name){
+			if(data[name]){
+				return data[name];
+			}
+
+			name = name.split('.');
+
+			var i = 0, len = name.length, tmp = data;
+
+			for(; i < len; i++){
+				tmp = tmp[name[i]];
+
+				if(tmp == null) return null;
+			}
+
+			return tmp;
+		},
+
+		set: function(data, name, value){
+			if(typeof value == 'undefined'){
+				data = name;
+			}else{
+				name = name.split('.');
+
+				var i = 0, len = name.length - 1, tmp = data;
+
+				for(; i < len; i++){
+					var tmpName = name[i];
+
+					if(typeof tmp[tmpName] != 'object' || !tmp[tmpName]){
+						tmp[tmpName] = {};
+					}
+
+					tmp = tmp[tmpName];
+				}
+
+				tmp[name[i]] = value;
+			}
+		}
+	},
+
 	number: {
 		//给数字加千分位XX
 		format: function(num){
@@ -19,19 +61,23 @@ var util = module.exports = {
 		 * @returns
 		 */
 		toPad: function(str, pad, length, leftmode){
-				var temp = '';
+			var temp = '';
 
-				str = String(str);
+			str = String(str);
 
-				pad = String(pad);
+			pad = String(pad);
 
-				length = length - str.length;
+			length = length - str.length;
 
-				while(length-- > 0){
-					temp += pad;
-				}
+			while(length-- > 0){
+				temp += pad;
+			}
 
-				return leftmode == true ? (temp + str) : (str + temp);
+			return leftmode == true ? (temp + str) : (str + temp);
+		},
+
+		pad: function(str, pad, length, leftmode){
+			return this.toPad(str, pad, length, leftmode);
 		},
 		
 		/**
@@ -90,7 +136,7 @@ var util = module.exports = {
 		//a am或者pm
 		//A AM或者PM
 		//t 当前月有多少天
-		date: function( str, time ){
+		date: function(str, time){
 			if( !str ) return ;
 
 			var date = new Date, temp = [], toPad = util.string.toPad;

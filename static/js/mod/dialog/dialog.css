@@ -68,9 +68,3 @@
 .ui-dialog-button:hover{
     color: #fff;
 }
-
-
-.ui-dialog-button-disabled{
-    color: #ccc;
-    cursor: default;
-}

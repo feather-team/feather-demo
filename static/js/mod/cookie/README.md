@@ -10,7 +10,6 @@ cookie操作插件
 Cookie.set('name', 123, {
   expires: 3600, //3600秒后过期
   path: '/abc',
-  domain: 'http://www.baidu.com',
   secure: true
 });
 ```

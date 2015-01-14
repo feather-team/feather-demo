@@ -33,7 +33,7 @@
 	position: absolute;
 	top: 0px;
 	z-index: 10;
-	background: url(about:blank);
+	background:url(about:blank);
 }
 
 .ui-lightbox-prev{

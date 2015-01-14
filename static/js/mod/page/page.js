@@ -24,7 +24,7 @@ Page.prototype = {
 		this.container = $('<ul class="ui-page">');
 		this.dom = $(this.options.dom).empty().append(this.container);
 		
-		this.index = this.options.currentPage;
+		this.index = parseInt(this.options.currentPage);
 		this.createPage();
 		this.bindEvent();
 	},
@@ -65,7 +65,7 @@ Page.prototype = {
 
 	getPageResult: function(){
 		var self = this, opt = self.options;
-		var total = opt.pageTotal, per = opt.perPage, index = this.index, start = 0, end = 0, middle = Math.ceil(per / 2), m = parseInt(per / 2);
+		var total = parseInt(opt.pageTotal), per = opt.perPage, index = this.index, start = 0, end = 0, middle = Math.ceil(per / 2), m = parseInt(per / 2);
 
 		if(total < per){
 			start = 1;

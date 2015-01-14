@@ -1,0 +1,23 @@
+.ui-suggestion{
+	position: absolute;
+	border: 1px solid #ccc;
+	background: white;
+	display: none;
+}
+
+.ui-suggestion-item{
+	display: block;
+}
+
+.ui-suggestion-item a{
+	display: block;
+	padding-left: 5px;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none;
+	color: #333;
+}
+
+.ui-suggestion-item:hover, .ui-suggestion-active{
+	background: #eee;
+};
