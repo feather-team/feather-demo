@@ -20,5 +20,5 @@ require.async([':jquery', ':highlighter'], function($, Highligter){
 		});
 	});
 
-	require.async('./project.js');
+	require.async('../project/project.js');
 });
