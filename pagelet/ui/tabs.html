@@ -1,0 +1,58 @@
+<p>Tabs 切换插件</p>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>dom:需要设置tab的dom元素（通常是a标签）</li>
+	<li>attr:元素的获取target标识的属性</li>
+	<li>currentclass:给选中的tab设置class</li>
+	<br/>
+	<div id="tabDomOne" class="tabDom">
+		<a href="javascript:;" style="border-right:1px solid #E1E1E1">Page One</a>
+		<a href="javascript:;">Page Two</a>
+	</div>
+	<script data-title="" type="text/html" data-type="noclick">
+require.async(':tabs', function(Tabs){
+	new Tabs({
+	  dom: '#tabDomOne a',
+	  attr: "href",     
+	  currentclass: "current",
+	  currentindex: 0
+	});
+});
+	</script>
+	<li>currentindex:当前初始化index，索引从0开始</li>
+	<br/>
+	<div id="tabDomTwo" class="tabDom">
+		<a href="javascript:;" style="border-right:1px solid #E1E1E1">Page One</a>
+		<a href="javascript:;">Page Two</a>
+	</div>
+	<script data-title="" type="text/html" data-type="noclick">
+require.async(':tabs', function(Tabs){
+	new Tabs({
+	  dom: '#tabDomTwo a',
+	  attr: "href",     
+	  currentclass: "current",
+	  currentindex: 1
+	});
+});
+	</script>
+	<li>callback:切换后的回调函数<span style="color:red">（目前callback不支持传入点击对象，且初始化时就会触发一次）</span></li>
+	<br/>
+	<div id="tabDomThree" class="tabDom" style="width:330px">
+		<a href="javascript:;" style="border-right:1px solid #E1E1E1">Page One</a>
+		<a href="javascript:;" style="border-right:1px solid #E1E1E1">Page Two</a>
+		<a href="javascript:;">Page Three</a>
+	</div>
+	<script data-title="" type="text/html" data-type="noclick">
+require.async(':tabs', function(Tabs){
+	new Tabs({
+	  dom: '#tabDomThree a',
+	  attr: "href",     
+	  currentclass: "current",
+	  currentindex: 1,
+	  callback: function(){alert("切换后的回调函数")}
+	});
+});
+	</script>
+</ul>

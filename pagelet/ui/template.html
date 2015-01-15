@@ -1,0 +1,32 @@
+<p>Template 模版引擎</p>
+
+<p>使用方法：</p>
+
+<ul class="ul-list">
+	<li>模版设置:
+		<script type="text/html" data-type="show">
+<script type="text/html" id="test">
+	<%list.forEach(function(item){%>
+		<p><%=item.name%></p>
+	<%});%>
+</ script>
+		</script>
+	</li>
+	<li>模版渲染:
+		<script type="text/html" data-type="show">
+require.async(":template",function(Template) {
+	Template.fetch("test", {
+	  	list: [
+		    {
+		      name: '123'
+		    },
+
+		    {
+		      name: '123'
+		    }
+	  	]
+	});
+})
+		</script>
+	</li>
+</ul>

@@ -7,3 +7,21 @@
 	color: #333;
 	text-align: center;
 }
+
+/*tabs样式*/
+.tabDom {
+	background-color:#66ccff;
+	height:40px;
+	width:211px;
+}
+.tabDom a {
+	color:#fff;
+	line-height:40px;
+	text-align:center;
+	display:inline-block;
+	width:100px;
+	height:38px;
+}
+.tabDom a.current {
+	color: #22409E;
+}

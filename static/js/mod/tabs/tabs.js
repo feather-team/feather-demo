@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $ = require(':jquery');
 
 var tabs = function(opt){
     this.options = $.extend({
