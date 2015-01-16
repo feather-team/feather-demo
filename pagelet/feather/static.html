@@ -1,5 +1,5 @@
 <p>创建一个index2.js文件</p>
-<pre class="code" data-type="js" data-title="/static/js/index2.js">
+<pre class="code" data-type="js" data-title="/static/index/index2.js">
 alert(2);
 </pre>
 
@@ -9,14 +9,14 @@ alert(2);
 &lt;html>
 &lt;head>
 &lt;title>index.phtml&lt;/title>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" type="text/css">
+&lt;link rel="stylesheet" type="text/css" href="/static/index/index.css" type="text/css">
 &lt;!--设置feather-position-head, 该js则会被放置在页面的顶部-->
-&lt;script src="/static/js/index.js" feather-position-head>&lt;/script>
+&lt;script src="/static/index/index.js" feather-position-head>&lt;/script>
 &lt;/head>
  
 &lt;body>
 &lt;!--feather-position-bottom时，则会自动放置底部，也可以不设置feather-position-bottom，js会默认放置底部-->
-&lt;script src="/static/js/index2.js" feather-position-bottom>&lt;/script>
+&lt;script src="/static/index/index2.js" feather-position-bottom>&lt;/script>
 &lt;div>welcome to feather&lt;/div>
 &lt;/body>
 &lt;/html>	
@@ -28,15 +28,15 @@ alert(2);
 &lt;head>
 &lt;title>index.phtml&lt;/title>
 &lt;!--设置feather-position-head, 该js则会被放置在页面的顶部-->
-&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css" />
-&lt;script src="/static/js/feather.js">&lt;/script>
-&lt;script src="/static/js/index.js">&lt;/script>
+&lt;link rel="stylesheet" href="/static/index/index.css" type="text/css" />
+&lt;script src="/static/feather.js">&lt;/script>
+&lt;script src="/static/index/index.js">&lt;/script>
 &lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>&lt;script>require.mergeConfig({"map":{},"deps":{}})&lt;/script>&lt;/head>
  
 &lt;body>
 &lt;!--feather-position-bottom时，则会自动放置底部，也可以不设置feather-position-bottom，js会默认放置底部-->
 &lt;div>welcome to feather&lt;/div>
-&lt;script src="/static/js/index2.js">&lt;/script>&lt;/body>
+&lt;script src="/static/index/index2.js">&lt;/script>&lt;/body>
 &lt;/html>	
 </pre>
 
@@ -45,15 +45,15 @@ alert(2);
 <p>将js文件合并可以试试对feather_conf.js进行配置并执行feather release -p：</p>
 <pre class="code" data-type="js">
 paffe.config.set('pack', {
-    //生成一个pack包，路径为static/js/index_combine.js
+    //生成一个pack包，路径为static/index/combine.js
     //这个包中包含2个文件，index.js以及index2.js文件
-    'static/js/index_combine.js': ['/static/js/index.js', '/static/js/index2.js']
+    'static/index/combine.js': ['/static/index/index.js', '/static/index/index2.js']
 });
 </pre>
 
 <p>feather同时还提供了 预览调试时会加载的文件，而且正式产出后不会被收集的配置, 方便本地调试时使用</p>
 <pre data-type="html" class="code">
-&lt;script src="/static/js/index.js" feather-dest-ignore>&lt;/script>
+&lt;script src="/static/index/index.js" feather-dest-ignore>&lt;/script>
 </pre>
 
 <p>feather对css文件的位置处理只有fixed和head两种，默认为head。</p>

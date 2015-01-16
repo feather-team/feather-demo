@@ -11,7 +11,7 @@ feather.config.merge({
 	deploy: {
 		local: [
 			{
-				from: '/static',
+				from: '/static/static',
 	            //本地目录
 	            to: '../feather-ui.github.io/static',
 	            include: /\/static\/.*/,

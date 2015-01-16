@@ -25,7 +25,7 @@ feather.config.merge({
 
 	project: {
         modulename: 'common',   //多模块项目时，需指定模块名才能进行跨common模块编译
-		ns: 'web',	//指定项目namespace，指定后，产出后的文件比如 component/index.html => web/component/index.html, static/js/1.js => static/web/js/1.js
+		name: 'web',	//指定项目名，指定后，产出后的文件比如 component/index.html => web/component/index.html, static/1.js => static/js/1.js
 	},
 
     statics: '/static', //static下的js css image产出到哪个目录，baseurl为哪个，默认为/static
@@ -33,7 +33,7 @@ feather.config.merge({
 	//重写feather.js的require.config配置，可参考feather.js的github文档
 	require: {
         config: {
-            baseurl: '/static/js',
+            baseurl: '/static',
             rules: [],
             charset: 'utf-8',
             map: {},
@@ -50,7 +50,7 @@ feather.config.merge({
 	deploy: {
 		local: [
 			{
-				from: '/static',
+				from: '/static/static',
 	            //本地目录
 	            to: '../../feather-ui.github.io/static',
 	            include: /\/static\/.*/,

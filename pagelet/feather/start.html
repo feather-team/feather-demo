@@ -37,7 +37,7 @@ feather init -c utf-8 feather-project	#项目utf-8编码
 <pre class="code" data-type="js" data-title="feather_conf.js">
 feather.config.merge({
 	project: {
-		ns: '',
+		name: '',
 		modulename: '',
 		charset: 'utf-8'
 	}
@@ -47,7 +47,7 @@ feather.config.merge({
 <p>可以打开本地调试服务器 访问http://127.0.0.1:8080 查看效果，默认页面地址为http://127.0.0.1:8080/page/index.html</p>
 
 <p>请增加一个css和js文件，并在index.html中引用</p>
-<pre class="code" data-type="css" data-title="/static/css/index.css">
+<pre class="code" data-type="css" data-title="/static/index/index.css">
 *{
 	padding: 0px;
 	margin: 0px;
@@ -60,7 +60,7 @@ div{
 }
 </pre>
 
-<pre class="code" data-type="js" data-title="/static/js/index.js">
+<pre class="code" data-type="js" data-title="/static/index/index.js">
 alert(123);
 </pre>
 
@@ -68,8 +68,8 @@ alert(123);
 &lt;html>
 &lt;head>
 &lt;title>start&lt;/title>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
-&lt;script src="/static/js/index.js">&lt;/script>
+&lt;link rel="stylesheet" type="text/css" href="/static/index/index.css" />
+&lt;script src="/static/index/index.js">&lt;/script>
 &lt;/head>
 
 &lt;body>
@@ -85,8 +85,8 @@ alert(123);
 &lt;head>
 &lt;title>start&lt;/title> 
 <!--css文件会被自动放置head内-->
-&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css"/>
-&lt;script src="/static/js/feather.js">&lt;/script>
+&lt;link rel="stylesheet" href="/static/index/index.css" type="text/css"/>
+&lt;script src="/static/feather.js">&lt;/script>
 &lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
 &lt;script type="text/javascript">require.mergeConfig({"map":[],"deps":[]})&lt;/script>    
  &lt;/head>
@@ -94,7 +94,7 @@ alert(123);
 &lt;body>
 &lt;div>welcome to feather&lt;/div>
 <!--js文件会被自动放置body结束标签上面-->
-&lt;script src="/static/js/index.js">&lt;/script>
+&lt;script src="/static/index/index.js">&lt;/script>
 &lt;/body>
 &lt;/html>
 </pre>
@@ -105,7 +105,7 @@ alert(123);
 <pre class="code" data-type="js" data-title="/feather_conf.js">
 feather.config.merge({
 	project: {
-		ns: '',
+		name: '',
 		modulename: '',
 		charset: 'utf-8'
 	},

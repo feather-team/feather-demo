@@ -6,7 +6,7 @@
 &lt;html>
 &lt;head>
 &lt;title>&lt;?=$title?>&lt;/title>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/common.css" type="text/css">
+&lt;link rel="stylesheet" type="text/css" href="/static/common/common.css" type="text/css">
 
 &lt;/head>
 &lt;body>
@@ -21,7 +21,7 @@
 
 <pre data-type="php" data-title="/page/index.html" class="code">
 &lt;?php $this->component('header', array('title' => 'index.html'));?>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;link rel="stylesheet" type="text/css" href="/static/index/index.css" />
 &lt;h1>welcome to feather&lt;/h1>
 &lt;script>
 //多个js调用，可为数组
@@ -49,11 +49,11 @@ feather支持将component自己的css和js放置在与自己的模版同一目�
 
 <pre data-type="php" data-title="/page/index.html" class="code">
 &lt;?php $this->component('header/header.html', array('title' => 'index.html'));?>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;link rel="stylesheet" type="text/css" href="/static/index/index.css" />
 &lt;h1>welcome to feather&lt;/h1>
 &lt;script>
 //多个js调用，可为数组
-require.async(['index.js', 'index2.js']);
+require.async(['index/index.js', 'index/index2.js']);
 &lt;/script>
 &lt;?php $this->component('footer');?>
 </pre>
@@ -63,23 +63,23 @@ require.async(['index.js', 'index2.js']);
 &lt;html>
 &lt;head>
 &lt;title>index.html&lt;/title> 
-&lt;link rel="stylesheet" href="/static/css/common.css" type="text/css"/>
+&lt;link rel="stylesheet" href="/static/common/common.css" type="text/css"/>
 &lt;link rel="stylesheet" href="/static/component/header/header.css" type="text/css"/>
-&lt;link rel="stylesheet" href="/static/css/index.css" type="text/css"/>
+&lt;link rel="stylesheet" href="/static/index/index.css" type="text/css"/>
  &lt;script src="/static/js/feather.js">&lt;/script>
 &lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
 &lt;script type="text/javascript">
 require.mergeConfig({
 	"map": {
 		"/static/component/header/header.js": ["/component/header/header.js"],
-		"/static/js/index.js": ["/static/js/index.js"],
-		"/static/js/index2.js": ["/static/js/index2.js"],
-		"/static/js/mod/a.js": ["/static/js/mod/a.js"],
-		"/static/js/mod/b.js": ["/static/js/mod/b.js"],
-		"/static/js/mod/a.css": ["/static/js/mod/a.css"]
+		"/static/index/index.js": ["/static/index/index.js"],
+		"/static/index/index2.js": ["/static/index/index2.js"],
+		"/static/mod/a.js": ["/static/mod/a.js"],
+		"/static/mod/b.js": ["/static/mod/b.js"],
+		"/static/mod/a.css": ["/static/mod/a.css"]
 	},
 	"deps": {
-		"/static/js/mod/a.js": ["/static/js/mod/b.js", "/static/js/mod/a.css"]
+		"/static/mod/a.js": ["/static/mod/b.js", "/static/mod/a.css"]
 	}
 })
 &lt;/script>    
@@ -90,7 +90,7 @@ require.mergeConfig({
 &lt;h1>welcome to feather&lt;/h1>
 &lt;script>
 //多个js调用，可为数组
-require.async(["index.js", "index2.js"]);
+require.async(["index/index.js", "index/index2.js"]);
 &lt;/script>
  &lt;p>this is footer&lt;/p>
  

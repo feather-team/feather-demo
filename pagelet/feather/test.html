@@ -42,14 +42,14 @@ return array(
 <p>模拟数据功能：feather支持对page和component页面进行页面数据绑定，随页面输出时一起输出，只需要在test目录下创建和page以及component同样结构的.php文件即可，比如：</p>
 <pre data-type="php" data-title="/page/index.html">
 &lt;?php $this->component(':header');?>
-&lt;link rel="stylesheet" type="text/css" href="/static/css/index.css" />
+&lt;link rel="stylesheet" type="text/css" href="/static/index/index.css" />
 &lt;h1>welcome to feather&lt;/h1>
 &lt;?php foreach($userlist as $user):?>
 &lt;?php echo $user['name'];?>
 &lt;?php endforeach;?>
 &lt;script>
 //多个js调用，可为数组
-require.async(['index.js', 'index2.js']);
+require.async(['index/index.js', 'index/index2.js']);
 &lt;/script>
 &lt;?php $this->component('footer');?>
 </pre>

@@ -1,0 +1,54 @@
+<p>feather中的项目下可以划分很多模块，模块可指定为一些互相独立的业务。</p>
+
+<p>feather中指定一个项目名很简单，可在init时指定，也可直接修改feather_conf.js</p>
+
+<pre data-type="js" data-title="/feather_conf.js" class="code">
+feather.config.set('project.name', 'aa');
+</pre>
+
+<p>指定项目名后，执行release后，生成后的代码的路径会有一些改变，比如指定为aa后，生成代码为：</p>
+
+<pre class="code" data-type="shell">
+├── map
+│   └── aa
+│       └── map.php
+├── static
+│   ├── feather.config.js
+│   ├── feather.js
+│   ├── index.js
+│   └── pagelet.js
+└── view
+    └── aa
+        ├── component
+        │   └── resource
+        │       ├── usescript.html
+        │       └── usestyle.html
+        └── page
+            └── index.html
+</pre>
+
+<p>这种结构的好处是，将来迁移static的时候可以将aa下面所有的文件直接拷贝走，view也是一样的。</p>
+
+<p>需要强调的是，虽然模版生成后的代码是view/aa/page/index.html,但是开发者访问模版的时候，只需要访问http://ip:port/page/index.html即可，底层会自动加上项目名进行匹配，开发者只需要知道本地开发路径是什么，直接访问这个路径即可，包括需要rewrite的时候，也是一样的，以便让开发者开发起来更方便，但是以static开头的静态资源则不会做这层处理，所以查看源码的时候，所有的静态文件都会指向加上项目名的地址上。</p>
+
+<p>关于模块名，feather没有明确要求用户在项目中的结构必须遵循某种规范，但是还是建议按照模块名来建目录，比如a模块：</p>
+<pre class="code" data-type="shell">
+├── component
+│   └── a
+│       └── header
+│           ├── header.html
+│           └── header.js
+├── feather_conf.js
+├── page
+│   └── a
+│       └── index.html
+├── static 
+│   └── a
+│       └── index
+│           └── index.js
+└── test
+
+
+##采用这种方式的如果想使用feather require的短路径，需要重新下规则，因为feather默认的baseurl是/static
+</pre>
+

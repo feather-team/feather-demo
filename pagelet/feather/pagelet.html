@@ -10,7 +10,7 @@
 
 <p>修改index2.js</p>
 
-<pre data-type="js" class="code" data-title="/static/js/index2.js">
+<pre data-type="js" class="code" data-title="/static/index/index2.js">
 require.async(':jquery', function($){
 	$('#pagelet_test').load('/pagelet/a/a.html');
 });
@@ -45,7 +45,7 @@ require.async(':jquery', function($){
 
 <pre data-type="html" class="code" data-title="编译后的a.html">
 &lt;!--FEATHER STATIC POSITION:HEAD-->  
-&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/js/pagelet.js":["/static/js/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/css/index.css":["/static/css/index.css"],"/static/js/3.js":["/static/js/3.js"]},"deps":[],"domain":""})&lt;/script>
+&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/pagelet.js":["/static/js/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/index/index.css":["/static/index/index.css"],"/static/3.js":["/static/3.js"]},"deps":[],"domain":""})&lt;/script>
 &lt;!--FEATHER STATIC POSITION END-->
 &lt;textarea id="_pagelet_a_a" style="display: none !important;" type="text/html">
 &lt;!--pagelet:test-->
@@ -53,7 +53,7 @@ require.async(':jquery', function($){
 &lt;/textarea>
 &lt;script>
 //feather会先加载对应的css资源，再显示html，然后再加载js。
-require.async(["/static/js/pagelet.js","/pagelet/a/a.css"],function(PageLet){PageLet("_pagelet_a_a","test","textarea");require.async("/pagelet/a/a.js")});
+require.async(["/static/pagelet.js","/pagelet/a/a.css"],function(PageLet){PageLet("_pagelet_a_a","test","textarea");require.async("/pagelet/a/a.js")});
 &lt;/script>&lt;!--FEATHER STATIC POSITION:BOTTOM--> &lt;!--FEATHER STATIC POSITION END-->
 </pre>
 
@@ -67,7 +67,7 @@ alert(12);
 
 <pre data-type="html" class="code" data-title="编译后的a.html">
 &lt;!--FEATHER STATIC POSITION:HEAD-->  
-&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/js/pagelet.js":["/static/js/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/css/index.css":["/static/css/index.css"],"/static/js/3.js":["/static/js/3.js"]},"deps":[],"domain":""})&lt;/script>
+&lt;script type="text/javascript">require.mergeConfig({"map":{"/static/pagelet.js":["/static/pagelet.js"],"/static/pagelet/a/a.css":["/pagelet/a/a.css"],"/static/pagelet/a/a.js":["/pagelet/a/a.js"],"/static/index/index.css":["/static/index/index.css"],"/static/3.js":["/static/3.js"]},"deps":[],"domain":""})&lt;/script>
 &lt;!--FEATHER STATIC POSITION END-->
 &lt;script id="_pagelet_a_a" style="display: none !important;" type="text/html">
 &lt;!--pagelet:test:script-->
@@ -76,7 +76,7 @@ alert(12);
 &lt;/script>
 &lt;div>这是一个pagelet&lt;/div>
 &lt;/script>
-&lt;script>require.async(["/static/js/pagelet.js","/pagelet/a/a.css"],function(PageLet){PageLet("_pagelet_a_a","test","script");require.async("/pagelet/a/a.js")});&lt;/script>&lt;!--FEATHER STATIC POSITION:BOTTOM--> 
+&lt;script>require.async(["/static/pagelet.js","/pagelet/a/a.css"],function(PageLet){PageLet("_pagelet_a_a","test","script");require.async("/pagelet/a/a.js")});&lt;/script>&lt;!--FEATHER STATIC POSITION:BOTTOM--> 
 &lt;!--FEATHER STATIC POSITION END-->
 </pre>
 
