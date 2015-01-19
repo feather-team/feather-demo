@@ -81,3 +81,14 @@ return array(
     ]
 }
 </pre>
+
+<p>另外，feather提供了兼容文件处理，用来处理本地不存在线上环境问题，比如view中出现了某一个函数，本地是没有的，而线上controller层中是存在此函数的，这时，本地调试就会报错，这时，可以在项目开发目录下建一个叫feather_compatible.php的文件，此文件可写任何php代码，用来处理各种无法调试的环境，比如a函数不存在，则可以：</p>
+
+<pre data-type="php" data-title="/feather_compatible.php">
+&lt;?php
+function a(){
+    return '';
+}
+
+error_reportint(E_ALL & ~E_NOTICE);//还可以关闭notice提示。
+</pre>
