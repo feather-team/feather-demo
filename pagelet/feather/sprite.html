@@ -1,0 +1,25 @@
+<p>feather中的sprite功能会对合并的css自动启用</p>
+
+<pre class="code" data-type="js">
+feather.config.set('pack', {
+	'static/combine.css': 'static/**.css'
+});
+</pre>
+
+<pre class="code" data-type="css">
+/*1.css*/
+div{
+	background: url(/static/1.png?__sprite);
+}
+
+a{
+	background: url(/static/2.png?__sprite);
+}
+
+/*2.css*/
+i{
+	background: url(/static/3.png?__sprite);
+}
+</pre>
+
+<p>如果有其他特殊，或者更详细的具体需求，可见<a class="link" target="_blank" href="https://github.com/fex-team/fis-spriter-csssprites">fis-spriter-csssprites</a></p></p>

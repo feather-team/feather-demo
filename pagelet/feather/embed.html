@@ -1,0 +1,36 @@
+<p>内容嵌入是feather从fis中继承过来的3种能力之一</p>
+
+<p>在html和css中的用法一致，比如:</p>
+
+<pre class="code" data-type="html">
+&lt;!--该图片的内容会以base64的方式引入进img标签中-->
+&lt;img src="/static/1.png?__inline" />
+
+&lt;style src="/static/1.css?__inline">&lt;/style>
+&lt;!--
+&lt;style type="text/css">
+*{
+	font-size: 12px;
+	color: #ccc;
+}
+
+div{
+	border: 1px solid #000;
+}
+&lt;/style>
+-->
+</pre>
+
+<pre class="code" data-type="css">
+/*将/static/1.css的内容嵌入至当前css文件中*/
+
+@import url('/static/1.css?__inline');
+</pre>
+
+<p>在js中使用：</p>
+
+<pre class="code" data-type="js">
+var div = document.createElement('div');
+div.innerHTML = __inline('/static/1.txt');	//将1.txt的内容赋给div的innerhtml属性
+document.body.appendChild(div);
+</pre>

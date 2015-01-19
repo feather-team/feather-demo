@@ -1,0 +1,28 @@
+<p>资源定位是feather从fis中继承过来的3种能力之一，在之前的文档中其实已经有使用到，比如url自动添加domain，版本号等，都属于资源定位，资源定位还有一些其他用法，比如：</p>
+
+<pre class="code" data-type="js">
+//配置config，产出的所有的静态资源的baseurl都变为/a/b/c/d
+feather.config.set('statics', '/a/b/c/d');	//默认为/static
+//   /static/1.js => /a/b/c/d/1.js
+</pre>
+
+<pre class="code" data-type="html">
+&lt;!--编译后变为 /a/b/c/d/1.png-->
+&lt;img src="/static/1.png" />
+&lt;!--编译后变为 /a/b/c/d/1.js-->
+&lt;script src="/static/1.js">&lt;/script>
+</pre>
+
+<p>在js中获取一个文件产出后的路径：</p>
+
+<pre class="code" data-type="js">
+var img = new Image;
+img.src = __uri('/static/1.png');
+</pre>
+
+<p>产出后的代码变为：</p>
+
+<pre class="code" data-type="js">
+var img = new Image;
+img.src = '/a/b/c/d/1.png';
+</pre>

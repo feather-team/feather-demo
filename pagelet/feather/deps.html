@@ -1,0 +1,39 @@
+<p>声明依赖是feather从fis中继承过来的3种能力之一，在之前的文档中，已经有练习过，比如使用require这样的语法，会被自动收集至require列表中</p>
+<p>如果我们没有使用require等这样的模块化加载工具，如果引入依赖呢？这就要依靠我们强大的依赖声明功能了</p>
+
+<p>在html中可以这么使用：</p>
+<pre class="code" data-type="html">
+&lt;!--
+@require /static/1.css
+@require /static/1.js
+-->
+&lt;img src="/static/1.png" />
+</pre>
+
+<p>效果等同于</p>
+<pre class="code" data-type="html">
+&lt;link rel="stylesheet" href="/static/1.css" type="text/css" />
+&lt;img src="/static/1.png" />
+&lt;script src="/static/1.js">&lt;/script>
+</pre>
+
+<p>如果我们在1.js里，可以这么使用：</p>
+<pre class="code" data-type="js">
+/*
+@require /static/2.js
+@require /static/2.css
+*/
+
+//xxxx
+</pre>
+
+<p>如果查看刚刚的html的效果的话，则效果会变成这样：</p>
+<pre class="code" data-type="html">
+&lt;link rel="stylesheet" href="/static/2.css" type="text/css" />
+&lt;link rel="stylesheet" href="/static/1.css" type="text/css" />
+&lt;img src="/static/1.png" />
+&lt;script src="/static/2.js">&lt;/script>
+&lt;script src="/static/1.js">&lt;/script>
+</pre>
+
+<p>css中的使用和js中一致</p>

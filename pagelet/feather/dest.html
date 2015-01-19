@@ -1,0 +1,78 @@
+<p>release dest功能的用法主要包括这几块：</p>
+
+<p>1. 直接release： 预览模式使用</p>
+
+<p>2. 后面直接跟一个目录，则表示产出至目标目录，如：</p>
+
+<pre class="code" data-type="shell">
+feather release --dest ../abc
+#产出至上一级目录的abc目录下
+</pre>
+
+<p>3. 使用deploy配置，配置feather_conf.js:</p>
+
+<pre class="code" data-type="js">
+feather.config.set('deploy', {
+	//名字随便取的，没有特殊含义
+    aaa : {
+        //from参数省略，表示从发布后的根目录开始上传
+        //发布到当前项目的上一级的output目录中
+        to : '../output'
+    }
+});
+
+//执行feather release --dest aaa
+
+
+feather.config.set('deploy', {
+	//配置也可以为数组，一次执行多个dest
+	local: [
+		{
+			from: '/static/static',
+            //本地目录
+            to: '../../feather-ui.github.io/static',
+            //只包含/static目录下的文件
+            include: /\/static\/.*/,
+            //只将子目录放置目标目录下
+            subOnly: true
+		},
+		{
+            from: '/view/page',
+            //本地目录
+            to: '../../feather-ui.github.io/',
+            //只包含.html结尾的文件
+            include: /\.html$/,
+            subOnly: true
+        },
+        {
+        	from: '/view/pagelet',
+        	to: '../../feather-ui.github.io/pagelet',
+        	include: /\.html$/,
+        	subOnly: true
+        }
+	]
+});
+//执行feather release --dest local
+
+feather.config.set('deploy', {
+	//使用feather release --dest remote来使用这个配置
+    remote : {
+        //如果配置了receiver，fis会把文件逐个post到接收端上
+        receiver : 'http://www.example.com/path/to/receiver.php',
+        //从产出的结果的static目录下找文件
+        from : '/static',
+        //保存到远端机器的/home/feather/www/static目录下
+        //这个参数会跟随post请求一起发送
+        to : '/home/feather/www/',
+        //通配或正则过滤文件，表示只上传所有的js文件
+        include : '**.js',
+        //component目录下的那些文件就不要发布了
+        exclude : /\/component\//i,
+        //支持对文件进行字符串替换
+        replace : {
+            from : 'http://www.online.com',
+            to : 'http://www.offline.com'
+        }
+    }
+});
+</pre>
