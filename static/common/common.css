@@ -4,6 +4,10 @@
 	padding: 0px;
 }
 
+body{
+	overflow: hidden;
+}
+
 ul{
 	list-style: none;
 }

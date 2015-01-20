@@ -1,4 +1,4 @@
-require.async([':jquery', ':highlighter'], function($, Highligter){
+require.async([':jquery', ':highlighter', ':iscroll'], function($, Highligter, IScroll){
 	$(document).ajaxStop(function(){
 		$('script[type="text/html"]', this).each(function(){
 			var text = this.text;
@@ -10,13 +10,17 @@ require.async([':jquery', ':highlighter'], function($, Highligter){
 				});
 			}
 
-
 			var $pre = $('<pre class="code">').text(text).insertBefore(this);
 
 			Highligter($pre[0], {
 				type: 'js',
 				title: $(this).attr('data-title')
 			});
+		});
+
+
+		new IScroll('#right', {
+			mouseWheel: true
 		});
 	});
 

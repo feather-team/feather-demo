@@ -1,9 +1,17 @@
-require.async([':jquery', ':highlighter'], function($, Highligter){
+require.async([':jquery', ':highlighter', ':iscroll'], function($, Highligter, IScroll){
+	new IScroll('#left', {
+		scrollbars: true,
+		mouseWheel: true,
+		interactiveScrollbars: true,
+		shrinkScrollbars: 'scale',
+		fadeScrollbars: true
+	});
+
 	var $as = $('#list a').click(function(){
 		$as.removeClass('active');
 		$(this).addClass('active')
 
-		$('#right').load($(this).attr('data-href'), function(){
+		$('#content').load($(this).attr('data-href'), function(){
 			$(this).removeClass('loading');
 
 			$('pre', this).each(function(){
@@ -16,6 +24,10 @@ require.async([':jquery', ':highlighter'], function($, Highligter){
 	});
 
 	$as.first().click();
+
+	$(document).mousedown(function(e){
+		e.preventDefault();
+	});
 });
 
 require.async(':jquery', function($){
