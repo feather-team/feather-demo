@@ -1,0 +1,53 @@
+<p>Calendar日历组件</p>
+
+<input type="text" id="calendar" value="点击我" />
+
+<script type="text/html" data-title="初始化" data-type="noclick">
+require.async('common:calendar', function(Calendar){
+	new Calendar({
+		target: '#calendar',
+		dateFormat: 'Y/m/d',
+		onSelect: function(date){
+			alert(date);
+			this.close();
+		}
+	});
+});
+</script>
+
+参数说明：
+
+<ul class="ul-list">
+	<li>container: 日历组件的容器，默认为body</li>
+	<li>target: 绑定日历组件的元素</li>
+	<li>handle: 触发打开日历组件的元素，默认为绑定元素</li>
+	<li>dateFormat: 日期format，详细操作可见util.date中提供的格式</li>
+	<li>
+		minDate: 可选的最小日期，日期格式需要和dateformat保持一致<br />
+		<input type="text" id="minDate" value="最小可选日期" />
+<script type="text/html" data-title="" data-type="noclick">
+require.async('common:calendar', function(Calendar){
+	new Calendar({
+		target: '#minDate',
+		dateFormat: 'Y/m/d',
+		minDate: '2015/01/05'
+	});
+});
+</script>
+	</li>
+	<li>maxDate: 可选的最大日期，日期格式需要和dateformat保持一致</li>
+	<li>onSelect: 选中日期时触发，如果重写该方法，需要手动关闭日历</li>
+	<li>callback: 每次重新生成日历时触发，比如执行了toMonth方法时</li>
+</ul>
+
+方法说明：
+
+<ul class="ul-list">
+	<li>prevMonth: 上一月</li>
+	<li>nextMonth：下一月</li>
+	<li>toMonth(year, month)：直接跳转到某一月</li>
+	<li>open: 打开</li>
+	<li>close：关闭</li>
+	<li>resetPosition：重新设置位置，防止定位错误</li>
+	<li>getDate(Date date): 格式化某一个日期</li>
+</ul>

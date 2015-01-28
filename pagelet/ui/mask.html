@@ -5,7 +5,7 @@
 <ul class="ul-list">
 	<li>container: dom选择器
 		<script data-title="" type="text/html">
-require.async(':mask', function(Mask){
+require.async('common:mask', function(Mask){
 	window.mask = new Mask({
 	  autoOpen:true,
 	  container: "#maskDemo"
@@ -19,6 +19,6 @@ require.async(':mask', function(Mask){
 <ul class="ul-list">
 	<li>open(): 打开遮罩</li>
 	<li>close(): 关闭遮罩</li>
-	<li>destory(): 销毁对象</li>
-	<li>reset(): 重新设置mask的位置和大小</li>
+	<li>destroy(): 销毁对象</li>
+	<li>resetPosition(): 重新设置mask的位置和大小</li>
 </ul>

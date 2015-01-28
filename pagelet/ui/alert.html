@@ -3,17 +3,29 @@
 <p>方法列表：</p>
 
 <ul class="ul-list">
-	<li>alert:
+	<li>alert(content[, dialogOptions]): content为显示的内容，dialogOptions同传递给dialog的参数，因alert是继承于dialog插件的。
 		<script data-title="" type="text/html">
-require.async(':alert', function(Alert){
+require.async('common:alert', function(Alert){
 	Alert.alert('简单Alert提示');
 })	
 		</script>
-	</li>
-	<li>confirm(content[, callback, unclose]);
+
 		<script data-title="" type="text/html">
-require.async(':alert', function(Alert){
-	Alert.confirm('带回调的提示框',function(){alert("确定"),false});
+require.async('common:alert', function(Alert){
+	Alert.alert('使用自定义的title', {
+		title: '哈哈哈哈'
+	});
+})	
+		</script>
+	</li>
+	<li>confirm(content[, callback, unclose, dialogOptions])：callback为点击确定后的回调， unclose可手动控制是否关闭。
+		<script data-title="" type="text/html">
+require.async('common:alert', function(Alert){
+	Alert.confirm('带回调的提示框', function(){
+		alert("确定")
+	}, false, {
+		title: '带回调的提示框'
+	});
 })	
 		</script>
 	</li>

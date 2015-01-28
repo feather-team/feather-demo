@@ -3,19 +3,24 @@
 <p>使用方法：</p>
 
 <ul class="ul-list">
-	<li>模版设置:
-		<script type="text/html" data-type="show">
+	<li>fetch(domId): fetch用于快速获取一个元素内容，并返回执行后的结果
+	<script type="text/html" data-type="none" id="test">
+	<%list.forEach(function(item){%>
+		<p><%=item.name%></p>
+	<%});%>
+	</script>
+
+		<script class="code" type="text/html" data-type="show">
 <script type="text/html" id="test">
 	<%list.forEach(function(item){%>
 		<p><%=item.name%></p>
 	<%});%>
-</ script>
+<\/script>
 		</script>
-	</li>
-	<li>模版渲染:
-		<script type="text/html" data-type="show">
-require.async(":template",function(Template) {
-	Template.fetch("test", {
+
+		<script type="text/html">
+require.async("common:template",function(Template) {
+	var content = Template.fetch("test", {
 	  	list: [
 		    {
 		      name: '123'
@@ -26,7 +31,11 @@ require.async(":template",function(Template) {
 		    }
 	  	]
 	});
+
+	alert(content);
 })
 		</script>
 	</li>
+
+	<li>parse(string): 直接执行一段字符串后返回结果</li>
 </ul>

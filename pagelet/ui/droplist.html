@@ -1,0 +1,24 @@
+<p>DropList: 下拉列表组件</p>
+
+<select id="droplist">
+	<option value="1">北京</option>
+	<option value="2">上海</option>
+	<option value="3">深圳</option>
+	<option value="4">北京1</option>
+	<option value="5">上海1</option>
+	<option value="6">深圳1</option>
+	<option value="7">北京2</option>
+	<option value="8">上海2</option>
+	<option value="9">深圳2</option>
+</select>
+
+<div style="margin-top: 10px;" id="droplist_container"></div>
+
+<script data-type="text/html">
+require.async('common:droplist', function(DropList){
+	new DropList({
+		dom: '#droplist',
+		container: '#droplist_container'
+	});
+});
+</script>

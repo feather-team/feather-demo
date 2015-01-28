@@ -6,19 +6,18 @@
 	<li>content: 提示内容</li>
 	<li>mask: 是否显示遮罩
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	new Tips({
-	  content: '123',
+	  content: '<p style="text-align: center; width: 300px;">2秒后自动关闭</p>',
 	  mask: true,     
-	  timeout: false  
+	  timeout: 2000
 	});
 });
 		</script>	
 	</li>
-	<li>
 	<li>timeout: 自动关闭（手动关闭设置false）
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	new Tips({
 	  content: '2秒自动关闭',
 	  mask: true,     
@@ -31,43 +30,43 @@ require.async(':tips', function(Tips){
 
 <p>方法列表：</p>
 <ul class="ul-list">
-	<li>destory(): 销毁Tips对象</li>
+	<li>destroy(): 销毁Tips对象，不自动关闭情况下可使用该方法销毁对象</li>
 </ul>
 
 <p>快捷方法：</p>
 <ul class="ul-list">
 	<li>Tips.fuc(content[, timeout, mask, classname]);</li>
-	<li>show
+	<li>show：new Tips的静态调用方法
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	Tips.show('show', 3000, true, 'ui-tips-error');
 })		
 		</script>
 	</li>
 	<li>error
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	Tips.error('error', 3000, true);
 })		
 		</script>
 	</li>
  	<li>success
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	Tips.success('success', 3000, true);
 })		
 		</script>
 	</li>
  	<li>loading
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	Tips.loading('loading', 3000, true);
 })		
 		</script>
 	</li>
  	<li>warn
 		<script data-title="" type="text/html">
-require.async(':tips', function(Tips){
+require.async('common:tips', function(Tips){
 	Tips.warn('warn', 3000, true);
 })		
 		</script>

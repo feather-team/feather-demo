@@ -1,4 +1,4 @@
-require.async([':jquery', ':highlighter', ':iscroll'], function($, Highligter, IScroll){
+require.async(['common:jquery', 'common:highlighter', 'common:iscroll'], function($, Highligter, IScroll){
 	new IScroll('#left', {
 		scrollbars: true,
 		mouseWheel: true,
@@ -30,7 +30,7 @@ require.async([':jquery', ':highlighter', ':iscroll'], function($, Highligter, I
 	});
 });
 
-require.async(':jquery', function($){
+require.async('common:jquery', function($){
 	var hash;
 
 	setInterval(function(){

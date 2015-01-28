@@ -6,11 +6,12 @@
 	<li>
 		title: 显示的标题，如果设置成false，则不会出现关闭按钮，整个dialog将会没有头部
 		<script data-title="" type="text/html">
-require.async(':dialog', function(Dialog){
+require.async('common:dialog', function(Dialog){
 	new Dialog({
+		esc: true,
 		title: false,
 		autoOpen: true,
-		content: $('<div>111111111111111</div>'),
+		content: $('<div>按esc关闭我</div>'),
 		close: function(){
 			this.destory();
 		}
@@ -18,7 +19,25 @@ require.async(':dialog', function(Dialog){
 });
 		</script>	
 	</li>
-	<li>container: dialog生成在哪个元素中，默认为document.body</li>
+	<li>
+		container: dialog生成在哪个元素中，默认为document.body
+		<script data-title="" type="text/html">
+require.async('common:dialog', function(Dialog){
+	new Dialog({
+		esc: true,
+		container: '#container_test',
+		title: '我在一个div中',
+		autoOpen: true,
+		content: $('<div>按esc关闭我</div>'),
+		close: function(){
+			this.destory();
+		}
+	});
+});
+		</script>
+
+		<div id="container_test" style="border: 1px solid #000; width: 600px; height: 500px;"></div>
+	</li>
 	<li>dom: 将该dom直接插入到dialog中</li>
 	<li>width: 宽度</li>
 	<li>height: 高度</li>
@@ -30,7 +49,7 @@ require.async(':dialog', function(Dialog){
 	<li>
 		buttons：按钮列表
 		<script data-title="" type="text/html">
-require.async(':dialog', function(Dialog){
+require.async('common:dialog', function(Dialog){
 	new Dialog({
 		title: 'hahahaha',
 		autoOpen: true,
@@ -50,7 +69,7 @@ require.async(':dialog', function(Dialog){
 					}
 				},
 
-				classname: 'class1 class2'
+				className: 'class1 class2'
 			},
 
 			'取消': function(){
@@ -74,8 +93,10 @@ require.async(':dialog', function(Dialog){
 <p>方法列表：</p>
 <ul class="ul-list">
 	<li>setTitle(title): 设置title参数</li>
-	<li>reset(): 手动将dialog的位置设置为居中</li>
+	<li>setContent(content): 动态设置内容，content可为字符串或者dom元素。</li>
+	<li>load(url): 动态加载数据，同首次传递参数中的url参数使用。</li>
+	<li>resetPosition(): 手动将dialog的位置设置为居中</li>
 	<li>open(): 打开dialog</li>
 	<li>close(): 关闭dialog</li>
-	<li>destory(): 销毁当前dialog</li>
+	<li>destroy(): 销毁当前dialog</li>
 </ul>

@@ -5,7 +5,7 @@ feather.config.merge({
 	staticMode: true,	//开启静态资源内联模式
 	autoCombine: true, 	//开启静态资源内联模式后，使用autocombine可自动合并页面上的零散资源
 
-    cssA2R: false,  //是否将css中所有引用的静态资源的路径变为相对路径， 如果使用了动态域名，或者需要后端对baseurl进行的支持的，可选择此项开启，默认为false
+    cssA2R: true,  //是否将css中所有引用的静态资源的路径变为相对路径， 如果使用了动态域名，或者需要后端对baseurl进行的支持的，可选择此项开启，默认为true
 
 	pack: {
 		//打包所有的demo.js, script.js文件
