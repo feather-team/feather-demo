@@ -57,6 +57,12 @@ Calendar.prototype = {
 			self.resetPosition();
 		});
 
+		var handle = $handle[0];
+
+		$(document).click(function(e){
+			e.target != handle && self.close();
+		});
+
 		self.wraper.click(function(e){
 			var target = $(e.target);
 
@@ -70,10 +76,13 @@ Calendar.prototype = {
 				opt.onSelect && opt.onSelect.call(self, date);
 				self.target && self.target.val(date).html(date);
 			}
+
+			e.stopPropagation();
 		});
 	},
 
 	prevMonth: function(){
+
 		this.toMonth(this.year, this.month - 1);
 	},
 
@@ -85,7 +94,11 @@ Calendar.prototype = {
 		var self = this, date = new Date;
 
 		year && date.setFullYear(year);
-		month != null && date.setMonth(month);
+
+		if(month){
+			date.setDate(1);
+			date.setMonth(month);
+		}
 
 		self.year = date.getFullYear();
 		self.month = date.getMonth();

@@ -46,7 +46,7 @@ DropList.prototype = {
 			var key = $this.attr('data-droplist-key'), value = $this.attr('data-droplist-value');
 
 			opts.callback && opts.callback.call(this, key, value);
-			self.setValue(key, value);
+			self.setValue(value, key);
 		});
 	},
 
@@ -61,7 +61,7 @@ DropList.prototype = {
 		this.wraper.removeClass('ui-droplist-open');
 	},
 
-	setList: function(list, defaultKey, defaultValue){
+	setList: function(list, defaultValue, defaultKey){
 		var self = this, $dom;
 
 		if(list.nodeType || list instanceof $ || typeof list == 'string'){
@@ -74,11 +74,11 @@ DropList.prototype = {
 
 		self.dom && (!$dom || $dom[0] !== self.dom[0]) && self.resetDom(list);
 
-		if(defaultKey){
-			self.setValue(defaultKey, defaultValue);
+		if(defaultValue){
+			self.setValue(defaultValue, defaultKey);
 		}else{
 			var $first = $('.ui-droplist-item:first', self.list);
-			self.setValue($first.attr('data-droplist-key'), $first.attr('data-droplist-value'));
+			self.setValue($first.attr('data-droplist-value'), $first.attr('data-droplist-key'));
 		}
 	},
 
@@ -93,12 +93,19 @@ DropList.prototype = {
 		self.wraper.add(self.list).css('width', self.options.width || self.list.width());
 	},
 
-	setValue: function(key, value){
+	setValue: function(value, key){
 		var self = this;
-		
+
+		if(!key){
+			var $dom = self.list.find('[data-droplist-value="' + value + '"]');
+
+			if($dom.length){
+				key = $dom.attr('data-droplist-key');
+			}
+		}
+
 		self.select.html(key);
 		self.value = value;
-
 		self.dom && self.dom.val(value);
 	},
 

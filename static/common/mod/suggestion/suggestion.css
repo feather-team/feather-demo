@@ -3,6 +3,9 @@
 	border: 1px solid #ccc;
 	background: white;
 	display: none;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
 }
 
 .ui-suggestion-item{
