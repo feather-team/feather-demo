@@ -1215,7 +1215,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 						uploadSize         : 0, // The size in bytes of the upload queue
 						queueBytesUploaded : 0, // The size in bytes that have been uploaded for the current upload queue
 						uploadQueue        : [], // The files currently to be uploaded
-						errorMsg           : 'Some files were not added to the queue:'
+						errorMsg           : '没有文件被添加至上传队列中:'
 					};
 
 					// Save references to all the objects
@@ -1504,7 +1504,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 			var settings = this.settings;
 
 			// Reset some queue info
-			this.queueData.errorMsg       = 'Some files were not added to the queue:';
+			this.queueData.errorMsg       = '没有文件被添加至上传队列中:';
 			this.queueData.filesReplaced  = 0;
 			this.queueData.filesCancelled = 0;
 
@@ -1547,7 +1547,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 			for (var n in this.queueData.files) {
 				queuedFile = this.queueData.files[n];
 				if (queuedFile.uploaded != true && queuedFile.name == file.name) {
-					var replaceQueueItem = confirm('The file named "' + file.name + '" is already in the queue.\nDo you want to replace the existing item in the queue?');
+					var replaceQueueItem = confirm('"' + file.name + '" 此文件已在上传队列中.\n确定进行替换?');
 					if (!replaceQueueItem) {
 						this.cancelUpload(file.id);
 						this.queueData.filesCancelled++;
@@ -1631,19 +1631,19 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 				switch(errorCode) {
 					case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
 						if (settings.queueSizeLimit > errorMsg) {
-							this.queueData.errorMsg += '\nThe number of files selected exceeds the remaining upload limit (' + errorMsg + ').';
+							this.queueData.errorMsg += '\n选择的文件数超过允许上传的最大文件数 (' + errorMsg + ').';
 						} else {
-							this.queueData.errorMsg += '\nThe number of files selected exceeds the queue size limit (' + settings.queueSizeLimit + ').';
+							this.queueData.errorMsg += '\n选择的文件数超过允许上传队列的最大数量 (' + settings.queueSizeLimit + ').';
 						}
 						break;
 					case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" exceeds the size limit (' + settings.fileSizeLimit + ').';
+						this.queueData.errorMsg += '\n"' + file.name + '" 此文件大小超过允许上传的最大文件大小 (' + settings.fileSizeLimit + ').';
 						break;
 					case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" is empty.';
+						this.queueData.errorMsg += '\n"' + file.name + '" 此文件为空.';
 						break;
 					case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" is not an accepted file type (' + settings.fileTypeDesc + ').';
+						this.queueData.errorMsg += '\n"' + file.name + '" 此文件文件格式不对 (' + settings.fileTypeDesc + ').';
 						break;
 				}
 			}
@@ -1750,7 +1750,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 					errorString = 'Security Error';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-					alert('The upload limit has been reached (' + errorMsg + ').');
+					alert('已达到上传限制次数 (' + errorMsg + ').');
 					errorString = 'Exceeds Upload Limit';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
@@ -1866,7 +1866,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 					data    : {filename: file.name},
 					success : function(data) {
 						if (data == 1) {
-							var overwrite = confirm('A file with the name "' + file.name + '" already exists on the server.\nWould you like to replace the existing file?');
+							var overwrite = confirm('"' + file.name + '" 此文件在服务器上已经存在.\n是否替换已存在文件?');
 							if (!overwrite) {
 								this.cancelUpload(file.id);
 								$('#' + file.id).remove();

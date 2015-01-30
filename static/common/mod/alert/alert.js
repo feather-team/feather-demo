@@ -1,7 +1,7 @@
 var Dialog = require('common:dialog');
 
 return {
-	alert: function(content, opt){
+	alert: function(content, callback, unclose, opt){
 		return new Dialog($.extend({
 			title: '提示',
 			width: 400,
@@ -11,7 +11,8 @@ return {
 				'确定': {
 					events: {
 						click: function(){
-							this.destroy();
+							callback && callback();
+							!unclose && this.destroy();
 						}
 					},
 
