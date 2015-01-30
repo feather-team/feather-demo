@@ -26,3 +26,10 @@ img.src = __uri('/static/1.png');
 var img = new Image;
 img.src = '/a/b/c/d/1.png';
 </pre>
+
+<p>另外，feather对__uri进行了一次扩展，让__uri支持第2个，3个参数，分别为 useHash? useDomain? 默认2个值都为true</p>
+
+<pre class="code" data-type="js">
+var img = new Image;
+img.src = __uri('/static/1.png', true, false);	//只加md5值，不加domain值
+</pre>
