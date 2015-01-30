@@ -6,6 +6,7 @@ function Tooltip(opt){
 		content: null,
 		contentAttr: 'data-tooltip',
 		hover: true,
+		theme: 'orange',
 		pos: '',
 		offset: 0, 
 		className : ''
@@ -36,7 +37,9 @@ Tooltip.prototype.bindEvent = function(){
 Tooltip.prototype.createTip = function(){
 	var _this = this, opts = _this.options, $dom = _this.dom, content = opts.content;
 
-	_this.tip = $('<div class="ui-tooltip-wrap"><div class="ui-tooltip-content"></div><i class="ui-tooltip-arrow"></i></div>').addClass(opts.className);
+	_this.tip = $('<div class="ui-tooltip-wrap"><div class="ui-tooltip-content"></div><i class="ui-tooltip-arrow"></i></div>').addClass('ui-tooltip-theme-' + opts.theme);
+	
+	opts.className && _this.tip.addClass(opts.className);
 
 	if(content == null){
 		var attr = opts.contentAttr || 'title';
@@ -144,7 +147,7 @@ Tooltip.prototype.getPos = function(pos, center){
 	return result;
 };
 
-Tooltip.ARROW_WIDTH = 5;
+Tooltip.ARROW_WIDTH = 7;
 Tooltip.NOT_CENTER_OFFSET = 25 + Tooltip.ARROW_WIDTH;
 
 Tooltip.getPosName = function(pos){
