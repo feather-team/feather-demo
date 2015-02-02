@@ -95,7 +95,7 @@ Calendar.prototype = {
 
 		year && date.setFullYear(year);
 
-		if(month){
+		if(month != null){
 			date.setDate(1);
 			date.setMonth(month);
 		}
