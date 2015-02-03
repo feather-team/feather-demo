@@ -97,13 +97,11 @@ Lightbox.prototype = {
 				src: item.src + '?lightbox-random=' + Math.random(),
 				alt: item.alt,
 				'data-lightbox-index': index
-			}).load(function(){
+			}).hide().bind('load error', function(){
 				self.loadComplete($(this));
-			}).appendTo(self.content).error(function(){
-				self.loadComplete($(this));
-			});
+			}).appendTo(self.content);
 		}else{
-			self.loadComplete($item.show());
+			self.loadComplete($item);
 		}
 	},
 
@@ -111,6 +109,8 @@ Lightbox.prototype = {
 		var self = this, $content = self.content.css('opacity', 0);
 		var width = $item.width(), height = $item.height(), _width = self.container.width(), _height = $content.height();
 		var abs = Math.abs, max = Math.max, time = Lightbox.DEFAULT_TIME;
+
+		$item.show();
 
 		self.container.animate({
 			width: width,
