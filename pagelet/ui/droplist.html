@@ -1,24 +1,60 @@
 <p>DropList: 下拉列表组件</p>
 
-<select id="droplist">
-	<option value="1">北京</option>
-	<option value="2">上海</option>
-	<option value="3">深圳</option>
-	<option value="4">北京1</option>
-	<option value="5">上海1</option>
-	<option value="6">深圳1</option>
-	<option value="7">北京2</option>
-	<option value="8">上海2</option>
-	<option value="9">深圳2</option>
-</select>
+<p>参数列表：</p>
 
-<div style="margin-top: 10px;" id="droplist_container"></div>
+<ul class="ul-list">
+	<li>dom:原生select标签</li>
+	<li>container:渲染droplist的容器</li>
+	</br>
+	<select id="droplist" style="display:none;">
+		<option value="1">北京</option>
+		<option value="2">上海</option>
+		<option value="3">深圳</option>
+		<option value="4">北京1</option>
+		<option value="5">上海1</option>
+		<option value="6">深圳1</option>
+		<option value="7">北京2</option>
+		<option value="8">上海2</option>
+		<option value="9">深圳2</option>
+	</select>
 
-<script data-type="text/html">
+	<div style="margin-top: 10px;" id="droplist_container"></div>
+
+	<script type="text/html" data-type="noclick">
 require.async('common:droplist', function(DropList){
 	new DropList({
 		dom: '#droplist',
 		container: '#droplist_container'
 	});
 });
-</script>
+	</script>
+</ul>
+
+<p>方法列表：</p>
+
+<ul class="ul-list">
+	<li>setValue: 设置droplist的显示值，以原select的value值为参照</li>
+	</br>
+	<select id="droplistDefault" style="display:none;">
+		<option value="1">北京</option>
+		<option value="2">上海</option>
+		<option value="3">深圳</option>
+		<option value="4">北京1</option>
+		<option value="5">上海1</option>
+		<option value="6">深圳1</option>
+		<option value="7">北京2</option>
+		<option value="8">上海2</option>
+		<option value="9">深圳2</option>
+	</select>
+
+	<div style="margin-top: 10px;" id="droplist_default_container"></div>
+
+	<script type="text/html" data-type="noclick">
+require.async('common:droplist', function(DropList){
+	new DropList({
+		dom: '#droplistDefault',
+		container: '#droplist_default_container'
+	}).setValue("5");
+});
+	</script>
+</ul>

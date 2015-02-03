@@ -1,0 +1,19 @@
+<p>LightBox 图片展示组件</p>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>dom:需要设置lightbox的图片元素</li>
+	<li>srcAttr:图片src对应的属性</li>
+	<br/>
+	<img class="img" src="http://d1.sina.com.cn/zhuyan/hanchi/240x350.jpg" />
+	<img class="img" src="http://ubmcmm.baidustatic.com/media/v1/0f000QNxZAw3kc3b4Qu4Pf.gif" />
+	<script data-title="" type="text/html" data-type="noclick">
+require.async('common:lightbox', function(LightBox){
+	new LightBox({
+	  dom: $('.img'),
+	  srcAttr: 'src'
+	});
+});
+	</script>
+</ul>

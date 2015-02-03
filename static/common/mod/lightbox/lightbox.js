@@ -99,7 +99,9 @@ Lightbox.prototype = {
 				'data-lightbox-index': index
 			}).load(function(){
 				self.loadComplete($(this));
-			}).appendTo(self.content);
+			}).appendTo(self.content).error(function(){
+				self.loadComplete($(this));
+			});
 		}else{
 			self.loadComplete($item.show());
 		}
