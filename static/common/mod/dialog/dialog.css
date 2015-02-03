@@ -1,9 +1,9 @@
 .ui-dialog-container{
-	-moz-user-select: none;
-	position: fixed;
+    -moz-user-select: none;
+    position: fixed;
     _position: absolute;
-	left: 0px;
-	top: 0px;
+    left: 0px;
+    top: 0px;
     background: #fff;
     z-index: 10000;
     box-shadow: 0px 0px 5px 1px #000;
@@ -24,7 +24,7 @@
 }
 
 .ui-dialog-header{
-	border-bottom: 1px dashed #999;
+    border-bottom: 1px dashed #999;
     height: 35px;
     line-height: 35px;
     font-size: 14px;
@@ -36,18 +36,19 @@
     text-decoration: none;
     float: right;
     color: #000;
+    font-family: Tahoma;
     font-size: 16px;
 }
 
 .ui-dialog-content{
-	padding: 10px 0px;
+    padding: 10px 0px;
     overflow: auto;
     max-height: 520px;
     min-width: 50px;
 }
 
 .ui-dialog-buttons{
-	text-align: center;
+    text-align: center;
     border-top: 1px dashed #999;
 }
 

@@ -8,3 +8,28 @@
 	background: #ebebeb;
 	color: #333;
 }
+
+.ui-alert-success, .ui-alert-error, .ui-alert-warn{
+    padding: 10px 20px 10px 50px;
+    background-image: url('./images/success.png');
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    text-align: center;
+    display: inline-block;
+}
+
+.ui-alert-error{
+    background-image: url('./images/error.png');
+}
+
+.ui-alert-warn{
+	background-image: url('./images/warn.png');
+}
+
+.ui-alert-success{
+	background-image: url('./images/success.png');
+}
+
+.ui-alert{
+	font-size: 16px;
+}
