@@ -1,6 +1,6 @@
-var Dialog = require('common:dialog');
+var $ = require('common:jquery'), Dialog = require('common:dialog');
 
-return {
+module.exports = {
 	alert: function(content, callback, unclose, opt){
 		return new Dialog($.extend({
 			title: '提示',
@@ -19,6 +19,22 @@ return {
 					className: 'ui-alert-button-confirm'
 				}
 			}
+		}, opt || {}));
+	},
+
+	warn: function(content, callback, unclose, opt){
+		return this.alert('<div class="ui-alert-warn">' + content + '</div>', callback, unclose, opt);
+	},
+
+	error: function(content, callback, unclose, opt){
+		return this.alert('<div class="ui-alert-error">' + content + '</div>', callback, unclose, $.extend({
+			title: '错误'
+		}, opt || {}));
+	},
+
+	success: function(content, callback, unclose, opt){
+		return this.alert('<div class="ui-alert-success">' + content + '</div>', callback, unclose, $.extend({
+			title: '操作成功'
 		}, opt || {}));
 	},
 	/**
