@@ -31,73 +31,33 @@
 				<div class="input_line">
 					<label><i>*</i>账户姓名：</label>
 					<span>
-						<input type="text" id="sLandlordName" class="inputbox" name="sLandlordName" value="" data-formvalid-default="请输入房东的真实姓名">
+						<input type="text" id="sLandlordName" class="inputbox" name="sLandlordName" value="" placeholder="请输入房东的真实姓名">
 					</span>
 				</div>
 				<div class="input_line" style="*margin-top:-20px;">
 					<label><i>*</i>借记卡卡号：</label>
 					<span class="card_num_direction">
-						<input type="text" id="sLandlordCard" class="inputbox" name="sLandlordCard" value="" data-formvalid-default="请输入房东的银行借记卡号，卡号需与账户对应" />
+						<input type="text" id="sLandlordCard" class="inputbox" name="sLandlordCard" value="" placeholder="请输入房东的银行借记卡号" />
 					</span>
 				</div>
 				<div class="input_line">
 					<label><i>*</i>房东手机号码：</label>
 					<span>
-						<input type="text" id="sLandlordMobile" class="inputbox" name="sLandlordMobile" value="" data-formvalid-default="请输入房东手机号码，方便我们推送短信通知" />
+						<input type="text" id="sLandlordMobile" class="inputbox" name="sLandlordMobile" value="" placeholder="请输入房东手机号码" />
 					</span>
-				</div>
-				<div class="input_line">
-					<button id="submit" type="submit">提交表单</button>
-					<span style="color:red">点击一下试试效果</span>
 				</div>
 			</div>	
 		</div>
 	</div>
 </form>
-<p>参数列表：</p>
+<p>使用方法：</p>
 
 <ul class="ul-list">
-	<li>dom:表单的dom</li>
-	<li>showSuccessStatus:表单验证成功的默认效果(值为true)</li>
-	<li>rules:输入框的验证算法设置（json结构），详见例子</li>
-	<br />
 	<script data-title="" type="text/html" data-type="noclick">
-require.async('common:formValid', function(FormValid){
-	var $form = $("#Form");
-	window.fv = new FormValid({
-	  	dom: $form,
-	  	showSuccessStatus: true,
-	  	rules: {
-	  		//rule的key对应form中的name
-	  		sLandlordName: [
-				{
-					rule: function(value) {return !!value},
-					errorText:"不能为空"
-				},
-				{
-					rule: /^[\u4E00-\u9FA5]{2,10}$/,
-					errorText:"必须输入汉字"
-				}
-	  		],
-		  	sLandlordCard: {
-				rule: /^\d{16,19}$/,
-				errorText:"16到19位数字"
-			},
-			sLandlordMobile: [
-				{
-					rule: /^\S+$/,
-					errorText:"不能为空"
-				},
-				{
-					rule: /^\d{11}$/,
-					errorText:"11位"
-				}
-			]
-  		}	
-	});
-	$("#submit").click(function() {
-		window.fv.check();
-	})
+require.async('common:placeholder', function(PlaceHolder){
+    $('#Form').find('input').each(function(){
+        new PlaceHolder({dom: this});
+    });
 });
 	</script>
 </ul>
