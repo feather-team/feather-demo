@@ -40,7 +40,7 @@ a{
 	padding-left: 17px;
 	margin-bottom: 10px;
 
-	li{
+	> li{
 		margin-top: 10px;
 	}
 }
@@ -64,3 +64,6 @@ a{
 .color-white{
 	color: white;
 }
+
+.clearfix { *zoom:1; }
+.clearfix:after { clear:both; content:'.'; display:block; height:0; overflow:hidden; }

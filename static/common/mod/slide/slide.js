@@ -88,6 +88,7 @@ Slide.prototype = {
 
 			self.start(self.index = index, time);
 		}else{
+			self._index = index;
 			self.index = index % self.count;
 
 			if(self.index < 0){
@@ -126,7 +127,7 @@ Slide.prototype = {
 	},
 
 	resume: function(){
-		this.start(this.index);
+		this.start(this._index != null ? this._index : this.index);
 	},
 
 	toNext: function(){

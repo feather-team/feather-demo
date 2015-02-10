@@ -1,0 +1,21 @@
+#slide-test-container{
+	width: 200px;
+	height: 100px;
+	overflow: hidden;
+}
+
+#slide-test img{
+	width: 200px;
+	height: 100px;
+}
+
+#slide-test-easing-container{
+	height: 60px;
+	overflow: hidden;
+	margin: 20px 0px;
+	border: 1px solid #000;
+}
+
+#slide-test-easing p{
+	margin: 0px;
+}

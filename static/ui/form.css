@@ -1,0 +1,29 @@
+form {
+	margin-bottom: 20px;
+}
+
+form label {
+	display: inline-block;
+	width: 155px;
+	text-align: right;
+}
+
+form label i {
+	font-style: normal;
+	color: red;
+	margin-top: 3px;
+	vertical-align: middle;
+}
+
+form input{
+  	width: 220px;
+  	height: 27px;
+  	line-height: 27px;
+  	vertical-align: middle;
+  	border: 1px solid #ccc;
+  	padding-left: 7px;
+}
+
+form .input-line{
+	margin-bottom: 10px;
+}

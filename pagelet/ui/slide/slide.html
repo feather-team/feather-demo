@@ -1,0 +1,90 @@
+<p>Slide 滑动插件</p>
+
+<div id="slide-test-container">
+	<div id="slide-test">
+		<img class="img" src="http://d1.sina.com.cn/zhuyan/hanchi/240x350.jpg" alt="我是第一张图片" />
+		<img class="img" src="http://ubmcmm.baidustatic.com/media/v1/0f000QNxZAw3kc3b4Qu4Pf.gif" />
+		<img class="img" src="http://d.hiphotos.baidu.com/image/pic/item/203fb80e7bec54e79502f417bb389b504ec26ac9.jpg" />
+	</div>
+</div>
+
+<a href="javascript:void(0);" id="slide-to-prev" class="link">点击上一张</a>
+<a href="javascript:void(0);" id="slide-to-next" class="link">点击下一张</a>
+
+<script data-title="" type="text/html" data-type="noclick">
+require.async(['common:slide', 'common:jquery'], function(Slide, $){
+	var slide = new Slide({
+	  	dom: '#slide-test',
+	  	mode: 'vertical',
+	  	noGap: true
+	});
+
+	$('#slide-to-prev').click(function(){
+		slide.toPrev();
+	});
+
+	$('#slide-to-next').click(function(){
+		slide.toNext();
+	});
+});
+</script>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>dom: 滑动的元素，该元素下的直接子元素将参与滑动。</li>
+	<li>time: 每滑动一次所需要的时间，ms</li>
+	<li>cps: 一次滑动几个子元素</li>
+	<li>noGap: 是否无缝滑动</li>
+	<li>
+		easing: 动画函数，同jquery的animate，如果是一个直线函数，则可以实现一个跑马灯特效<br />
+
+		<div id="slide-test-easing-container">
+			<div id="slide-test-easing">
+				<p>1234</p>
+				<p>5678</p>
+				<p>abcd</p>
+				<p>xzwd</p>
+			</div>
+		</div>
+
+		<script data-title="" type="text/html" data-type="noclick">
+require.async(['common:slide', 'common:jquery'], function(Slide, $){
+	var slide = new Slide({
+	  	dom: '#slide-test-easing',
+	  	mode: 'vertical',
+	  	noGap: true,
+	  	easing: 'linear',
+	  	after: function(){
+	  		this.toNext();
+	  	}
+	});
+
+	slide.toNext();
+
+	$('#slide-test-easing-container').hover(function(){
+		slide.pause();
+	}, function(){
+		slide.resume();
+	});
+});
+		</script>
+	</li>
+	<li>mode: 滑动模式可选 vertical|horizontal, 默认horizontal：水平滑动</li>
+	<li>before: 滑动之前触发的回调</li>
+	<li>after: 滑动之后触发的回调</li>
+</ul>
+
+<p>方法列表：</p>
+<ul class="ul-list">
+	<li>refresh(): 用于刷新当前索引正确位置，比如改变了dom的结构，大小等，调用此方法会自动调整为正确的位置</li>
+	<li>to(index[, time]): 直接滑动至某个索引， time可临时指定一个时间</li>
+	<li>pause(): 暂停滑动</li>
+	<li>resume(): 恢复滑动</li>
+	<li>toNext(): 滑至下个索引</li>
+	<li>toPrev(): 滑至上个索引</li>
+	<li>toFirst(): 滑至第一页</li>
+	<li>toLast(): 滑至最后一页</li>
+	<li>isFirst(): 检查是否为第一页</li>
+	<li>isLast(): 检查是否为最后一页</li>
+</ul>

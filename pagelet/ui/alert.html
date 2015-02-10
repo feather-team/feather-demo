@@ -12,9 +12,32 @@ require.async('common:alert', function(Alert){
 
 		<script data-title="" type="text/html">
 require.async('common:alert', function(Alert){
-	Alert.alert('使用fsdfsfsdfsfsddddfsd自定义dsfsdfsdfsfsdf自定义的111title', function(){}, false, {
-		title: '哈哈哈哈'
+	Alert.alert('使用回调的alert', function(){
+		alert(123);
+	}, false, {
+		title: '使用回调'
 	});
+})	
+		</script>
+	</li>
+	<li>warn(content[, callback, unclose, dialogOptions]): 参数同alert
+		<script data-title="" type="text/html">
+require.async('common:alert', function(Alert){
+	Alert.warn('我是warn');
+})	
+		</script>
+	</li>
+	<li>success(content[, callback, unclose, dialogOptions]): 参数同alert
+		<script data-title="" type="text/html">
+require.async('common:alert', function(Alert){
+	Alert.success('我是success');
+})	
+		</script>
+	</li>
+	<li>error(content[, callback, unclose, dialogOptions]): 参数同alert
+		<script data-title="" type="text/html">
+require.async('common:alert', function(Alert){
+	Alert.error('我是error');
 })	
 		</script>
 	</li>

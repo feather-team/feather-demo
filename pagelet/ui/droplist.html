@@ -3,58 +3,65 @@
 <p>参数列表：</p>
 
 <ul class="ul-list">
-	<li>dom:原生select标签</li>
-	<li>container:渲染droplist的容器</li>
-	</br>
-	<select id="droplist" style="display:none;">
-		<option value="1">北京</option>
-		<option value="2">上海</option>
-		<option value="3">深圳</option>
-		<option value="4">北京1</option>
-		<option value="5">上海1</option>
-		<option value="6">深圳1</option>
-		<option value="7">北京2</option>
-		<option value="8">上海2</option>
-		<option value="9">深圳2</option>
-	</select>
+	<li>dom: select元素</li>
+	<li>
+	container:渲染droplist的容器
+	<br />
+		<select id="droplist" style="display:none;">
+			<option value="1">北京</option>
+			<option value="2">上海</option>
+			<option value="3">深圳</option>
+			<option value="4">北京1</option>
+			<option value="5">上海1</option>
+			<option value="6">深圳1</option>
+			<option value="7">北京2</option>
+			<option value="8">上海2</option>
+			<option value="9">深圳2</option>
+		</select>
 
-	<div style="margin-top: 10px;" id="droplist_container"></div>
+		<div style="margin-top: 10px;" id="droplist_container"></div>
 
-	<script type="text/html" data-type="noclick">
+		<script type="text/html" data-type="noclick">
 require.async('common:droplist', function(DropList){
 	new DropList({
 		dom: '#droplist',
 		container: '#droplist_container'
 	});
 });
-	</script>
+		</script>
+	</li>
+	<li>
+		list: 如果不传递select元素的话，也可以直接传递一个对象
+		<script type="text/html" data-type="show">
+{
+	"北京": "1",
+	"上海": "2",
+	"深圳": "3",
+	"XXX": "4",
+	//如果需要分组，则可以使用2级对象
+	"分组": {
+		"f1": "f1",
+		"f2": "f2",
+		"f3": "f3"
+	}
+}
+		</script>
+	</li>
+	<li>items: 这个参数是list的别名</li>
+	<li>width：指定droplist的宽度，如果不指定的话，droplist会根据每次的值的长度不同自动调整宽度，同select标签</li>
+	<li>callback(key, value): 指定选择后的回调函数，每次选择后都会执行</li>
 </ul>
 
 <p>方法列表：</p>
 
 <ul class="ul-list">
-	<li>setValue: 设置droplist的显示值，以原select的value值为参照</li>
-	</br>
-	<select id="droplistDefault" style="display:none;">
-		<option value="1">北京</option>
-		<option value="2">上海</option>
-		<option value="3">深圳</option>
-		<option value="4">北京1</option>
-		<option value="5">上海1</option>
-		<option value="6">深圳1</option>
-		<option value="7">北京2</option>
-		<option value="8">上海2</option>
-		<option value="9">深圳2</option>
-	</select>
-
-	<div style="margin-top: 10px;" id="droplist_default_container"></div>
-
-	<script type="text/html" data-type="noclick">
-require.async('common:droplist', function(DropList){
-	new DropList({
-		dom: '#droplistDefault',
-		container: '#droplist_default_container'
-	}).setValue("5");
-});
-	</script>
+	<li>setValue(value[, key]): 设置droplist的值，如果不指定key的话，会自动查找到正确的key进行显示，否则按照指定的key显示，如果指定的value不存在时，则不做任何操作</li>
+	<li>getValud(): 获取当前值</li>
+	<li>openList(): 打开列表</li>
+	<li>closeList(): 关闭列表</li>
+	<li>setList(list[, defaultValud, defaultKey]): 动态为一个list绑定droplist，list的类型可为一个select标签，或者jquery的选择器，或者是一个标准的list对象</li>
+	<li>resetWidth(): 手动重新设置宽度</li>
+	<li>dom2list(selectDom): 将一个元素的option列表都转成标准的droplist所支持的list格式</li>
+	<li>disable: 设置禁用，如果dom不为空，则同时设置dom禁用</li>
+	<li>enable: 取消禁用</li>
 </ul>

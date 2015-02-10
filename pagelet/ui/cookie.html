@@ -1,0 +1,20 @@
+<p>cookie插件</p>
+
+<p>方法列表</p>
+<ul class="ul-list">
+	<li>get(key[, _defaultValue]): 获取值</li>
+	<li>set(key, value[, options]): 设置一个cookie
+	<script data-type="show" type="text/html">
+require.async('common:cookie', function(Cookie){
+	Cookie.set('name', '123', {
+		domain: 'www.xxx.com',
+		expires: 3600,
+		path: '/a/b',
+		secure: true
+	});
+
+	console.log(Cookie.get('name', '没有值时的值'));
+});
+	</script>
+	</li>
+</ul>

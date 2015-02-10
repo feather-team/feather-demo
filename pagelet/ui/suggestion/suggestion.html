@@ -1,0 +1,90 @@
+<p>Suggestion组件</p>
+
+<p>参数列表：</p>
+
+<script>
+require.async('common:jquery', function($){
+	$('.suggestion-input').bind('click mousedown', function(e){
+		e.stopPropagation();
+	});
+
+	$(document).click(function(){
+		$('.suggestion-input').blur();
+	});
+});
+</script>
+
+<ul class="ul-list">
+	<li>
+		dom: 绑定suggestion的元素
+		<br />
+
+		<input type="text" class="suggestion-input" id="suggestion-options-dom" />
+
+		<script data-type="noclick" type="text/html">
+require.async(['common:suggestion', 'common:placeholder'], function(Suggestion, PlaceHolder){
+	new Suggestion({
+		dom: '#suggestion-options-dom',
+		data: ['h', '123', '333', 'xxx']	//默认数据源必须为数组，如果有特殊需求，可设置match回调函数
+	});
+
+	new PlaceHolder({
+		dom: '#suggestion-options-dom',
+		text: '输入你要查询的内容'
+	});
+});
+		</script>
+	</li>
+	<li>width: 设置宽度，宽度插件会自动调整，如果有特殊需要，可设置此值。</li>
+	<li>max: 最大显示的条数，默认为10。</li>
+	<li>url: 以异步方式获取数据的地址。</li>
+	<li>kw: 请求数据时，关键词的字段，默认为'kw'</li>
+	<li>requestParams: 其他的请求参数</li>
+	<li>resultField: 返回数据的字段，默认为直接返回的数据，如果返回的数据格式为{status: 1, data: {data: [xxx]}}, 并且想获取data下面的data属性座位数据源，则可以指定该参数为'data.data'</li>
+	<li>delay: 延迟发送请求时间，默认为300ms</li>
+	<li>data: 设置一个本地数据源，默认数据源必须为数组</li>
+	<li>
+	match(data, kw): 重新设置一个自己的match回调，返回值需要为一个数组，默认的match函数只会查找以KW开头的匹配项
+	<br />
+	<input type="text" class="suggestion-input" id="suggestion-options-match" />
+	<script data-type="noclick" type="text/html">
+require.async(['common:suggestion', 'common:placeholder'], function(Suggestion, PlaceHolder){
+	new Suggestion({
+		dom: '#suggestion-options-match',
+		data: {
+			'123': '123',
+			'111': '111'	
+		},	//默认数据源必须为数组，如果有特殊需求，可设置match回调函数
+		match: function(data, kw){
+			var tmp = [];
+
+			for(var i in data){
+				if(data[i].indexOf(kw) > -1){
+					tmp.push(data[i]);
+				}
+			}
+
+			return tmp;
+		},
+		format: function(text, kw){
+			return text.replace(kw, '<span style="color: red; font-weight: bold;">' + kw + '</span>');
+		}
+	});
+
+	new PlaceHolder({
+		dom: '#suggestion-options-dom',
+		text: '输入你要查询的内容'
+	});
+});
+	</script>
+	</li>
+	<li>format(text, kw): 重新设置一个自己的format回调，返回值为字符串，默认返回直接匹配到的候选项</li>
+</ul>
+
+<p>方法列表：</p>
+
+<ul class="ul-list">
+	<li>setData(data): 手动设置一个本地数据源</li>
+	<li>open(): 手动打开</li>
+	<li>close(): 手动关闭</li>
+</ul>

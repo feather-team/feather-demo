@@ -37,7 +37,7 @@ require.async('common:tabs', function(Tabs){
 	});
 });
 	</script>
-	<li>callback:切换后的回调函数<span style="color:red">（目前callback不支持传入点击对象，且初始化时就会触发一次）</span></li>
+	<li>callback(index):切换后的回调函数<span style="color:red">（目前callback不支持传入点击对象，且初始化时就会触发一次）</span></li>
 	<br/>
 	<div id="tabDomThree" class="tabDom" style="width:330px">
 		<a href="javascript:;" style="border-right:1px solid #E1E1E1">Page One</a>
@@ -51,7 +51,7 @@ require.async('common:tabs', function(Tabs){
 	  attr: "href",     
 	  currentClass: "current",
 	  currentIndex: 1,
-	  callback: function(){alert("切换后的回调函数")}
+	  callback: function(index){alert("切换后的回调函数, 当前index为" + index)}
 	});
 });
 	</script>

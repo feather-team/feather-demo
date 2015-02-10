@@ -1,30 +1,54 @@
+<link rel="stylesheet" type="text/css" href="/static/ui/form.css" />
+
 <p>FormValid 表单验证组件</p>
 
-<style type="text/css">
-	.account_detail .input_line {
-		margin-bottom: 20px;
-	}
-	.account_detail .input_line label {
-		display: inline-block;
-		width: 155px;
-		text-align: right;
-	}
-	.account_detail .input_line label i {
-		font-style: normal;
-		color: red;
-		margin-top: 3px;
-		vertical-align: middle;
-	}
-	.input_line .inputbox {
-	  	width: 220px;
-	  	height: 27px;
-	  	line-height: 27px;
-	  	vertical-align: middle;
-	  	border: 1px solid #ccc;
-	  	padding-left: 7px;
-	}
-</style>
-<form id="Form" class="modify_form">
+<form id="formvalid-test">
+	<div class="input-line">
+		<label><i>*</i>账户姓名：</label>
+		<span>
+			<input type="text" class="inputbox" name="sLandlordName" value="" data-formvalid-default="请输入房东的真实姓名">
+		</span>
+	</div>
+	<div class="input-line">
+		<label><i>*</i>借记卡卡号：</label>
+		<span>
+			<input type="text" class="inputbox" name="sLandlordCard" value="" data-formvalid-default="请输入房东的银行借记卡号，卡号需与账户对应" />
+		</span>
+	</div>
+	<div class="input-line">
+		<label><i>*</i>房东手机号码：</label>
+		<span>
+			<input type="text" name="sLandlordMobile" value="" 
+				data-formvalid-default="请输入房东手机号码，方便我们推送短信通知" 
+				data-formvalid-number
+				data-formvalid-length="11"
+				data-formvalid-length-error="手机号码必须为11位数字"
+				data-formvalid-length-success="手机号码正确"
+			/>
+		</span>
+	</div>
+	<div class="input-line">
+		<button id="submit" type="submit">点我，查看效果</button>
+	</div>
+</form>
+
+<p>内置规则属性：</p>
+<p>内置规则属性如果不指定对应的error和success属性，则按默认的错误或者正确提示方式显示，属性的规则为：规则属性-error|sucess (如：data-formvalid-required-error)</p>
+<ul class="ul-list">
+	<li>data-formvalid-required: 必填</li>
+	<li>data-formvalid-email: 该字段必须为邮箱格式</li>
+	<li>data-formvalid-number: 必须为数字</li>
+	<li>data-formvalid-length: 该字段需要开发者自己设置字段值，比如data-formvalid-length="1,9"，则表示该字段必须为1-9个字符长度</li>
+</ul>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>dom:表单的dom</li>
+	<li>showSuccessStatus:表单验证成功的默认效果(值为true)</li>
+	<li>rules:输入框的验证算法设置，详见例子</li>
+	<script data-title="html代码" type="text/html" data-type="show" data-highlighter-type="html">
+<form id="formvalid-test" class="modify_form">
 	<div class="input_content">
 		<div class="account_detail">
 			<div class="content">
@@ -43,7 +67,13 @@
 				<div class="input_line">
 					<label><i>*</i>房东手机号码：</label>
 					<span>
-						<input type="text" id="sLandlordMobile" class="inputbox" name="sLandlordMobile" value="" data-formvalid-default="请输入房东手机号码，方便我们推送短信通知" />
+						<input type="text" id="sLandlordMobile" class="inputbox" name="sLandlordMobile" value="" 
+							data-formvalid-default="请输入房东手机号码，方便我们推送短信通知" 
+							data-formvalid-number
+							data-formvalid-length="11"
+							data-formvalid-length-error="手机号码必须为11位数字"
+							data-formvalid-length-success="手机号码正确"
+						/>
 					</span>
 				</div>
 				<div class="input_line">
@@ -54,25 +84,24 @@
 		</div>
 	</div>
 </form>
-<div style="color:red">input标签可以设置data-formvalid-default属性，用以显示输入提示</div>
-<p>参数列表：</p>
-
-<ul class="ul-list">
-	<li>dom:表单的dom</li>
-	<li>showSuccessStatus:表单验证成功的默认效果(值为true)</li>
-	<li>rules:输入框的验证算法设置（json结构），详见例子</li>
-	<br />
-	<script data-title="" type="text/html" data-type="noclick">
+	</script>
+	<script data-title="js代码" type="text/html" data-type="noclick">
 require.async('common:formValid', function(FormValid){
-	var $form = $("#Form");
-	window.fv = new FormValid({
-	  	dom: $form,
+	$("#formvalid-test input[type=text]").mousedown(function(e){
+		e.stopPropagation();
+	});
+
+	var fv = new FormValid({
+	  	dom: $("#formvalid-test"),
 	  	showSuccessStatus: true,
 	  	rules: {
 	  		//rule的key对应form中的name
+	  		//多个rule可使用数组
 	  		sLandlordName: [
-				{
+				{	
+					//判断规则
 					rule: function(value) {return !!value},
+					//错误信息
 					errorText:"不能为空"
 				},
 				{
@@ -80,24 +109,22 @@ require.async('common:formValid', function(FormValid){
 					errorText:"必须输入汉字"
 				}
 	  		],
+
 		  	sLandlordCard: {
 				rule: /^\d{16,19}$/,
 				errorText:"16到19位数字"
-			},
-			sLandlordMobile: [
-				{
-					rule: /^\S+$/,
-					errorText:"不能为空"
-				},
-				{
-					rule: /^\d{11}$/,
-					errorText:"11位"
-				}
-			]
+			}
   		}	
 	});
-	$("#submit").click(function() {
-		window.fv.check();
+
+	$('#formvalid-test').submit(function() {
+		if(fv.check()){
+			//do
+		}else{
+
+		}
+
+		return false;
 	})
 });
 	</script>
@@ -106,12 +133,9 @@ require.async('common:formValid', function(FormValid){
 <p>方法列表</p>
 
 <ul class="ul-list">
-	<li>error:直接设置输入框验证错误信息</li>
-	<script data-title="" type="text/html">
-		window.fv.error("sLandlordName","直接触发该输入框错误");
-	</script>
-	<li>error:直接设置输入框验证成功信息</li>
-	<script data-title="" type="text/html">
-		window.fv.success("sLandlordMobile","成功");
-	</script>
+	<li>check([name]): 对某一个字段，或者所有字段触发一次check操作</li>
+	<li>error(name, vtext): 对某一个字段，手动触发error，并指定一个错误信息</li>
+	<li>success(name, vtext): 对某一个字段，手动触发success，并指定一个成功信息</li>
+	<li>reset([name]): 将某一个字段，或者所有字段，回到默认提示状态</li>
+	<li>addRule(name, rule): 对某一个字段增加一个规则</li>
 </ul>

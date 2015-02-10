@@ -1,0 +1,85 @@
+<p>Tooltip提示框</p>
+
+<p>参数列表：</p>
+
+<ul class="ul-list">
+	<li>
+		dom: 需要绑定tooltip的元素
+		<br />
+		<a href="javascript:void(0);" id="tooltip-options-dom" class="link">hover me</a>
+		<script data-type="noclick" type="text/html">
+require.async('common:tooltip', function(ToolTip){
+	new ToolTip({
+		dom: '#tooltip-options-dom',
+		content: 'fdjskfdskfjds<br />kfjdksjfksdfjkj'
+	});
+});
+		</script>
+	</li>
+
+	<li>content: 内容</li>
+	<li>contentAttr:　如果content为空，则可以设置此项目，表示使用元素的哪一个属性值作为content，默认为data-tooltip</li>
+	<li>hover: 是否hover时显示和隐藏，默认为true，如果指定为false，则需要手动打开和关闭
+		<br />
+		<a href="javascript:void(0);" id="tooltip-options-hover" class="link">click me</a>
+		<script data-type="noclick" type="text/html">
+require.async('common:tooltip', function(ToolTip){
+	var t = new ToolTip({
+		dom: '#tooltip-options-hover',
+		content: 'fdjskfdskfjds<br />kfjdksjfksdfjkj',
+		hover: false
+	});
+
+	$('#tooltip-options-hover').click(function(){
+		//自动切换隐藏
+		t.toggle();
+	});
+});
+		</script>
+	</li>
+	<li>theme: 指定风格，默认值为orange，目前可选值orange|gray，也可以自定义，但是需要自己定义对应样式，具体可查看tooltip.css
+		<br />
+		<a href="javascript:void(0);" id="tooltip-options-theme" class="link">click me</a>
+		<script data-type="noclick" type="text/html">
+require.async('common:tooltip', function(ToolTip){
+	var t = new ToolTip({
+		dom: '#tooltip-options-theme',
+		content: 'fdjskfdskfjds<br />kfjdksjfksdfjkj',
+		hover: false,
+		theme: 'gray'
+	});
+
+	$('#tooltip-options-theme').click(function(){
+		//自动切换隐藏
+		t.toggle();
+	});
+});
+		</script>
+	</li>
+	<li>pos: 指定出现位置，默认为top，值的格式为：top-left|left-top|top left|left top，可选值为top|right|left|bottom|top left|top right|right bottom|left bottom
+		<br />
+		<a href="javascript:void(0);" id="tooltip-options-pos" class="link">hover me</a>
+		<script data-type="noclick" type="text/html">
+require.async('common:tooltip', function(ToolTip){
+	new ToolTip({
+		dom: '#tooltip-options-pos',
+		content: 'fdjskfdskfjds<br />kfjdksjfksdfjkj',
+		theme: 'gray',
+		pos: 'left-bottom'
+	});
+});
+		</script>
+	</li>
+	<li>offset: 指定偏移值，该值是向指定的坐标的方向偏移，比如指定bottom，offset为正值，则tooltip的位置会更向下，如果是bottom right,则会向2个方向加上坐标值</li>
+	<li>className: 指定一个classname，可自定义自己的样式</li>
+</ul>
+
+<p>方法列表：</p>
+
+<ul class="ul-list">
+	<li>setContent(content): 动态设置一个content</li>
+	<li>show(): 显示</li>
+	<li>hide(): 隐藏</li>
+	<li>toggle(): 动态切换隐藏还是显示</li>
+	<li>setPos(pos): 动态一个坐标位置，同options里的pos参数，可选值top|right|left|bottom|top left|top right|right bottom|left bottom</li>
+</ul>

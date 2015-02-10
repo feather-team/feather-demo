@@ -1,62 +1,42 @@
+<link rel="stylesheet" type="text/css" href="/static/ui/form.css" />
+
 <p>placeholder 输入框提示组件（hack IE浏览器）</p>
 
-<style type="text/css">
-	.account_detail .input_line {
-		margin-bottom: 20px;
-	}
-	.account_detail .input_line label {
-		display: inline-block;
-		width: 155px;
-		text-align: right;
-	}
-	.account_detail .input_line label i {
-		font-style: normal;
-		color: red;
-		margin-top: 3px;
-		vertical-align: middle;
-	}
-	.input_line .inputbox {
-	  	width: 220px;
-	  	height: 27px;
-	  	line-height: 27px;
-	  	vertical-align: middle;
-	  	border: 1px solid #ccc;
-	  	padding-left: 7px;
-	}
-</style>
-<form id="Form" class="modify_form">
-	<div class="input_content">
-		<div class="account_detail">
-			<div class="content">
-				<div class="input_line">
-					<label><i>*</i>账户姓名：</label>
-					<span>
-						<input type="text" id="sLandlordName" class="inputbox" name="sLandlordName" value="" placeholder="请输入房东的真实姓名">
-					</span>
-				</div>
-				<div class="input_line" style="*margin-top:-20px;">
-					<label><i>*</i>借记卡卡号：</label>
-					<span class="card_num_direction">
-						<input type="text" id="sLandlordCard" class="inputbox" name="sLandlordCard" value="" placeholder="请输入房东的银行借记卡号" />
-					</span>
-				</div>
-				<div class="input_line">
-					<label><i>*</i>房东手机号码：</label>
-					<span>
-						<input type="text" id="sLandlordMobile" class="inputbox" name="sLandlordMobile" value="" placeholder="请输入房东手机号码" />
-					</span>
-				</div>
-			</div>	
-		</div>
+<form id="placeholder-test" class="modify_form">
+	<div class="input-line">
+		<label><i>*</i>账户姓名：</label>
+		<span>
+			<input type="text" name="sLandlordName" value="" placeholder="请输入房东的真实姓名">
+		</span>
+	</div>
+	<div class="input-line">
+		<label><i>*</i>借记卡卡号：</label>
+		<span class="card_num_direction">
+			<input type="text"  name="sLandlordCard" value="" placeholder="请输入房东的银行借记卡号" />
+		</span>
+	</div>
+	<div class="input-line">
+		<label><i>*</i>房东手机号码：</label>
+		<span>
+			<input type="text" name="sLandlordMobile" value="" placeholder="请输入房东手机号码" />
+		</span>
 	</div>
 </form>
 <p>使用方法：</p>
 
 <ul class="ul-list">
 	<script data-title="" type="text/html" data-type="noclick">
-require.async('common:placeholder', function(PlaceHolder){
-    $('#Form').find('input').each(function(){
-        new PlaceHolder({dom: this});
+require.async(['common:jquery', 'common:placeholder'], function($, PlaceHolder){
+    $('#placeholder-test').find('input').each(function(){
+    	$(this).mousedown(function(e){
+    		e.stopPropagation();
+    	});
+        
+        //默认placeholder会使用元素的placeholder或者data-placeholder属性值当做内容
+        new PlaceHolder({
+        	dom: this/*,
+			text: '指定一个内容'*/
+       	});
     });
 });
 	</script>

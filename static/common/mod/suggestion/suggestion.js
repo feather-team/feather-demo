@@ -11,7 +11,6 @@ function Suggestion(opts){
 		kw: 'kw',
 		requestParams: {},
 		resultField: '',
-		callback: function(){},
 		match: null,
 		format: null
 	}, opts || {});
@@ -87,7 +86,7 @@ Suggestion.prototype = {
 
 		var $item = self.items.eq(index).addClass('ui-suggestion-active');
 
-		self.dom.val($item.attr('data-suggestion-kw'));
+		self.setKw($item.attr('data-suggestion-kw'));
 
 		e.preventDefault();
 	},
@@ -105,7 +104,10 @@ Suggestion.prototype = {
 		self.tid = setTimeout(function(){
 			var kw = self.dom.val();
 
-			if(!kw) return;
+			if(!$.trim(kw)){
+				self.close();
+				return;
+			}
 
 			var data = self.data, cache = Suggestion.cache[kw];
 			

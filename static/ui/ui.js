@@ -14,7 +14,7 @@ require.async(['common:jquery', 'common:highlighter', 'common:iscroll'], functio
 				var $pre = $('<pre class="code">').text(text).insertBefore(this);
 
 				Highligter($pre[0], {
-					type: 'js',
+					type: $(this).attr('data-highlighter-type') || 'js',
 					title: $(this).attr('data-title')
 				});
 			}
