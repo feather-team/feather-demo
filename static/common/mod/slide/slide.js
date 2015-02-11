@@ -1,4 +1,4 @@
-var $ = require('common:jquery')//, Draggable = require('draggable');
+var $ = require('common:jquery'), now = $.now;//, Draggable = require('draggable');
 
 var Slide = module.exports = function(opt) {
 	this.options = $.extend({
@@ -107,7 +107,9 @@ Slide.prototype = {
 		self.isRuning = true;
 		opt.before && opt.before.call(self);
 
-		self.dom.animate(obj, time || opt.time, opt.easing, function(){
+		self._duration = time || opt.time;
+		self._startTime = now();
+		self.dom.animate(obj, self._duration, opt.easing, function(){
 			if(index != self.index){
 				self.dom.css(self.mode, self.getTargetValue(self.index));
 			}
@@ -123,11 +125,15 @@ Slide.prototype = {
 	},
 
 	pause: function(){
+		this._endTime = now();
 		this.stop();
 	},
 
 	resume: function(){
-		this.start(this._index != null ? this._index : this.index);
+		var self = this, time;
+
+		time = Math.max(1, self._duration - (self._endTime - self._startTime));
+		self.start(self.options.noGap ? self._index : self.index, time);
 	},
 
 	toNext: function(){
