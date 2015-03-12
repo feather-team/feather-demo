@@ -34,6 +34,7 @@ require.async(['common:slide', 'common:jquery'], function(Slide, $){
 <ul class="ul-list">
 	<li>dom: 滑动的元素，该元素下的直接子元素将参与滑动。</li>
 	<li>time: 每滑动一次所需要的时间，ms</li>
+	<li>maxIndex: 最大滚动的index，注：此参数和nogap一起使用时，无效</li>
 	<li>cps: 一次滑动几个子元素</li>
 	<li>noGap: 是否无缝滑动，无缝滚动时，cps和滑动元素的子元素总数必须为整数倍关系。比如子元素总数为4，则cps可为1，2，4。如果为5的话，则cps只能为1或者5。</li>
 	<li>
