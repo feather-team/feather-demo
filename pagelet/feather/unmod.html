@@ -1,0 +1,59 @@
+<p>如果想关闭feather种的模块化加载工具，可以这样做：</p>
+
+<pre class="code" data-type="js" data-title="feather_conf.js">
+feather.config.merge({
+	moduleLoader: false
+});
+</pre>
+
+<p>设置moduleloader为false时，feather.js则不会加载，如果需要处理依赖，可以使用feather的依赖声明功能，同时，require()一样会被分析依赖</p>
+
+<p>关闭modulelodaer后，可以使用其他模快化加载工具开发，比如拿requirejs举例：</p>
+
+<pre class="code" data-type="shell" data-title="目录结构">
+├── component
+├── page
+│   └── index.html
+├── static
+│   └── require.js
+├── test
+├── feather_conf.js
+├── feather_rewrite.php
+├── feather_compatible.php
+</pre>
+
+<pre class="code" data-type="html" data-title="/page/index.html">
+&lt;html>
+&lt;head>
+&lt;script src="/static/require.js" feather-position-head data-main="index.js">&lt;/script>
+&lt;/head>
+
+&lt;body>
+
+&lt;/body>
+&lt;/html>
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/index.js">
+//此处注意，如果非define环境的话，需要使用requirejs代替require来使用
+//因非define环境的require被feather当成收集依赖的关键字处理了, 为了避免出现冲突，尽量不要使用
+requirejs.confg({
+	paths: {
+		"/static": 'static'	//因requirejs所有以/开头的路径只会相对于baseurl
+	}
+});
+
+define(function(require){
+	require('/static/mod/a.js');
+});
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/mod/a.js">
+module.exports = require('./b.js');
+</pre>
+
+<pre class="code" data-type="js" data-title="/static/mod/b.js">
+return {
+	name: "b"
+};
+</pre>
