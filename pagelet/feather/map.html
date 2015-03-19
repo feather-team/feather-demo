@@ -1,83 +1,34 @@
-<p>项目上线之前需要后端的模版引擎配合加载map表，如果是非map表模式则不需要，后端可选择feather提供的模版引擎<a class="link" href="https://github.com/feather-ui/feather_view">feather_view</a>，也可以使用自己的模版引擎，如果使用自己的模版引擎需要实现3个接口和一个插件注入机制。</p>
-<p>在feather-view中，赋值和取值的接口分别为set和get，以及load方法，原型为：</p>
+<p>项目上线之前需要后端的模版引擎配合加载map表，如果是非map表模式则不需要，后端可选择feather提供的模版引擎<a class="link" href="https://github.com/feather-ui/feather_view">feather_view</a>，也可以使用自己的模版引擎。</p>
+
+
+<p>选择使用自己模版引擎的项目，可使用适配器模式：</p>
 <pre class="code" data-type="php">
 &lt;?php
-class Feather_View{
-	//....
-	public function set($key, $name = null){
+class Template{
+	protected $view;
 
+	public function __construct(){
+		$this->view = new Feather_View;
+		$this->view->template_dir = '/data/tpl';
+		//静态资源map表插件自动读取
+		$this->view->registerPlugin('autoload_static', array(
+			'domain' => 'http://static.xxx.com',
+			'maps' => glob('/data/maps/**.php'),	//可不设置，插件自动读取template_dir下的map目录，或者template_dir同级的map目录
+			'cachine' => true, //开启缓存
+			'cache' => new Feather_View_File_Cache, //使用cache助手，此类必须继承于Feather_View_Cache_Abstract
+		));
+	}
+
+	public function set($key, $name = null){
+		$this->view->set($key, $name);
 	}
 
 	public function get($key = null){
-
+		return $this->view->get($key);
 	}
 
-	//模版内嵌模版使用
-	public function load($path = ''){
-
+	public function render($path = ''){
+		return $this->view->fetch($path);
 	}
-	//....
-}
-</pre>
-
-<p>选择使用自己模版引擎的项目，如果不支持这两个方法，可使用适配器模式解决</p>
-<pre class="code" data-type="php">
-&lt;?php
-class AdapterTemplate extends OldTemplate{
-	public function set($key, $name = null){
-		parent::set($key, $name);
-	}
-
-	public function get($key = null){
-		return prent::get($key);
-	}
-
-	public function load($path = ''){
-		//注：load时，不调用feather_view_autoload_static插件，则会导致资源重复加载
-		$this->display();
-	}
-}
-</pre>
-
-<p>另需要实现插件注入机制</p>
-<pre data-type="php" class="code">
-&lt;?php
-//此代码仅是示例，可自行选择合适的方式
-class AdapterTemplate extends OldTemplate{
-	public function set($key, $name = null){
-		$this->old_set($key, $name);
-	}
-
-	public function get($key = null){
-		return $this->old_get($key);
-	}
-
-	public function registerPlugsin($name, $options){
-		$this->plugins[] = array('name' => $name, 'options' => $options);
-	}
-
-	public function display($path){
-		foreach($this->plugins as $key => $plugins){
-			$content = $plugins['name']($path, $content, $this, $plugins['options']);
-		}
-
-		$this->old_display($path);
-	}
-}
-
-//注册插件代码，该代码可参考feather_view github上的使用方式
-$view = new AdapterTemplate;
-$view->registerPlugins('feather_view_autoload_static', array(
-	'resources' => glob(dirname(__FILE__) . '/map/**'),
-	'domain' => 'http://www.baidu.com',
-	'cache_dir' => 'a'
-))
-</pre>
-
-<p>如果模版引擎本身就支持插件机制，则实现一个插件的适配即可</p>
-<pre data-type="php" class="code">
-&lt;?php
-function old_plugins(){
-	feather_view_autoload_static(/*参数*/);
 }
 </pre>

@@ -37,6 +37,8 @@ require.async(['common:suggestion', 'common:placeholder'], function(Suggestion, 
 	</li>
 	<li>width: 设置宽度，宽度插件会自动调整，如果有特殊需要，可设置此值。</li>
 	<li>max: 最大显示的条数，默认为10。</li>
+	<li>caching: 是否使用缓存，默认使用</li>
+	<li>empty2close: input值为空时，关闭，默认为true，如果当input值为空时，不需要关闭，可设置为false，并在match函数中做一些操作，比如为空时显示的默认选项。</li>
 	<li>url: 以异步方式获取数据的地址。</li>
 	<li>kw: 请求数据时，关键词的字段，默认为'kw'</li>
 	<li>requestParams: 其他的请求参数</li>
@@ -79,7 +81,8 @@ require.async(['common:suggestion', 'common:placeholder'], function(Suggestion, 
 	</script>
 	</li>
 	<li>format(text, kw): 重新设置一个自己的format回调，返回值为字符串，默认返回直接匹配到的候选项</li>
-	<li>callback(text): 选中候选项时，触发回调，this指suggestion对象，text为选中项的关键词选项</li>
+	<li>switchCallback(text): 上下键切换候选词时，触发的回调函数</li>
+	<li>callback(text): 选中候选项时，比如回车、点击某一个项时触发回调，this指suggestion对象，text为选中项的关键词选项</li>
 </ul>
 
 <p>方法列表：</p>
@@ -88,4 +91,6 @@ require.async(['common:suggestion', 'common:placeholder'], function(Suggestion, 
 	<li>setData(data): 手动设置一个本地数据源</li>
 	<li>open(): 手动打开</li>
 	<li>close(): 手动关闭</li>
+	<li>setRequestParams(): 设置请求参数</li>
+	<li>setTitle(): 设置一个title，title会显示在候选项的上一行</li>
 </ul>
