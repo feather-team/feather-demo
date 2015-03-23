@@ -13,7 +13,7 @@ class TemplateAdapter{
 		//静态资源map表插件自动读取
 		$this->view->registerPlugin('autoload_static', array(
 			'domain' => 'http://static.xxx.com',
-			'maps' => glob('/data/maps/**.php'),	//可不设置，插件自动读取template_dir下的map目录，不存在则读取template_dir同级的map目录
+			'map' => glob('/data/map/**.php'),	//可不设置，插件自动读取template_dir下的map目录，不存在则读取template_dir同级的map目录
 			'caching' => true, //开启缓存
 			'cache' => new Feather_View_Plugin_Cache_File(array('cache_dir' => '/data/cache')), //使用cache助手，可自行实现一个类，此类必须继承于Feather_View_Plugin_Cache_Abstract，也可使用内置的CACHE_FILE类
 		));
