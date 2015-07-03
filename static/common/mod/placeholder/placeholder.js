@@ -1,4 +1,16 @@
-var $ = require('common:jquery');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.PlaceHolder = factory(window.jQuery || window.$);
+}
+})(window, function($){
 
 function PlaceHolder(opt){
 	this.options = $.extend({
@@ -47,15 +59,20 @@ PlaceHolder.prototype = {
 				$dom.parent().css('position', 'relative');
 			}
 
-			this.placeholder = $('<input type="text" />').addClass($dom[0].className).insertAfter($dom).addClass('ui-placeholder').click(function(){
+			this.placeholder = $('<input type="text" />').css({
+				width: $dom.innerWidth(),
+				height: $dom.innerHeight(),
+				lineHeight: $dom.innerHeight() + 'px',
+				background: 'transparent'
+			}).insertAfter($dom).addClass('ui-placeholder').click(function(){
 				$(this).hide();
 				$dom.focus();
 			});
 		}
 
 		this.placeholder.css({
-			top: $dom.position().top,
-			left: $dom.position().left
+			top: $dom.position().top + parseInt($dom.css('border-top-width')),
+			left: $dom.position().left + parseInt($dom.css('border-left-width'))
 		}).val(text);
 	}
 };
@@ -64,4 +81,5 @@ PlaceHolder.isSupport = 'placeholder' in document.createElement('input');
 PlaceHolder.CACHE = [];
 PlaceHolder.GID = 1;
 
-module.exports = PlaceHolder;
+return PlaceHolder;
+});

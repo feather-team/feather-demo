@@ -1,12 +1,28 @@
-var $ = require('common:jquery'), util = require('common:util'), toPad = util.string.toPad, body = document.body;
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery'),
+			require('common:util')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Calendar = factory(window.jQuery || window.$, window.FeatherUi.Util);
+}
+})(window, function($, Util){
 
-var Calendar = module.exports = function(options){
+var toPad = Util.string.toPad, doc = document;
+
+var Calendar = function(options){
 	this.options = $.extend({
-		container: body,
+		container: doc.body,
 		target: null,
 		handle: null,
 		maxDate: null,
 		minDate: null,
+		yearRange: null,
 		dateFormat: 'Y-m-d',
 		callback: function(){},
 		onSelect: function(){
@@ -28,7 +44,7 @@ Calendar.prototype = {
 		self.wraper = $('<div class="ui-calendar"></div>');
 		self.container = $(self.options.container).append(self.wraper);
 
-		self.container[0] == body && self.wraper.css('position', 'absolute');
+		self.container[0] == doc.body && self.wraper.css('position', 'absolute');
 
 		if(opt.minDate){
 			self.minDate = typeof opt.minDate == 'string' ? opt.minDate : self.getDate(opt.minDate);
@@ -79,10 +95,17 @@ Calendar.prototype = {
 
 			e.stopPropagation();
 		});
+
+		self.wraper.delegate('.ui-calendar-year-select', 'change', function(){
+			self.toMonth(this.value);
+		});
+
+		self.wraper.delegate('.ui-calendar-month-select', 'change', function(){
+			self.toMonth(self.year, this.value);
+		});
 	},
 
 	prevMonth: function(){
-
 		this.toMonth(this.year, this.month - 1);
 	},
 
@@ -151,7 +174,27 @@ Calendar.prototype = {
 	},
 
 	createCalendarHeader: function(){
-		var html = [], month = this.year + '.' + toPad(this.month + 1, 0, 2, true);
+		var html = [], date, self = this, yearRange = self.options.yearRange;
+
+		if(!yearRange){
+			date = self.year + '.' + toPad(self.month + 1, 0, 2, true);
+		}else{
+			yearRange = yearRange.split(':');
+
+			date = '<select class="ui-calendar-year-select">';
+
+			for(var start = Math.min(self.year, yearRange[0]), end = Math.max(self.year, yearRange[1]); start <= end; start++){
+				date += '<option value="' + start + '" ' + (self.year == start ? 'selected' : '') + '>' + start + '年</option>';
+			}
+
+			date += '</select><select class="ui-calendar-month-select">';
+
+			for(var i = 0; i < 12; i++){
+				date += '<option value="' + i + '" ' + (self.month == i ? 'selected' : '') + '>' + toPad(i + 1, 0, 2, true) + '月</option>';
+			}
+
+			date += '</select>';
+		}
 
 		$.each(Calendar.WEEKNAME, function(index, name){
 			html.push('<th>' + name + '</th>');
@@ -161,9 +204,9 @@ Calendar.prototype = {
 			'<thead>', 
 				'<tr class="ui-calendar-title">',
 					'<th colspan="7">',
-						'<a href="javascript:" class="ui-calendar-next"></a>',
-						'<a href="javascript:" class="ui-calendar-prev"></a>',
-						'<span class="ui-calendar-date">' + month + '</span>',
+						yearRange ? '' : '<a href="javascript:" class="ui-calendar-next"></a>',
+						yearRange ? '' : '<a href="javascript:" class="ui-calendar-prev"></a>',
+						'<span class="ui-calendar-date">' + date + '</span>',
 					'</th>',
 				'</tr>',
 				'<tr>' + html.join('') + '</tr>',
@@ -183,7 +226,7 @@ Calendar.prototype = {
 	resetPosition: function(){
 		if(!this.target) return;
 
-		var self = this, offset = self.target.offset(), scrollTop = document.body.scrollTop || document.documentElement.scrollTop, top;
+		var self = this, offset = self.target.offset(), scrollTop = doc.body.scrollTop || doc.documentElement.scrollTop, top;
 
 		if(scrollTop + $(window).height() < offset.top + self.wraper.outerHeight()){
 			top = offset.top - self.wraper.outerHeight() - 1;
@@ -198,10 +241,12 @@ Calendar.prototype = {
 	},
 
 	getDate: function(date){
-		return util.date.date(this.options.dateFormat, date.getTime());
+		return Util.date.date(this.options.dateFormat, date.getTime());
 	}
 };
 
 Calendar.WEEKNAME = ['日', '一', '二', '三', '四', '五', '六'];
 
 return Calendar;
+
+});

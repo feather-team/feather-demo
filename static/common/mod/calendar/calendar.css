@@ -48,6 +48,7 @@
 
 .ui-calendar-title a{
 	height: 28px;
+	top: 0px;
 	position: absolute;
 	width: 5px;
 	background-image: url(./images/arrow.png);
@@ -62,6 +63,10 @@
 .ui-calendar-next{
 	right: 10px;
 	background-position: -5px center;
+}
+
+.ui-calendar-title select{
+	margin: 0px 5px;
 }
 
 .ui-calendar-item{

@@ -1,6 +1,21 @@
-var toPad = require('./string.js').toPad;
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('./string.js')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Util = window.FeatherUi.Util || {};
+	window.FeatherUi.Util.date = factory(window.FeatherUi.Util.string);
+}
+})(window, function(string){
 
-module.exports = {
+var toPad = string.toPad;
+
+return {
 	//获取当前时间戳
 	time: function(){
 		return (new Date).getTime();	
@@ -57,3 +72,5 @@ module.exports = {
 		return temp.join('');
 	}	
 };
+
+});

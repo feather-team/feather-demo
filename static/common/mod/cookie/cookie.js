@@ -1,4 +1,17 @@
-var $ = require('common:jquery');
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.Cookie = factory(window.jQuery || window.$);
+}
+})(window, function($){
+
 var pluses = /\+/g;
 
 function read(s) {
@@ -15,7 +28,7 @@ function read(s) {
 	} catch(e) {}
 }
 
-module.exports = {
+return {
 	config: {},
 
 	set: function(key, value, options){
@@ -67,3 +80,5 @@ module.exports = {
 		this.set(key, '', $.extend({}, options, { expires: -1 }));
 	}
 };
+
+});

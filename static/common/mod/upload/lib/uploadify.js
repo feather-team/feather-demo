@@ -2,7 +2,6 @@
 SWFObject v2.2 <http://code.google.com/p/swfobject/> 
 is released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
 */
-var $ = require('common:jquery');
 
 
 ;var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="ShockwaveFlash.ShockwaveFlash",q="application/x-shockwave-flash",R="SWFObjectExprInst",x="onreadystatechange",O=window,j=document,t=navigator,T=false,U=[h],o=[],N=[],I=[],l,Q,E,B,J=false,a=false,n,G,m=true,M=function(){var aa=typeof j.getElementById!=D&&typeof j.getElementsByTagName!=D&&typeof j.createElement!=D,ah=t.userAgent.toLowerCase(),Y=t.platform.toLowerCase(),ae=Y?/win/.test(Y):/win/.test(ah),ac=Y?/mac/.test(Y):/mac/.test(ah),af=/webkit/.test(ah)?parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")):false,X=!+"\v1",ag=[0,0,0],ab=null;
@@ -1012,8 +1011,18 @@ Uploadify v3.2.1
 Copyright (c) 2012 Reactive Apps, Ronnie Garcia
 Released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
 */
-
-(function($) {
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require){
+		factory(
+			require('common:jquery')
+		);
+	});
+}else{
+	factory(window.jQuery || window.$);
+}
+})(window, function($) {
 
 	// These methods can be called by adding them as the first argument in the uploadify plugin call
 	var methods = {
@@ -1918,7 +1927,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 
 	}
 
-})($);
+});
 
 
 window.swfobject = swfobject;

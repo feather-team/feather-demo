@@ -1,4 +1,18 @@
-var $ = require('common:jquery'), proxy = $.proxy, body = document.body;
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Tooltip = factory(window.jQuery || window.$);
+}
+})(window, function($){
+
+var proxy = $.proxy, doc = document;
 
 function Tooltip(opt){
 	this.options = $.extend({
@@ -62,7 +76,7 @@ Tooltip.prototype.show = function(){
 	var _this = this;
 
 	_this.isHide = false;
-	_this.tip.appendTo(body);
+	_this.tip.appendTo(doc.body);
 	_this.setPos();
 	_this.tip.show();
 };
@@ -154,4 +168,6 @@ Tooltip.getPosName = function(pos){
 	return /^(?:left|bottom|right)$/.test(pos) ? pos : 'top';
 };
 
-module.exports = Tooltip;
+return Tooltip;
+
+});

@@ -1,7 +1,22 @@
-var CryptoJS = require('./lib/crypto.js'), base64 = require('./lib/base64.js');
-var object = require('./object.js');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('./lib/crypto.js'),
+			require('./lib/base64.js'),
+			require('./object.js')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Util = window.FeatherUi.Util || {};
+	window.FeatherUi.Util.string = factory(CryptoJS, window, window.FeatherUi.Util.object);
+}
+})(window, function(CryptoJS, base64, object){
 
-module.exports = {
+
+return  {
 	/**
 	 * 将一个string 进行左右补全
 	 * @param str
@@ -73,3 +88,5 @@ module.exports = {
 	parseJSON: object.parseJSON,
 	jsonDecode: object.parseJSON
 };
+
+});

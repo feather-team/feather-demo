@@ -4,17 +4,30 @@
 }
 
 .ui-page li{
+	list-style: none;
 	float: left;
 	border: 1px solid #E6E6E6;
-	background-color: #F0F0F0;
+	background-color: #fff;
 	margin-left: 5px;
 	height: 28px;
 	line-height: 28px;
+	font-family: verdana, "微软雅黑";
+	font-size: 12px;
+}
+
+.ui-page li:hover{
+	border-color: #ff5f08;
+}
+
+.ui-page li.ui-page-point{
+	border-color: #fff !important;
 }
 
 .ui-page li a{
+	font-family: verdana, "微软雅黑";
+	font-size: 12px;
 	display: block;
-	padding: 0px 12px;
+	padding: 0px 11px;
 	text-align: center;
 	color: #666;
 	height: 28px;

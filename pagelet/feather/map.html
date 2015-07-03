@@ -14,7 +14,7 @@ class TemplateAdapter{
 		$this->view->registerPlugin('autoload_static', array(
 			'domain' => 'http://static.xxx.com',
 			'map' => glob('/data/map/**.php'),	//可不设置，插件自动读取template_dir下的map目录，不存在则读取template_dir同级的map目录
-			'caching' => true, //开启缓存
+			'caching' => true, //开启静态资源依赖缓存，因为feather加载静态资源依赖map表，而当map过多或者比较大时，会降低读取性能，开启缓存可避免多次读取依赖，缓存失效条件：模板内容有改变或者任意map表修改时间改变
 			'cache' => new Feather_View_Plugin_Cache_File(array('cache_dir' => '/data/cache')), //使用cache助手，可自行实现一个类，此类必须继承于Feather_View_Plugin_Cache_Abstract，也可使用内置的CACHE_FILE类
 		));
 	}

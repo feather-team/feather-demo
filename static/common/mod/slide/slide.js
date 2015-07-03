@@ -1,10 +1,25 @@
-var $ = require('common:jquery'), now = $.now;//, Draggable = require('draggable');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Slide = factory(window.jQuery || window.$);
+}
+})(window, function($){
+var now = $.now;
+//, Draggable = require('draggable');
 
-var Slide = module.exports = function(opt) {
+var Slide = function(opt) {
 	this.options = $.extend({
 		time: 1000,
 		dom: null,
 		cps: 1,
+		maxIndex: 0,
 		noGap: false,
 		easing: null,
 		mode: 'horizontal',
@@ -48,6 +63,7 @@ Slide.prototype = {
 		self.max = self.getMaxIndex();
 		self.count = self.max + 1;
 		self.all = self.dom.children();
+		self._startPosition = self.getTargetValue(0, true);
 		self.dom.css(self.mode, self.getTargetValue(self.index));
 	},
 
@@ -161,17 +177,19 @@ Slide.prototype = {
 	},
 
 	getMaxIndex: function(){
-		var self = this;
-		return Math.ceil(self.children.length / self.options.cps) - 1;
+		var self = this, opts = self.options;
+
+		return !opts.noGap && opts.maxIndex ? opts.maxIndex : Math.ceil(self.children.length / self.options.cps) - 1;
 	},
 
-	getChildren: function(index){
+	getChildren: function(index, noGap){
 		var self = this;
-		return self.all.eq(self._start + index * self.options.cps);
+		return self.all.eq((noGap ? 0 : self._start) + index * self.options.cps);
 	},
 
-	getTargetValue: function(index){
-		return -this.getChildren(index).position()[this.mode];
+	getTargetValue: function(index, noGap){
+		var self = this;
+		return -self.getChildren(index, noGap).position()[self.mode] - (self._startPosition || 0);
 	}
 };
 
@@ -181,4 +199,8 @@ $.extend(Slide, {
 	getMode: function(mode){
 		return mode == 'horizontal' ? 'left' : 'top';
 	}
+});
+
+return Slide;
+
 });

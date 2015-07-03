@@ -39,6 +39,26 @@
 .ui-tooltip-theme-gray .ui-tooltip-arrow{
 	border-color: #d9d9d9;
 }
+
+.ui-tooltip-theme-black{
+	background-color: #000;
+	border-color: #000;
+	color: #fff;
+}
+
+.ui-tooltip-theme-black .ui-tooltip-arrow{
+	border-color: #000;
+}
+
+.ui-tooltip-theme-red{
+	background-color: red;
+	border-color: red;
+	color: #fff;
+}
+
+.ui-tooltip-theme-red .ui-tooltip-arrow{
+	border-color: red;
+}
 /*theme define end*/
 
 .ui-tooltip-top .ui-tooltip-arrow{

@@ -1,4 +1,18 @@
-var $ = require('common:jquery'), Mask = require('common:mask'), body = document.body, Math = window.Math;
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery'),
+            require('common:mask')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.Class = factory(window.jQuery || window.$, window.FeatherUi.Mask);
+}
+})(window, function($, Mask){
+var doc = document, Math = window.Math;
 
 /*
 var l = new LightBox({
@@ -10,7 +24,7 @@ var l = new LightBox({
 l.destory
 */
 
-var Lightbox = module.exports = function(opt){
+var Lightbox = function(opt){
 	this.options = $.extend({
 		dom: null,
 		srcAttr: 'data-lightbox-url'
@@ -37,7 +51,7 @@ Lightbox.prototype = {
 					'<span class="ui-lightbox-alt"></span>',
 				'</div>',
 			'</div>'
-		].join('')).appendTo(body);
+		].join('')).appendTo(doc.body);
 		self.content = self.container.find('.ui-lightbox-content');
 		self.bottom = self.container.find('.ui-lightbox-bottom');
 		self.prev = self.container.find('.ui-lightbox-prev');
@@ -155,3 +169,7 @@ Lightbox.prototype = {
 };
 
 Lightbox.DEFAULT_TIME = 1000;
+
+return Lightbox;
+
+});

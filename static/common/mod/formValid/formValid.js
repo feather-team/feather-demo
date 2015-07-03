@@ -1,10 +1,26 @@
-var $ = require('common:jquery');
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.FormValid = factory(window.jQuery || window.$);
+}
+})(window, function($){
 
 function FormValid(opt){
 	this.options = $.extend({
 		dom: null,
 		rules: {},
-		showSuccessStatus: false
+		showSuccessStatus: false,
+		showErrorStatus: true,
+		errorStop: false,
+		error: function(){},
+		success: function(){}
 	}, opt || {});
 
 	this.init();
@@ -44,7 +60,7 @@ FormValid.prototype = {
 	},
 
 	check: function(name){
-		var self = this, status = true, rules = self.options.rules, tmpRules;
+		var self = this, status = true, rules = self.options.rules, errorStop = self.options.errorStop, tmpRules;
 
 		self.reset(name, false);
 
@@ -55,8 +71,9 @@ FormValid.prototype = {
             tmpRules = rules;
         }
 
-		$.each(tmpRules, function(index, item){
-			var $tmp = self.getElement(index), value = $tmp.val(), tmpStatus = true;
+        for(var index in tmpRules){
+        	var item = tmpRules[index];
+        	var $tmp = self.getElement(index), value = $tmp.val(), tmpStatus = true;
 
 			if(!$tmp.length) return;
 
@@ -69,33 +86,45 @@ FormValid.prototype = {
 			for(var i = 0; i < item.length; i++){
 				tmp = item[i];
 
-				if(typeof tmp.rule == 'function' && !tmp.rule(value)){
+				if(typeof tmp.rule == 'function' && !tmp.rule(value, index)){
 					status = false; tmpStatus = false;
-				}else if (tmp.rule.constructor == RegExp && !tmp.rule.test(value)){
+				}else if (tmp.rule.constructor == RegExp && !tmp.rule.test(value, index)){
 					status = false; tmpStatus = false;
 				}
 
 				if(!tmpStatus){
 					self.error(index, tmp.errorText);
-					return;
+					
+					if(errorStop){
+						return status;
+					}else{
+						break;
+					}
 				}	
 			} 
 
-			self.success(index, tmp.successText);
-		});
+			tmpStatus && self.success(index, tmp.successText);
+        }
 
 		return status;
 	},
 
 	error: function(name, text){
-    	this.setText(name, text || '', 'ui-formvalid-field-error');    
+    	if(this.options.showErrorStatus){
+    		text = text || '';
+			this.setText(name, text || '', 'ui-formvalid-field-error');   
+    	} 
+
+    	this.options.error && this.options.error.call(this, name, text);
     },
 
 	success: function(name, text){
-		if(text != null || this.options.showSuccessStatus){
+		if(this.options.showSuccessStatus){
 			text = text || '';
 			this.setText(name, text, 'ui-formvalid-field-success');	
 		}
+
+		this.options.success && this.options.success.call(this, name, text);
 	},
 
 	setText: function(name, text, classname){
@@ -161,7 +190,7 @@ $.extend(FormValid, {
 		},
 
 		email: {
-			rule: /^[a-z][\w_-]*@[\w_-]+(?:\.[\w_-])+$/i,
+			rule: /^[a-z][\w_-]*@[\w_-]+(?:\.[\w_-]+)+$/i,
 			errorText: '邮箱地址格式错误'
 		},
 
@@ -178,4 +207,40 @@ $.extend(FormValid, {
 
 FormValid.ATTRIBUTE_DEFAULT = FormValid.ATTRIBUTE_PREFIX + 'default';
 
+/*$.fn.formValid = function(options){
+	var action, args;
+
+	if(typeof options == 'string'){
+		action = options;
+		args = [].slice(arguments, 1);
+		options = {};
+	}else{
+		options = options || {};
+	}
+
+	this.each(function(){
+		var $this = $(this);
+		var obj = $this.data('featherUi.formValid');
+
+		if(!obj){
+			options = $.extend({
+				dom: this
+			}, options);
+			
+			$this.data('featherUi.formValid', obj = new FormValid(options));
+		}
+
+		action && obj[action].apply(obj, args);
+	});
+
+	return !action ? this.eq(0).data('featherUi.formValid') : this;
+};
+
+if(!$.featherUi){
+	$.featherUi = {};
+}
+
+return $.featherUi.formValid = FormValid;*/
+
 return FormValid;
+});

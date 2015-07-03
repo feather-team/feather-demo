@@ -67,6 +67,11 @@
 	margin-right: 22px;
 }
 
+.ui-droplist-item{
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
 .ui-droplist-item a{
 	text-decoration: none;
 	padding: 0px 22px 0px 5px;

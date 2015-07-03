@@ -1,4 +1,16 @@
-var $ = require('common:jquery');
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.Page = factory(window.jQuery || window.$);
+}
+})(window, function($){
 
 function Page(opt){
     this.options = $.extend({
@@ -10,6 +22,7 @@ function Page(opt){
 		last: true,		//显示最后一页
 		currentPage: 1,	//当前页码
 		currentPageClassName: 'ui-page-current',	//当前页class
+		className: '',
 		pageClassName: '',	//页码class
 		callback: function(page){}	//url不为空时 每次点击页码回调， 当前页不可重复点击，如需重新加载当前页，可直接调用pageto方法
 	}, opt || {});
@@ -21,7 +34,7 @@ Page.prototype = {
     initialize: function(){
 		if(this.options.pageTotal == 0) return; 
 		
-		this.container = $('<ul class="ui-page">');
+		this.container = $('<ul class="ui-page">').addClass(this.options.className);
 		this.dom = $(this.options.dom).empty().append(this.container);
 		
 		this.index = parseInt(this.options.currentPage);
@@ -53,7 +66,9 @@ Page.prototype = {
 		$.each(res, function(key, value){
 			var _0 = value[0], _1 = value[1], $html;
 
-			if(_1 != self.index){
+			if(!_1){
+				$html = $('<li>' + _0 + '</li>').addClass('ui-page-point');
+			}else if(_1 != self.index){
 				$html = $('<li><a href="' + (opt.url ? opt.url + _1 : 'javascript:void(0);') + '" data-page="' + _1 + '">' + _0 + '</a></li>').addClass(value[2]);
 			}else{  
 				$html = $('<li>' + _1 + '</li>').addClass(opt.currentPageClassName);
@@ -88,12 +103,13 @@ Page.prototype = {
 		var arr = [];
 
 		if(index > 1){
-			arr.push([opt.previous || '&nbsp;', index - 1, 'ui-page-previous']);
+			arr.push([opt.previous || '&nbsp;&nbsp;', index - 1, 'ui-page-previous']);
 		}
 
 		if(opt.first){
 			if(start > 2){
-				arr.push(['1..', 1]);
+				arr.push(['1', 1]);
+				arr.push(['&middot;&middot;&middot;']);
 			}else if(start == 2){
 				arr.push(['1', 1]);
 			}
@@ -105,18 +121,54 @@ Page.prototype = {
 
 		if(opt.last){
 			if(end < total - 1){
-				arr.push(['..' + total, total]);
+				arr.push(['&middot;&middot;&middot;']);
+				arr.push([total, total]);
 			}else if(end == total - 1){
 				arr.push([total, total]);
 			}
 		}
 
 		if(index < total){
-			arr.push([opt.next || '&nbsp;', index + 1, 'ui-page-next']);
+			arr.push([opt.next || '&nbsp;&nbsp;', index + 1, 'ui-page-next']);
 		}
 
 		return arr;
 	}
 };	
 
+/*$.fn.page = function(options){
+	var action, args;
+
+	if(typeof options == 'string'){
+		action = options;
+		args = [].slice(arguments, 1);
+		options = {};
+	}else{
+		options = options || {};
+	}
+
+	this.each(function(){
+		var $this = $(this);
+		var obj = $this.data('featherUi.page');
+
+		if(!obj){
+			options = $.extend({
+				dom: this
+			}, options);
+			
+			$this.data('featherUi.page', obj = new Page(options));
+		}
+
+		action && obj[action].apply(obj, args);
+	});
+
+	return !action ? this.eq(0).data('featherUi.page') : this;
+};
+
+if(!$.featherUi){
+	$.featherUi = {};
+}
+
+return $.featherUi.page = Page;*/
 return Page;
+});

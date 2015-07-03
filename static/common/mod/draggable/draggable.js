@@ -1,6 +1,21 @@
-var $ = require('common:jquery'), toInt = require('common:util').number.toInt;
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery'),
+            require('common:util')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.Draggable = factory(window.jQuery || window.$, window.FeatherUi.Util);
+}
+})(window, function($, Util){
 
-var Draggable = module.exports = function(opt){
+var toInt = Util.number.toInt;
+
+var Draggable = function(opt){
     this.options = $.extend({
         dom: null,
         handle: null,   //触发事件的dom
@@ -84,3 +99,5 @@ Draggable.prototype = {
 };
 
 return Draggable;
+
+});

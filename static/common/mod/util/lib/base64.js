@@ -1,6 +1,7 @@
 ;(function () {
+  var object = {};
 
-  var object = typeof exports != 'undefined' ? exports : this; // #8: web workers
+  //var object = typeof exports != 'undefined' ? exports : this; // #8: web workers
   var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
   function InvalidCharacterError(message) {
@@ -58,4 +59,12 @@
     return output;
   });
 
+  if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(){
+      return object;
+    });
+  }else{
+    object = this;
+  }
 }());

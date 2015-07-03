@@ -1,9 +1,24 @@
-var $ = require('common:jquery'), Mask = require('common:mask'), body = document.body;
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery'),
+			require('common:mask')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Dialog = factory(window.jQuery || window.$, window.FeatherUi.Mask);
+}
+})(window, function($, Mask){
+
+var doc = document;
 
 function Dialog(opt){
 	this.options = $.extend({
 		title: '',
-		container: body,
+		container: doc.body,
 		dom: null,
 		width: 400,
 		height: false,
@@ -16,7 +31,8 @@ function Dialog(opt){
 		handle: null,				//指定打开和关闭dialog的元素
 		open: function(){},
 		firstOpen: function(){},	//第一次打开执行
-		close: function(){}
+		close: function(){},
+		className: ''
 	}, opt || {});
 
 	this.init();
@@ -28,7 +44,7 @@ Dialog.prototype = {
 
 		var wraper = this.wraper = $(this.options.container);
 
-		if(wraper[0] != body){
+		if(wraper[0] != doc.body){
 			!/fixed|absolute/.test(wraper.css('position')) && wraper.css('position', 'relative');
 		}
 
@@ -72,17 +88,16 @@ Dialog.prototype = {
 	createContainer: function(){
 		var $container = this.container = $('<div class="ui-dialog-container">').html([
 			'<div class="ui-dialog-content"></div>'
-		].join('')).appendTo(this.wraper);
+		].join('')).appendTo(this.wraper).addClass(this.options.className);
 
-		if(this.options.title !== false){
-			$container.prepend([
-				'<strong class="ui-dialog-header">',
-		    		'<a href="javascript:void(0);" class="ui-dialog-close">&times;</a>',
-		    		'<span class="ui-dialog-title">' + this.options.title + '</span>',
-		    	'</strong>'
-		    ].join(''));
-		}
+		$container.prepend([
+			'<strong class="ui-dialog-header">',
+	    		'<a href="javascript:void(0);" class="ui-dialog-close">&times;</a>',
+	    		'<span class="ui-dialog-title"></span>',
+	    	'</strong>'
+	    ].join(''));
 
+		this.setTitle(this.options.title);
 		this.createButtons();
 		this.setContent();
 
@@ -167,7 +182,17 @@ Dialog.prototype = {
 	},
 
 	setTitle: function(title){
-		this.container.find('.ui-dialog-title').text(title);
+		var $header = this.container.find('.ui-dialog-header');
+
+		$header.removeClass('ui-dialog-header-nob').show();
+
+		if(title === false){
+			$header.hide();
+		}else if(title == ''){
+			$header.addClass('ui-dialog-header-nob');
+		}
+
+		$header.find('.ui-dialog-title').html(title);
 	},
 
 	resetPosition: function(){
@@ -175,7 +200,7 @@ Dialog.prototype = {
 
 		var wraper = this.wraper[0], position;
 
-		if(wraper === body){
+		if(wraper === doc.body){
 			position = 'fixed';
 			wraper = window;
 		}else{
@@ -219,3 +244,5 @@ Dialog.prototype = {
 };
 
 return Dialog;
+
+});

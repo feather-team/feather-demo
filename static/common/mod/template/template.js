@@ -1,5 +1,17 @@
-module.exports = {
-	REG: /(')|([\r\n]+)|<%(=?)(.*?)%>/g,
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory();
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Template = factory();
+}
+})(window, function(){
+
+return {
+	REG: /(')|([\r\n]+)|<%(=?)([\s\S]*?)%>/g,
 
 	fetch: function(id, data){
 		var elem = document.getElementById(id);
@@ -26,3 +38,5 @@ module.exports = {
                 "');}return r.join('');";
 	}
 };
+
+});

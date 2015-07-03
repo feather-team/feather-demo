@@ -1,4 +1,16 @@
-var $ = require('common:jquery');
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.DropList = factory(window.jQuery || window.$);
+}
+})(window, function($){
 
 function DropList(opt){
 	this.options = $.extend({
@@ -173,4 +185,6 @@ DropList.createDomHtml = function(list){
 	return html.join('');
 };
 
-module.exports = DropList;
+return DropList;
+
+});

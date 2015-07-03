@@ -5,8 +5,8 @@
 }
 
 .ui-alert-button-cancel, .ui-alert-button-cancel:hover{
-	background: #ebebeb;
-	color: #333;
+	background: #ebebeb !important;
+	color: #333 !important;
 }
 
 .ui-alert-success, .ui-alert-error, .ui-alert-warn{
@@ -16,6 +16,11 @@
     background-repeat: no-repeat;
     text-align: center;
     display: inline-block;
+    font-size: 16px;
+}
+
+.ui-alert-success, .ui-alert-error, .ui-alert-warn{
+	*display: inline;
 }
 
 .ui-alert-error{

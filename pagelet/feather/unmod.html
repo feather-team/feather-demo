@@ -1,14 +1,12 @@
 <p>如果想关闭feather种的模块化加载工具，可以这样做：</p>
 
 <pre class="code" data-type="js" data-title="feather_conf.js">
-feather.config.merge({
-	moduleLoader: false
-});
+feather.config.set('require.use', false);
 </pre>
 
-<p>设置moduleloader为false时，feather.js则不会加载，如果需要处理依赖，可以使用feather的依赖声明功能，同时，require()一样会被分析依赖</p>
+<p>设置require.use为false时，feather.js则不会加载，如果需要处理依赖，可以使用feather的依赖声明功能，所有的js和css则可以以标签方式引入</p>
 
-<p>关闭modulelodaer后，可以使用其他模快化加载工具开发，比如拿requirejs举例：</p>
+<!--<p>关闭modulelodaer后，可以使用其他模快化加载工具开发，比如拿requirejs举例：</p>
 
 <pre class="code" data-type="shell" data-title="目录结构">
 ├── component
@@ -56,4 +54,4 @@ module.exports = require('./b.js');
 return {
 	name: "b"
 };
-</pre>
+</pre>-->

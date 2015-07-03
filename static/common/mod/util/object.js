@@ -1,6 +1,19 @@
-var json2 = require('./lib/json2.js');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('./lib/json2.js')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Util = window.FeatherUi.Util || {};
+	window.FeatherUi.Util.object = factory(window.JSON);
+}
+})(window, function(json2){
 
-var object = module.exports = {
+return {
 	get: function(data, name){
 		if(data[name]){
 			return data[name];
@@ -57,3 +70,5 @@ var object = module.exports = {
 		return this.parseJSON(str);
 	}
 };
+
+});

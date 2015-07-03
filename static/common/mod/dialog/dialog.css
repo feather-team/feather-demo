@@ -32,6 +32,10 @@
     font-weight: bold;
 }
 
+.ui-dialog-header-nob{
+    border-bottom-width: 0px;
+}
+
 .ui-dialog-close{
     text-decoration: none;
     float: right;

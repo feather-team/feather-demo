@@ -1,4 +1,17 @@
-var $ = require('common:jquery'), isFunction = $.isFunction;
+;(function(window, factory){
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(require, exports, module){
+        return factory(
+            require('common:jquery')
+        );
+    });
+}else{
+    window.FeatherUi = window.FeatherUi || {};
+    window.FeatherUi.Class = factory(window.jQuery || window.$);
+}
+})(window, function($){
+var isFunction = $.isFunction;
 
 function clone(target, source, unfunc){
     //映射每个参数对象
@@ -16,7 +29,7 @@ function clone(target, source, unfunc){
 }
         
 
-module.exports = function(opt){
+return function(opt){
     var 
     //构造函数
     constructor = function(){
@@ -82,3 +95,5 @@ module.exports = function(opt){
 
     return constructor;
 };
+
+});

@@ -1,5 +1,18 @@
-var $ = require('common:jquery'), Mask = require('common:mask'), Dialog = require('common:dialog');
-
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery'),
+			require('common:mask'),
+			require('common:dialog')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Tips = factory(window.jQuery || window.$, window.FeatherUi.Mask, window.FeatherUi.Dialog);
+}
+})(window, function($, Mask, Dialog){
 
 function Tips(opt){
 	this.options = $.extend({
@@ -15,7 +28,7 @@ Tips.prototype = {
 	init: function(){
 		var self = this, opt = self.options;
 
-		Tips.destroy; Tips.instance = self;
+		Tips.destroy(); Tips.instance = self;
 
 		self.$ = new Dialog({
 			autoOpen: true,
@@ -32,6 +45,10 @@ Tips.prototype = {
 				self.destroy();
 			}, opt.timeout);	
 		}
+	},
+
+	destory: function(){
+		this.destroy();
 	},
 
 	destroy: function(){
@@ -67,3 +84,5 @@ $.each(['success', 'error', 'warn', 'loading'], function(index, item){
 });
 
 return Tips;
+
+});

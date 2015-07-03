@@ -46,6 +46,10 @@
 <ul class="ul-list">
 	<li>dom:表单的dom</li>
 	<li>showSuccessStatus:表单验证成功的默认效果(值为true)</li>
+	<li>showErrorStatus:表单验证失败的默认效果(值为true)</li>
+	<li>success(name, successText): 当表单元素检查通过时触发的</li>
+	<li>error(name, errorText): 当表单元素检查失败时触发的</li>
+	<li>errorStop: 是否发生第一次失败后，就停止检查剩下的元素，默认为false</li>
 	<li>rules:输入框的验证算法设置，详见例子</li>
 	<script data-title="html代码" type="text/html" data-type="show" data-highlighter-type="html">
 <form id="formvalid-test" class="modify_form">

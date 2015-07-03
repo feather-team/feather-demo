@@ -18,11 +18,23 @@ require.async('upload', function(Upload){
 </script>
 */
 
-var $ = require('common:jquery'), Cookie = require('common:cookie');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery'),
+			require('common:cookie'),
+			require('./lib/uploadify.js')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Upload = factory(window.jQuery || window.$, window.FeatherUi.Cookie);
+}
+})(window, function($, Cookie){
 
-require('./lib/uploadify.js');
-
-var Upload = module.exports = function(opt){
+var Upload = function(opt){
 	this.dom = $(opt.dom);
 
 	this.options = $.extend({
@@ -56,4 +68,8 @@ $.each('cancel destroy disable settings stop upload'.split(' '), function(key, m
 	Upload.prototype[method] = function(){
 		this.dom.uploadify.apply(this.dom, arguments);
 	};
+});
+
+return Upload;
+
 });

@@ -164,8 +164,6 @@ if (!JSON) {
     JSON = {};
 }
 
-module.exports = JSON;
-
 (function () {
     'use strict';
 
@@ -487,3 +485,10 @@ module.exports = JSON;
         };
     }
 }());
+
+if(typeof define == 'function'){
+    //seajs or requirejs environment
+    define(function(){
+        return JSON;
+    });
+}

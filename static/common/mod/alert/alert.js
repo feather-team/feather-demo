@@ -1,6 +1,19 @@
-var $ = require('common:jquery'), Dialog = require('common:dialog');
+;(function(window, factory){
+if(typeof define == 'function'){
+	//seajs or requirejs environment
+	define(function(require, exports, module){
+		return factory(
+			require('common:jquery'),
+			require('common:dialog')
+		);
+	});
+}else{
+	window.FeatherUi = window.FeatherUi || {};
+	window.FeatherUi.Alert = factory(window.jQuery || window.$, window.FeatherUi.Dialog);
+}
+})(window, function($, Dialog){
 
-module.exports = {
+return {
 	alert: function(content, callback, unclose, opt){
 		return new Dialog($.extend({
 			title: '提示',
@@ -76,3 +89,5 @@ module.exports = {
 		}, opt || {}));
 	}
 };
+
+});
