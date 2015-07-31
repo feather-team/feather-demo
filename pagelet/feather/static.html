@@ -30,8 +30,9 @@ alert(2);
 &lt;!--设置feather-position-head, 该js则会被放置在页面的顶部-->
 &lt;link rel="stylesheet" href="/static/index/index.css" type="text/css" />
 &lt;script src="/static/feather.js">&lt;/script>
+&lt;script src="/static/feather.config.js">&lt;/script>
 &lt;script src="/static/index/index.js">&lt;/script>
-&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>&lt;script>require.mergeConfig({"map":{},"deps":{}})&lt;/script>&lt;/head>
+&lt;script>require.mergeConfig({"map":{},"deps":{}})&lt;/script>&lt;/head>
  
 &lt;body>
 &lt;!--feather-position-bottom时，则会自动放置底部，也可以不设置feather-position-bottom，js会默认放置底部-->
@@ -58,4 +59,8 @@ paffe.config.set('pack', {
 
 <p>feather对css文件的位置处理只有fixed和head两种，默认为head。</p>
 
-<p class="color-red">关于页面静态资源合并打包，可配置autoCombine配置，注：该配置在staticMode开启的时候才会生效</p>
+<p class="color-red">
+关于页面静态零散资源自动打包：<br />
+1. 非staticMode模式下，可使用<a href="#map" class="link">autoload_static插件</a>的combo功能，进行自动零散资源收集打包，本地调试时，设置comboDebug为true即可开启本地combo模式预览（combo功能开启后，cssA2R功能需要关闭，否则css中的img资源加载有可能会出问题）<br />
+2. staticMode模式下，可配置autoCombine为true
+</p>

@@ -66,8 +66,8 @@ require.async(['index/index.js', 'index/index2.js']);
 &lt;link rel="stylesheet" href="/static/common/common.css" type="text/css"/>
 &lt;link rel="stylesheet" href="/static/component/header/header.css" type="text/css"/>
 &lt;link rel="stylesheet" href="/static/index/index.css" type="text/css"/>
- &lt;script src="/static/js/feather.js">&lt;/script>
-&lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
+&lt;script src="/static/js/feather.js">&lt;/script>
+&lt;script src="/static/js/feather.config.js">&lt;/script> 
 &lt;script type="text/javascript">
 require.mergeConfig({
 	"map": {

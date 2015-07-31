@@ -13,27 +13,27 @@ feather.config.merge({
 			{
 				from: '/static/static',
 	            //本地目录
-	            to: '../feather-ui.github.io/static',
+	            to: '../feather-team.github.io/static',
 	            include: /\/static\/.*/,
 	            subOnly: true
 			},
 			{
 	            from: '/view/page',
 	            //本地目录
-	            to: '../feather-ui.github.io/',
+	            to: '../feather-team.github.io/',
 	            include: /index\.html$/,
 	            subOnly: true
 	        },
 	        {
 	        	from: '/view/page',
 	        	//本地目录
-	            to: '../feather-ui.github.io/page',
+	            to: '../feather-team.github.io/page',
 	            exclude: /index\.html$/,
 	            subOnly: true
 	        },
 	        {
 	        	from: '/view/pagelet',
-	        	to: '../feather-ui.github.io/pagelet',
+	        	to: '../feather-team.github.io/pagelet',
 	        	include: /\.html$/,
 	        	subOnly: true
 	        }

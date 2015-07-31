@@ -1,8 +1,8 @@
 <p>安装feather：<p>
 <ul class="ul-list">
 	<li>安装nodejs，因feather为npm包，所以需要安装nodejs环境。</li>
-	<li>安装java，并配置环境变量，feather中的webserver依赖于java。</li>
-	<li>安装php(只需要安装一个解压版，将php添加至环境变量即可, linux和mac平台可用源码包安装php，只需要安装最简单版本即可)</li>
+	<li>如需本地调试功能，需安装java，并配置环境变量，feather中的webserver依赖于java。</li>
+	<li>如需本地调试功能，需安装php(只需要安装一个解压版，将php添加至环境变量即可, linux和mac平台可用源码包安装php，只需要安装最简单版本即可)</li>
 </ul>
 
 <pre class="code" data-type="shell" data-title="npm安装feather">
@@ -22,10 +22,10 @@ feather server start --timeout 30 #timeout可在启动服务器超时使用，�
 </pre>
 
 
-<p>可以下载http://github.com/feather-ui/feather-demo上的demo，也可通过init项目脚手架来创建项目：</p>
+<p>可以下载<a href="http://github.com/feather-team/feather-demo">feather-demo</a>，也可通过init项目脚手架来创建项目：</p>
 
 <pre class="code" data-type="shell" data-title="init创建项目">
-feather init -n web -m common -c utf-8 feather-project-common
+feather init -n web -m common -c utf-8 feather-project-common #项目名web、common模块、utf-8编码
 </pre>
 
 <p>进入项目目录，执行feather release，可以看到页面效果</p>

@@ -1,4 +1,4 @@
-<p>关于feather.js的详细文档，可访问feather的<a href="" class="link">github</a>，更多js模块化的解说，可详情百度。THANK YOU！</p>
+<p>关于feather.js的详细文档，可访问feather的<a href="http://github.com/feather-team/featherjs" class="link">github</a>，更多js模块化的解说，可详情百度。THANK YOU！</p>
 <p>在feather中，feather.js为内置，编译时会自动加上，在代码中只需要直接调用feather.js所提供的方法即可</p>
 
 <pre data-type="html" class="code" data-title="/page/index.html">
@@ -27,7 +27,7 @@ require.async('/static/index/index2.js');
 &lt;title>index.phtml&lt;/title>
 &lt;link rel="stylesheet" href="/static/index/index.css" type="text/css" />
 &lt;script src="/static/feather.js">&lt;/script>
-&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;script src="/static/feather.config.js">&lt;/script>
 &lt;script>
 require.mergeConfig({"map":{"/static/index/index2.js":["/static/index/index2.js"]},"deps":{}})
 &lt;/script>
@@ -47,7 +47,8 @@ require.async("/static/index/index2.js");
 <pre class="code" data-type="html">
 &lt;html>
 &lt;head>
-&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/index/index_78be058.css" type="text/css" />&lt;script src="/static/feather_2b6071c.js">&lt;/script>&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/index/index_78be058.css" type="text/css" />&lt;script src="/static/feather_2b6071c.js">&lt;/script>
+&lt;script src="/static/feather.config_2aec6d.js">&lt;/script>
 &lt;script>
 //feather会自动编译，并将index2.js的正确地址指向添加过md5的index2.js的地址
 require.mergeConfig({"map":{"/static/index/index2_e50b9af.js":["/static/index/index2.js"]},"deps":{}})
@@ -69,7 +70,7 @@ require.async('index/index2.js');
 </pre>
 
 <p>feather中js模块化使用：<br />
-feather中创建一个js模块非常简单，只需要在将这个js文件放置于任意目录下的mod目录, 比如：/static/mod/a.js, /static/mod/b.js
+feather中创建一个js模块非常简单，只需要在将这个js文件放置于任意目录下的mod目录, 比如：/static/mod/a.js、 /static/mod/b.js，或项目的component目录下任意位置
 我们以第一个目录结构为例：<br />
 <span class="color-red">注：在feather中 创建一个模块时，不需要define头部，feather会自动为任意目录mod目录下的所有文件添加define头，当然你也可以添加，feather会不做任何处理。</span>
 </p>
@@ -102,7 +103,7 @@ require.async('/static/mod/a.js', function(A){
 <pre class="code" data-type="html">
 &lt;html>
 &lt;head>
-&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/index/index_78be058.css" type="text/css" />&lt;script src="/static/index/feather_2b6071c.js">&lt;/script>&lt;script>require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>
+&lt;title>index.phtml&lt;/title>&lt;link rel="stylesheet" href="/static/index/index_78be058.css" type="text/css" />&lt;script src="/static/index/feather_2b6071c.js">&lt;/script>&lt;script src="/static/feather.config_2aec6d.js">&lt;/script>
 &lt;script>
 require.mergeConfig({
 	"map": {
@@ -151,7 +152,7 @@ require.mergeConfig({
 })
 </pre>
 
-<p>feather.js本身是支持rules的规则匹配，而feather中做了一个默认的配置：</p>
+<p>feather.js本身是支持rules的规则匹配，具体可见<a href="http://github.com/feather-team/featherjs" class="link">feather.js-github</a>而feather中做了一个默认的配置：</p>
 <pre data-type="js" data-title="feather内置的配置文件" class="code">
 require: {
     config: {

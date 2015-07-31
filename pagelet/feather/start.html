@@ -46,7 +46,11 @@ feather.config.merge({
 
 <p>可以打开本地调试服务器 访问http://127.0.0.1:8080 查看效果，默认页面地址为http://127.0.0.1:8080/page/index.html</p>
 
-<p>请增加一个css和js文件，并在index.html中引用</p>
+<pre class="code" data-type="shell" data-title="启动feather-server">
+feather server start --timeout 30 --port 8080
+</pre>
+
+<p>接着增加一个css和js文件，并在index.html中引用</p>
 <pre class="code" data-type="css" data-title="/static/index/index.css">
 *{
 	padding: 0px;
@@ -87,8 +91,8 @@ alert(123);
 <!--css文件会被自动放置head内-->
 &lt;link rel="stylesheet" href="/static/index/index.css" type="text/css"/>
 &lt;script src="/static/feather.js">&lt;/script>
-&lt;script type="text/javascript">require.config={"baseurl":"/static/js","rules":[[/^([^:]+)?\:((?:[^\/]+\/)*)((?:(?!\.js).)+?)(\.js)?$/,function (_0, _1, _2, _3, _4){                    return (_1 ? _1 + '/' : '') + 'mod/' + _2 + _3 + (_4 ? _4 : ('/' + _3 + '.js'));                }],[/^.+$/,function (all){                    return /\.([^\.]+)$/.test(all) ? all : (all + '.js');                }]],"charset":"utf-8","map":{},"deps":{},"domain":""}&lt;/script>    
-&lt;script type="text/javascript">require.mergeConfig({"map":[],"deps":[]})&lt;/script>    
+&lt;script src="/static/feather.config.js">&lt;/script>
+&lt;scripttype="text/javascript">require.mergeConfig({"map":[],"deps":[]})&lt;/script>    
  &lt;/head>
 
 &lt;body>
@@ -99,9 +103,10 @@ alert(123);
 &lt;/html>
 </pre>
 
-<p>执行feather release --dest ../dest查看产出后的文件包的所有文件，以及文件内的内容</p>
+<p>可以执行feather release --dest ../dest查看产出后的文件包的所有文件，以及文件内的内容</p>
 
-<p>如果想让所有的静态资源的链接直接内嵌在html文件中，我们可以尝试使用非map表管理静态资源的方式，修改feather_conf.js进行配置</p>
+<p>feather默认为map表管理静态资源模式，这种模式产出的view文件中，不会包含页面中引入的静态资源，而是通过一张hash表对静态资源进行管理，所以需要后端与其对接才能正常输出渲染，具体对接方式查看<a href="#map" class="link">php引用map表指导</a><br />
+	如果想让所有的静态资源的链接直接内嵌在html文件中，不需要后端对接支持，那我们可以尝试使用非map表管理静态资源的方式，修改feather_conf.js进行配置</p>
 <pre class="code" data-type="js" data-title="/feather_conf.js">
 feather.config.merge({
 	project: {
@@ -110,7 +115,7 @@ feather.config.merge({
 		charset: 'utf-8'
 	},
 
-	staticMode: true	//开启非map表管理方式
+	staticMode: true	//开启非map表管理方式，适合webapp或者纯ajax交互页面
 });
 </pre>
 
@@ -120,4 +125,4 @@ feather.config.merge({
 
 <p>更多feather release参数执行feather release -h查看，其中md5，pack和domain的配置可见<a href="#config">常用配置</a></p>
 
-<p class="color-red">注：page页面不管是map还是非map管理方式，都必须保证输出时，html中必须要保证有head标签和body标签，否则静态资源可能无法正常输出。</p>
+<p class="color-red">注：page页面不管是map还是非map管理方式，都必须保证输出时，html中必须要保证有head标签和body标签，或者引用的component和文件中包含head与body，否则静态资源可能无法正常输出。</p>
