@@ -7,6 +7,7 @@ feather.config.merge({
 		name: 'version'
 	},
 
+
     //设置产出
 	deploy: {
 		local: [
