@@ -2,7 +2,10 @@
 
 <pre class="code" data-type="js">
 feather.config.merge({
-    comboDebug: false, //预览模式开启combo，所有标签形式引入的js和css都会被combo，注：使用combo时，需要关闭cssA2R，否则css中的图片可能会无法加载。
+    comboDebug: {
+        level: 0,   //level0只合并非pack文件， level1合并所有文件，即使这个文件已经被pack过
+        sameBaseUrl: false  //是否只合并同目录文件，比如开启了cssA2R时，css中的所有图片都是以相对路径引用，这时使用combo会出现问题，可使用此方法解决
+    },
 
 	staticMode: true,	//开启静态资源内联模式
 	autoCombine: true, 	//开启静态资源内联模式后，使用autocombine可自动合并页面上的零散资源
