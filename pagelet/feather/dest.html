@@ -10,7 +10,7 @@ feather release --dest ../abc
 </pre>
 
 <p>3. 使用deploy配置，配置feather_conf.js:</p>
-
+<p>注：直接上传至远程机器，需配置receive参数，远程机器需放置<a href="/vendor/receiver.php" class="link">receiver</a>文件，或自行实现接收文件机制。远程需要对要上传的目录做权限控制操作。</p>
 <pre class="code" data-type="js">
 feather.config.set('deploy', {
 	//名字随便取的，没有特殊含义
@@ -57,7 +57,7 @@ feather.config.set('deploy', {
 feather.config.set('deploy', {
 	//使用feather release --dest remote来使用这个配置
     remote : {
-        //如果配置了receiver，fis会把文件逐个post到接收端上
+        //如果配置了receiver，feather会把文件逐个post到接收端上
         receiver : 'http://www.example.com/path/to/receiver.php',
         //从产出的结果的static目录下找文件
         from : '/static',
