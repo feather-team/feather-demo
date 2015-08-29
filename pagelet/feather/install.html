@@ -9,12 +9,13 @@
 npm install -g feather-s
 </pre>
 
-<p>feather的4条命令，分别为：server, release, install, init</p>
+<p>feather的5条命令，分别为：server, release, install, init，switch</p>
 <ul class="ul-list">
 	<li>server：feather server的一些操作</li>
 	<li>release：编译产出操作</li>
 	<li>install：安装feather插件</li>
 	<li>init: 命令行创建项目</li>
+	<li>switch：切换至项目下预览，如果切换至某一项目时，浏览器上的输入的地址则是相对与该项目的</li>
 </ul>
 
 <pre class="code" data-type="shell" data-title="启动本调试服务器">
@@ -40,4 +41,7 @@ feather init -n web -m common -c utf-8 feather-project-common #项目名web、co
 	<li>-w: 开启watch功能，自动监听文件变化，进行编译</li>
 	<li>-L：开启livereload，自动刷新浏览器</li>
 	<li>-d：产出至指定目录或使用deploy配置中的key</li>
+	<li>-r：指定项目目录</li>
 </ul>
+
+<p>注：release后，会自动执行feather switch [当前所在项目名]</p>
