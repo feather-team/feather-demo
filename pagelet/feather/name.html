@@ -14,3 +14,5 @@ feather.config.set('project.name', 'aa');
 feather.config.set('statics', '/a/b/c/d');	//默认为/static，所以生成后的url开头为/static/xxx
 //如果配置了此项，比如开发目录有/static/1.js，则release后，产出url会自动变为/a/b/c/d/1.js
 </pre>
+
+<p>feather switch可以用来切换其他项目进行预览，release后，默认会切换至当前项目下进行预览。比如开发时项目名叫a，而此时需要查看b的某一个页面，则可以无需重新编译b项目，只需要feather switch b则可以切换至b项目下进行预览</p>
