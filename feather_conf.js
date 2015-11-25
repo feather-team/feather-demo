@@ -7,6 +7,9 @@ feather.config.merge({
 		name: 'version'
 	},
 
+	roadmap: {
+		domain: ''
+	},
 
     //设置产出
 	deploy: {
